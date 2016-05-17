@@ -2,12 +2,8 @@ package db.com.dygod;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +12,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import db.com.thirdpartylibrary.utils.CommonUtils;
-import db.com.thirdpartylibrary.utils.MD5Encoder;
 
 public class Welcome extends Activity {
 
@@ -86,7 +76,7 @@ public class Welcome extends Activity {
         welcome_comeOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Welcome.this,LoadData_Activity.class);
+                Intent intent=new Intent(Welcome.this,LoadDataActivity.class);
                 startActivity(intent);
                 Welcome.this.finish();
             }

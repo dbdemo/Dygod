@@ -5,7 +5,7 @@ import android.content.Context;
 import com.lidroid.xutils.DbUtils;
 
 /**
- * Created by Administrator on 2015/12/19.
+ * Created by zdb on 2015/12/19.
  */
 public class DbCread {
 

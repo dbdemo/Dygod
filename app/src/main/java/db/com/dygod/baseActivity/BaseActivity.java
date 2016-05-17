@@ -3,12 +3,11 @@ package db.com.dygod.baseActivity;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import java.lang.ref.WeakReference;
 
-import db.com.dygod.DyGodApplican;
+import db.com.dygod.DyGodApplication;
 
 public class BaseActivity extends Activity {
 
@@ -40,8 +39,7 @@ public class BaseActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_base);
-        DyGodApplican applican=(DyGodApplican)getApplication();
+        DyGodApplication applican=(DyGodApplication)getApplication();
         applican.addActivity(this);
         mSelfHandler = new SelfHandler(this);
     }

@@ -10,9 +10,9 @@ import db.com.dygod.db.DbCread;
 import db.com.thirdpartylibrary.utils.ConfigureManager;
 
 /**
- * Created by Administrator on 2015/12/19.
+ * Created by zdb on 2015/12/19.
  */
-public class DyGodApplican extends Application {
+public class DyGodApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();

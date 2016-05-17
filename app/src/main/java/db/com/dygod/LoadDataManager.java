@@ -20,7 +20,7 @@ import db.com.thirdpartylibrary.utils.ConfigureManager;
  * 加载数据管理类
  * Created by Administrator on 2015/12/19.
  */
-public class LoadData_Manager {
+public class LoadDataManager {
 
     //public final static String MAININDEX="mainIndex";//主页文件
 
