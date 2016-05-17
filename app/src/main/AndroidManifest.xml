@@ -14,15 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Welcome"
+            android:name=".module.main.WelcomeActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoadDataActivity" />
-        <activity android:name=".baseActivity.BaseActivity"></activity>
+        <activity android:name=".module.main.MainActivity" />
+        <activity android:name=".base.BaseActivity"></activity>
     </application>
 
 </manifest>

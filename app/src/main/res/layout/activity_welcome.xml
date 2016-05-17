@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="db.com.dygod.Welcome">
+    tools:context=".module.main.WelcomeActivity">
 
   <android.support.v4.view.ViewPager
       android:layout_centerInParent="true"
@@ -12,14 +12,18 @@
       android:layout_height="match_parent"
       />
     <Button
-        android:visibility="invisible"
+        android:visibility="gone"
+        android:padding="5dp"
+        android:textSize="@dimen/font2"
+        android:textColor="@color/textcolor7"
+        android:background="@drawable/public_button_selector"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="80dp"
         android:id="@+id/welcome_comeOn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="进入主页"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:text="@string/welcome_comein"
         />
 
     <RelativeLayout
@@ -35,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </LinearLayout>
+
         <View
             android:id="@+id/welcome_redPoint"
             android:layout_width="10dp"
