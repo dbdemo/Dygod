@@ -45,14 +45,18 @@ public class AdActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad);
+        ad_time = (TextView) findViewById(R.id.ad_time);
+        ad_time.setText("1");
+        mHandler.sendEmptyMessageDelayed(timeMsg, 1000);
+        MovieCategoryDao dao=new MovieCategoryDao();
+        if(dao.getDataCount()>0)return;
        GetTitleDataServant getTitleDataServant=new GetTitleDataServant();
-        getTitleDataServant.getTitleData(new NetWorkListener<MovieCategoyEntity>(){
-
+        getTitleDataServant.getTitleData(new NetWorkListener<MovieCategoyEntity>() {
             @Override
             public void successful(ArrayList<MovieCategoyEntity> t) {
-                MovieCategoryDao dao=new MovieCategoryDao();
+                MovieCategoryDao dao = new MovieCategoryDao();
                 dao.insertCategory(t);
-               System.out.print(dao.getDataCount());
+                System.out.print(dao.getDataCount());
             }
 
             @Override
@@ -60,9 +64,5 @@ public class AdActivity extends BaseActivity {
 
             }
         });
-
-        ad_time = (TextView) findViewById(R.id.ad_time);
-        ad_time.setText("1");
-        mHandler.sendEmptyMessageDelayed(timeMsg, 1000);
     }
 }
