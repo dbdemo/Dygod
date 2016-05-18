@@ -35,7 +35,7 @@ public class GetTitleDataServant extends BaseServant<MovieCategoyEntity> {
             String title = links.getElementsByTag("a").text();
             String link = links.select("a").attr("href").replace("/", "").trim();
             String url = link;
-            if (!"留言板".endsWith(title) || !"收藏本站".equals(title) || !"设为主页".equals(title)) {
+            if(!title.endsWith("留言板")||!title.endsWith("收藏本站")||!title.endsWith("设为主页")) {
                 MovieCategoyEntity category = new MovieCategoyEntity();
                 category.setMoviecategoryName(title);
                 category.setMovieHref(url);
