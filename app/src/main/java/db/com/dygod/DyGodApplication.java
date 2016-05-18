@@ -6,6 +6,9 @@ import android.app.Application;
 import java.util.ArrayList;
 import java.util.List;
 
+import db.com.dygod.db.DBHelper;
+import db.com.dygod.db.DbSQLiteOpenHelper;
+
 /**
  * Created by zdb on 2015/12/19.
  */
@@ -15,6 +18,10 @@ public class DyGodApplication extends Application {
     public void onCreate() {
         super.onCreate();
         application=this;
+        DbSQLiteOpenHelper.getInstance(this);
+
+        DBHelper.getWritableDatabase();
+
     }
 
 

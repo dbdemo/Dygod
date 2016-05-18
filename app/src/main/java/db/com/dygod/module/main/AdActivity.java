@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import db.com.dygod.R;
 import db.com.dygod.base.BaseActivity;
 import db.com.dygod.bean.MovieCategoyEntity;
+import db.com.dygod.db.dao.MovieCategoryDao;
 import db.com.dygod.define.SpHelper;
 import db.com.dygod.network.GetTitleDataServant;
 import db.com.dygod.network.base.NetWorkListener;
@@ -49,9 +50,9 @@ public class AdActivity extends BaseActivity {
 
             @Override
             public void successful(ArrayList<MovieCategoyEntity> t) {
-                for (int i=0;i<t.size();i++){
-                    System.out.println(t.get(i).getMoviecategoryName());
-                }
+                MovieCategoryDao dao=new MovieCategoryDao();
+                dao.insertCategory(t);
+               System.out.print(dao.getDataCount());
             }
 
             @Override
