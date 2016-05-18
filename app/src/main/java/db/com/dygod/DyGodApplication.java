@@ -6,8 +6,6 @@ import android.app.Application;
 import java.util.ArrayList;
 import java.util.List;
 
-import db.com.dygod.utils.ConfigureManager;
-
 /**
  * Created by zdb on 2015/12/19.
  */
@@ -17,7 +15,6 @@ public class DyGodApplication extends Application {
     public void onCreate() {
         super.onCreate();
         application=this;
-        ConfigureManager.getInstance(getApplicationContext());//初始化配置文件
     }
 
 

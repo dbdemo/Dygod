@@ -5,4 +5,8 @@ package db.com.dygod.define;
  * 网络地址存放
  */
 public class UrlConstant {
+    /**
+     * 主页地址
+     */
+    public static String mainUrl="http://www.dytt8.net/";
 }

@@ -8,16 +8,14 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import db.com.dygod.bean.MovieCategoy;
-import db.com.dygod.utils.ConfigureManager;
+import db.com.dygod.bean.MovieCategoyEntity;
+import db.com.dygod.define.UrlConstant;
 
 /**
  * 加载数据管理类
- * Created by Administrator on 2015/12/19.
+ * Created by zdb on 2015/12/19.
  */
 public class LoadDataManager {
-
-    //public final static String MAININDEX="mainIndex";//主页文件
 
     /**
      * 获取电影分类
@@ -28,7 +26,7 @@ public class LoadDataManager {
             public void run() {
                 Document  doc=null;
                 try {
-                     doc = Jsoup.connect(ConfigureManager.getInstance().getBaseAddress()).timeout(5000).get();
+                     doc = Jsoup.connect(UrlConstant.mainUrl).timeout(5000).get();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -37,7 +35,7 @@ public class LoadDataManager {
                 Document divcontions = Jsoup.parse(divs.toString());
                 Elements element = divcontions.getElementsByTag("li");
 
-               ArrayList<MovieCategoy> categoryList= new ArrayList<MovieCategoy>();
+               ArrayList<MovieCategoyEntity> categoryList= new ArrayList<MovieCategoyEntity>();
 
                 for(Element links : element)
                 {
@@ -45,11 +43,11 @@ public class LoadDataManager {
                     String link   = links.select("a").attr("href").replace("/", "").trim();
                     String url  = link;
                     if(!"留言板".endsWith(title)||!"收藏本站".equals(title)||!"设为主页".equals(title)){
-                        MovieCategoy category=new MovieCategoy();
+                        MovieCategoyEntity category=new MovieCategoyEntity();
                         category.setMoviecategoryName(title);
                         category.setMovieHref(url);
                         categoryList.add(category);
-                        //System.out.println("标题："+title+" 链接："+url);
+                        System.out.println("标题：" + title + " 链接：" + url);
                     }
                 }
             }

@@ -4,7 +4,7 @@ package db.com.dygod.bean;
  * 电影分类
  * Created by Administrator on 2015/12/19.
  */
-public class MovieCategoy {
+public class MovieCategoyEntity {
 
     private int id;
     private String moviecategoryName;

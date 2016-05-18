@@ -27,6 +27,7 @@
     <color name="bgcolor9">#F5F5F5</color>
     <color name="bgcolor10">#ffffff</color>
     <color name="bgcolor11">#1aafc5</color>
+    <color name="bgcolor12">#55ffffff</color>
 
     <!-- 分割线颜色-->
     <color name="linecolor1">#dddddd</color>

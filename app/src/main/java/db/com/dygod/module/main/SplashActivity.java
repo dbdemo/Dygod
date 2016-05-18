@@ -16,9 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.com.dygod.R;
+import db.com.dygod.define.SpHelper;
 import db.com.dygod.utils.CommonUtils;
 
-public class WelcomeActivity extends Activity {
+public class SplashActivity extends Activity {
 
     private ViewPager welcome_viewPager;
     private List<ImageView> mImageList;
@@ -31,6 +32,7 @@ public class WelcomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
         initView();
         initImage();
         welcome_viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
@@ -44,7 +46,7 @@ public class WelcomeActivity extends Activity {
         mImageList = new ArrayList<ImageView>();
         images = new int[]{R.drawable.guide_1, R.drawable.guide_2, R.drawable.guide_3};
         for (int i = 0; i < images.length; i++) {
-            ImageView image = new ImageView(WelcomeActivity.this);
+            ImageView image = new ImageView(SplashActivity.this);
             image.setScaleType(ImageView.ScaleType.CENTER_CROP);
             image.setImageResource(images[i]);
             mImageList.add(image);
@@ -73,9 +75,10 @@ public class WelcomeActivity extends Activity {
         welcome_comeOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(WelcomeActivity.this,MainActivity.class);
+                SpHelper.setIsFistOpenApp(false);
+                Intent intent=new Intent(SplashActivity.this,MainActivity.class);
                 startActivity(intent);
-                WelcomeActivity.this.finish();
+                SplashActivity.this.finish();
             }
         });
     }

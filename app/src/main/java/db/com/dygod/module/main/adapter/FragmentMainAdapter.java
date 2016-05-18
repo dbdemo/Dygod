@@ -27,7 +27,13 @@ public class FragmentMainAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return data.get(position).getTitle();
+        switch (position){
+            case 0:
+                return "主页";
+            case 1:
+                return "man1";
+        }
+        return "";
     }
 
     @Override
