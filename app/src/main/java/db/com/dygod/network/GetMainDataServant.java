@@ -45,7 +45,7 @@ public class GetMainDataServant extends BaseServant<MainEntity> {
                     time=td.get(1).text();
                     entity.setTitle(title);
                     entity.setTime(time);
-                    entity.setTitlinkle(link);
+                    entity.setTitlinkle(UrlConstant.mainUrl+link);
                     newEntitys.add(entity);
                 }
             }

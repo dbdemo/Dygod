@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class MainEntity implements Serializable {
 
-private ArrayList<MainNesEntity> mainNesEntities;
+    private ArrayList<MainNesEntity> mainNesEntities;
 
     public ArrayList<MainNesEntity> getMainNesEntities() {
         return mainNesEntities;

@@ -2,4 +2,7 @@
     <string name="app_name">电影天堂</string>
     <string name="welcome_comein">进入主页</string>
     <string name="user_exit_hint_again">再按一次退出应用</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

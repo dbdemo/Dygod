@@ -54,11 +54,10 @@ public class AdActivity extends BaseActivity {
         MovieCategoryDao dao=new MovieCategoryDao();
         GetMainDataServant mainDataServant=new GetMainDataServant();
         mainDataServant.getMainData(new NetWorkListener<MainEntity>() {
-
             @Override
             public void successful(MainEntity mainEntity) {
                 ArrayList<MainNesEntity> data = mainEntity.getMainNesEntities();
-                
+
             }
             @Override
             public void failure(IOException e) {
