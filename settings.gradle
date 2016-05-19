@@ -1,1 +1,1 @@
-include ':app', ':thirdpartylibrary'
+include ':app', ':ptr-lib'
