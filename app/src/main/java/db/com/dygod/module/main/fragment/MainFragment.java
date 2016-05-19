@@ -24,11 +24,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener{
     private RadioButton mMainNews;
     private RadioButton mMainhots;
 
-    @Override
-    protected void setTitles() {
-        setTitle("主页");
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

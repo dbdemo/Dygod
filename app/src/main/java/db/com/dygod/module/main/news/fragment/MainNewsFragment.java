@@ -13,7 +13,9 @@ import java.util.ArrayList;
 
 import db.com.dygod.R;
 import db.com.dygod.base.BaseFragment;
+import db.com.dygod.bean.MainEntity;
 import db.com.dygod.bean.MainNesEntity;
+import db.com.dygod.module.main.news.adapter.MainNewsDataAdapter;
 import db.com.dygod.network.GetMainDataServant;
 import db.com.dygod.network.base.NetWorkListener;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
@@ -28,32 +30,26 @@ public class MainNewsFragment extends BaseFragment {
 
     private ListView mNewsList;
     private PtrClassicFrameLayout ptrFrame;
-    private ArrayList<MainNesEntity> mainNesEntities;
+    private ArrayList<MainNesEntity> mMainNesEntities = new ArrayList<>();
+    private MainNewsDataAdapter mAdapter;
 
     public MainNewsFragment() {
-        
-    }
-
-
-    @Override
-    protected void setTitles() {
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View newView=inflater.inflate(R.layout.fragment_main_news, container, false);
+        View newView = inflater.inflate(R.layout.fragment_main_news, container, false);
         initView(newView);
         initData();
+        getNetData();
         return newView;
     }
 
     private void initData() {
-        if(mainNesEntities==null){
-            GetMainDataServant mainDataServant=new GetMainDataServant();
-            mainDataServant.getMainData(mNetWorkListener);
-        }
+        mAdapter = new MainNewsDataAdapter(getActivity(), mMainNesEntities);
+        mNewsList.setAdapter(mAdapter);
     }
 
     private void initView(View newView) {
@@ -62,26 +58,31 @@ public class MainNewsFragment extends BaseFragment {
         ptrFrame.setPtrHandler(mPtrDefaultHandler);
     }
 
-    private PtrDefaultHandler mPtrDefaultHandler=new PtrDefaultHandler() {
+    private PtrDefaultHandler mPtrDefaultHandler = new PtrDefaultHandler() {
         @Override
         public void onRefreshBegin(PtrFrameLayout frame) {
-
-
-
+            getNetData();
         }
+
     };
-    private NetWorkListener mNetWorkListener=new NetWorkListener() {
+    private NetWorkListener mNetWorkListener = new NetWorkListener<MainEntity>() {
+
         @Override
-        public void successful(Object o) {
-
-
+        public void successful(MainEntity mainEntity) {
+            ptrFrame.refreshComplete();
+            mMainNesEntities.clear();
+            mMainNesEntities.addAll(mainEntity.getMainNesEntities());
+            mAdapter.notifyDataSetChanged();
         }
 
         @Override
         public void failure(IOException e) {
-
-
-
+            ptrFrame.refreshComplete();
         }
     };
+
+    public void getNetData() {
+        GetMainDataServant mainDataServant = new GetMainDataServant();
+        mainDataServant.getMainData(mNetWorkListener);
+    }
 }

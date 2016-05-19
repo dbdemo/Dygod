@@ -12,10 +12,6 @@ import db.com.dygod.base.BaseFragment;
  * Created by zdb on 2016/5/17.
  */
 public class MainFragments extends BaseFragment{
-    @Override
-    protected void setTitles() {
-        setTitle("主页2");
-    }
 
     @Nullable
     @Override
