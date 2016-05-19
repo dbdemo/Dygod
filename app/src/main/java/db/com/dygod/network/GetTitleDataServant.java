@@ -15,7 +15,7 @@ import db.com.dygod.network.base.NetWorkListener;
 /**
  * Created by zdb on 2016/5/18.
  */
-public class GetTitleDataServant extends BaseServant<MovieCategoyEntity> {
+public class GetTitleDataServant extends BaseServant<ArrayList<MovieCategoyEntity>> {
 
 
     public void getTitleData(NetWorkListener mNetWorkListener) {

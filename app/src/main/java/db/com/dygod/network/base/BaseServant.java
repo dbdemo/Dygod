@@ -4,7 +4,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by zdb on 2016/5/18.
@@ -38,5 +37,5 @@ public abstract  class BaseServant <T>{
      * @param content
      * @return
      */
-    protected abstract ArrayList<T> parseDocument(Document content);
+    protected abstract T parseDocument(Document content);
 }

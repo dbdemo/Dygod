@@ -43,7 +43,7 @@ public class MovieCategoryDao {
             return 0;
         }
       int cout=  cour.getInt(0);
-        System.out.println("================================= "+cout);
-        return 0;
+        cour.close();
+        return cout;
     }
 }
