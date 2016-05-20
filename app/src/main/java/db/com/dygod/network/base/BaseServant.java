@@ -26,7 +26,7 @@ public abstract  class BaseServant <T>{
                     break;
                 case succMsg:
                     if(mNetWorkListener!=null){
-                        mNetWorkListener.successful(parseDocument(content));
+                        mNetWorkListener.successful(parseDocument(docString));
                     }
                     break;
             }
@@ -35,7 +35,7 @@ public abstract  class BaseServant <T>{
     private final int failMsg=1;
     private final int succMsg=2;
     private NetWorkListener mNetWorkListener;
-    private Document content;
+    private String docString;
 
 
     private int timeOut=1000*5;
@@ -55,7 +55,7 @@ public abstract  class BaseServant <T>{
                     mHandler.sendMessage(msg);
                 }
                 if(doc==null)return;
-                content = Jsoup.parse(doc.toString());
+                docString= doc.toString();
                 mHandler.sendEmptyMessage(succMsg);
             }
         }).start();
@@ -63,8 +63,8 @@ public abstract  class BaseServant <T>{
 
     /***
      * 解析html
-     * @param content
+     * @param doc
      * @return
      */
-    protected abstract T parseDocument(Document content);
+    protected abstract T parseDocument(String doc);
 }

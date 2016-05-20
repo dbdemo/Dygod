@@ -13,9 +13,9 @@ import db.com.dygod.db.DBHelper;
  * Created by zdb on 2016/5/18.
  * 电影分类
  */
-public class MovieCategoryDao {
+public class MovieTitleDao {
 
-    private final String tabName="MovieCategory";
+    private final String tabName="movieTitle";
 
     public SQLiteDatabase db= DBHelper.getWritableDatabase();
 

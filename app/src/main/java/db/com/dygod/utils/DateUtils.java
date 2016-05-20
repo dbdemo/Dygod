@@ -811,4 +811,15 @@ public class DateUtils {
 				calendar1.get(Calendar.DAY_OF_MONTH));
 		return calendar2.getTimeInMillis();
     }
+
+    /**
+     * 时间差是否大于阈值
+     * @param current 当前时间
+     * @param last    上次时间
+     * @param threshold 阈值
+     * @return
+     */
+    public static boolean isReachDIF(long current,long last,int threshold){
+        return (current - last)>=threshold;
+    }
 }

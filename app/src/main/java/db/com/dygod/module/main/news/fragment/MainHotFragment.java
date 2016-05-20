@@ -23,31 +23,28 @@ import db.com.dygod.network.GetMainDataServant;
 import db.com.dygod.network.base.NetWorkListener;
 
 /**
-*  from zdb  create at 2016/5/20  16:53
-*   新片电影
+*  from zdb  create at 2016/5/20  14:46
+*   主页最新发布Fragment
 **/
-public class MainNewsFragment extends BaseFragment {
+public class MainHotFragment extends BaseFragment {
 
-
-    private PullToRefreshListView mNewsList;
+    private PullToRefreshListView mReleaseList;
     private ArrayList<MainNesEntity> mMainNesEntities = new ArrayList<>();
     private MainNewsDataAdapter mAdapter;
-   private  MainFragment mMainFragment;
+    private MainFragment mMainFragment;
 
     public void setmMainFragment(MainFragment mMainFragment) {
         this.mMainFragment = mMainFragment;
     }
 
-    public MainNewsFragment() {
-
+    public MainHotFragment() {
     }
-
     @Override
     public void onResume() {
         super.onResume();
         if(mMainFragment!=null&&mAdapter!=null){
             mMainNesEntities.clear();
-            mMainNesEntities.addAll(mMainFragment.getmMainEntity().getMainNesEntities());
+            mMainNesEntities.addAll(mMainFragment.getmMainEntity().getMainReleEntities());
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -55,23 +52,24 @@ public class MainNewsFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View newView = inflater.inflate(R.layout.fragment_main_news, container, false);
+        View ReleView=inflater.inflate(R.layout.fragment_main_release, container, false);
         Bundle bundle = getArguments();
         ArrayList<MainNesEntity> entity = bundle.getParcelableArrayList(MainFragment.ENTITY_NAME);
         mMainNesEntities.addAll(entity);
-        initView(newView);
+        initView(ReleView);
         initData();
-        return newView;
+
+        return ReleView;
     }
 
     private void initData() {
         mAdapter = new MainNewsDataAdapter(getActivity(), mMainNesEntities);
-        mNewsList.setAdapter(mAdapter);
+        mReleaseList.setAdapter(mAdapter);
     }
 
-    private void initView(View newView) {
-        mNewsList = (PullToRefreshListView) newView.findViewById(R.id.main_news_list);
-        mNewsList.setOnRefreshListener(mOnRefreshListener);
+    private void initView(View releView) {
+        mReleaseList = (PullToRefreshListView) releView.findViewById(R.id.main_release_list);
+        mReleaseList.setOnRefreshListener(mOnRefreshListener);
     }
 
     private PullToRefreshBase.OnRefreshListener<ListView> mOnRefreshListener = new PullToRefreshBase.OnRefreshListener<ListView>() {
@@ -80,13 +78,14 @@ public class MainNewsFragment extends BaseFragment {
             getNetData();
         }
     };
+
     private NetWorkListener mNetWorkListener = new NetWorkListener<MainEntity>() {
 
         @Override
         public void successful(MainEntity mainEntity) {
-            mNewsList.onRefreshComplete();
+            mReleaseList.onRefreshComplete();
             mMainNesEntities.clear();
-            mMainNesEntities.addAll(mainEntity.getMainNesEntities());
+            mMainNesEntities.addAll(mainEntity.getMainReleEntities());
             mAdapter.notifyDataSetChanged();
             if(mMainFragment!=null){
                 mMainFragment.setmMainEntity(mainEntity);
@@ -95,7 +94,7 @@ public class MainNewsFragment extends BaseFragment {
 
         @Override
         public void failure(IOException e) {
-            mNewsList.onRefreshComplete();
+            mReleaseList.onRefreshComplete();
         }
     };
 

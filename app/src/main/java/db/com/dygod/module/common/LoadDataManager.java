@@ -53,41 +53,4 @@ public class LoadDataManager {
             }
         }).start();
     }
-
-    /**
-     * 获取最新电影
-     */
-//    public void getNewMove(){
-//
-//        {
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Document  doc=null;
-//                    try {
-//                        doc = Jsoup.connect(ConfigureManager.getInstance().getBaseAddress()).timeout(5000).get();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    Document content = Jsoup.parse(doc.toString());
-//                    Elements divs = content.select(".title_all");
-//                    Document divcontions = Jsoup.parse(divs.toString());
-//                    Elements element = divcontions.getElementsByTag("a");
-//                    for (Element elsementData:element ) {
-//                        String title = elsementData.getElementsByTag("a").text();
-//                        String link   = elsementData.select("a").attr("href").replace("/", "").trim();
-//                        System.out.println(title+"============"+link);
-//                    }
-//                }
-//            }).start();
-//        }
-//    }
-
-    /**
-     * 获取最热电影
-     */
-    public void getHotMove(){
-
-    }
-
 }

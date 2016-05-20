@@ -11,12 +11,9 @@ import java.util.ArrayList;
 
 import db.com.dygod.R;
 import db.com.dygod.base.BaseActivity;
-import db.com.dygod.bean.MainEntity;
-import db.com.dygod.bean.MainNesEntity;
 import db.com.dygod.bean.MovieCategoyEntity;
-import db.com.dygod.db.dao.MovieCategoryDao;
+import db.com.dygod.db.dao.MovieTitleDao;
 import db.com.dygod.define.SpHelper;
-import db.com.dygod.network.GetMainDataServant;
 import db.com.dygod.network.GetTitleDataServant;
 import db.com.dygod.network.base.NetWorkListener;
 
@@ -51,27 +48,13 @@ public class AdActivity extends BaseActivity {
         ad_time = (TextView) findViewById(R.id.ad_time);
         ad_time.setText("1");
         mHandler.sendEmptyMessageDelayed(timeMsg, 1000);
-        MovieCategoryDao dao=new MovieCategoryDao();
-        GetMainDataServant mainDataServant=new GetMainDataServant();
-        mainDataServant.getMainData(new NetWorkListener<MainEntity>() {
-            @Override
-            public void successful(MainEntity mainEntity) {
-                ArrayList<MainNesEntity> data = mainEntity.getMainNesEntities();
-
-            }
-            @Override
-            public void failure(IOException e) {
-
-            }
-        });
-
-
+        MovieTitleDao dao=new MovieTitleDao();
         if(dao.getDataCount()>0)return;
        GetTitleDataServant getTitleDataServant=new GetTitleDataServant();
         getTitleDataServant.getTitleData(new NetWorkListener<ArrayList<MovieCategoyEntity>>() {
             @Override
             public void successful(ArrayList<MovieCategoyEntity> t) {
-                MovieCategoryDao dao = new MovieCategoryDao();
+                MovieTitleDao dao = new MovieTitleDao();
                 dao.insertCategory(t);
             }
 

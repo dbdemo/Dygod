@@ -23,7 +23,8 @@ public class GetTitleDataServant extends BaseServant<ArrayList<MovieCategoyEntit
     }
 
     @Override
-    protected ArrayList<MovieCategoyEntity> parseDocument(Document content) {
+    protected ArrayList<MovieCategoyEntity> parseDocument(String doc) {
+        Document content = Jsoup.parse(doc);
 
         Elements divs = content.select("#menu");
         Document divcontions = Jsoup.parse(divs.toString());
@@ -35,11 +36,23 @@ public class GetTitleDataServant extends BaseServant<ArrayList<MovieCategoyEntit
             String title = links.getElementsByTag("a").text();
             String link = links.select("a").attr("href").replace("/", "").trim();
             String url = link;
-            if(!title.endsWith("留言板")||!title.endsWith("收藏本站")||!title.endsWith("设为主页")) {
-                MovieCategoyEntity category = new MovieCategoyEntity();
-                category.setMoviecategoryName(title);
-                category.setMovieHref(url);
-                categoryList.add(category);
+
+            switch (title){
+
+                case "留言":
+                    break;
+                case "收藏本站":
+                    break;
+                case "设为主页":
+                    break;
+                case "游戏下载":
+                    break;
+                default:
+                    MovieCategoyEntity category = new MovieCategoyEntity();
+                    category.setMoviecategoryName(title);
+                    category.setMovieHref(url);
+                    categoryList.add(category);
+                    break;
             }
         }
 

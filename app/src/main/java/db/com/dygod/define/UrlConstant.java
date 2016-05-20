@@ -8,5 +8,5 @@ public class UrlConstant {
     /**
      * 主页地址
      */
-    public static String mainUrl="http://www.dytt8.net/";
+    public static String mainUrl="http://www.xiaopian.com/";
 }

@@ -27,7 +27,8 @@ public class DbSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS MovieCategory (id integer primary key autoincrement, name varchar(20), url varchar(20))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS movieTitle (id integer primary key autoincrement, name varchar(20), url varchar(20))");
+        db.execSQL("create table if not exists netWorkCache (_id integer ,value varchar(20) , date char(10))");
     }
 
     @Override
@@ -35,7 +36,7 @@ public class DbSQLiteOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public static DbSQLiteOpenHelper getInstance(){
+    public static DbSQLiteOpenHelper getInstance() {
         return mDbSQLiteOpenHelper;
     }
 
