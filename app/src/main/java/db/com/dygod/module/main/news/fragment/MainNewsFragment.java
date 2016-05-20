@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -18,9 +21,6 @@ import db.com.dygod.bean.MainNesEntity;
 import db.com.dygod.module.main.news.adapter.MainNewsDataAdapter;
 import db.com.dygod.network.GetMainDataServant;
 import db.com.dygod.network.base.NetWorkListener;
-import in.srain.cube.views.ptr.PtrClassicFrameLayout;
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,8 +28,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 public class MainNewsFragment extends BaseFragment {
 
 
-    private ListView mNewsList;
-    private PtrClassicFrameLayout ptrFrame;
+    private PullToRefreshListView mNewsList;
     private ArrayList<MainNesEntity> mMainNesEntities = new ArrayList<>();
     private MainNewsDataAdapter mAdapter;
 
@@ -53,23 +52,21 @@ public class MainNewsFragment extends BaseFragment {
     }
 
     private void initView(View newView) {
-        ptrFrame = (PtrClassicFrameLayout) newView.findViewById(R.id.main_news_ptr_frame);
-        mNewsList = (ListView) newView.findViewById(R.id.main_news_list);
-        ptrFrame.setPtrHandler(mPtrDefaultHandler);
+        mNewsList = (PullToRefreshListView) newView.findViewById(R.id.main_news_list);
+        mNewsList.setOnRefreshListener(mOnRefreshListener);
     }
 
-    private PtrDefaultHandler mPtrDefaultHandler = new PtrDefaultHandler() {
+    private PullToRefreshBase.OnRefreshListener<ListView> mOnRefreshListener = new PullToRefreshBase.OnRefreshListener<ListView>() {
         @Override
-        public void onRefreshBegin(PtrFrameLayout frame) {
+        public void onRefresh(PullToRefreshBase<ListView> refreshView) {
             getNetData();
         }
-
     };
     private NetWorkListener mNetWorkListener = new NetWorkListener<MainEntity>() {
 
         @Override
         public void successful(MainEntity mainEntity) {
-            ptrFrame.refreshComplete();
+            mNewsList.onRefreshComplete();
             mMainNesEntities.clear();
             mMainNesEntities.addAll(mainEntity.getMainNesEntities());
             mAdapter.notifyDataSetChanged();
@@ -77,7 +74,7 @@ public class MainNewsFragment extends BaseFragment {
 
         @Override
         public void failure(IOException e) {
-            ptrFrame.refreshComplete();
+            mNewsList.onRefreshComplete();
         }
     };
 

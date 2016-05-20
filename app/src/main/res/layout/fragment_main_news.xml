@@ -4,18 +4,7 @@
     android:layout_height="match_parent"
     tools:context="db.com.dygod.module.main.news.fragment.MainNewsFragment">
 
-    <in.srain.cube.views.ptr.PtrClassicFrameLayout
-        android:id="@+id/main_news_ptr_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer
-            android:id="@+id/main_news_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/cube_mints_white">
-
-            <ListView
+            <com.handmark.pulltorefresh.library.PullToRefreshListView
                 android:id="@+id/main_news_list"
                 android:background="@color/bgcolor9"
                 android:layout_width="match_parent"
@@ -29,7 +18,4 @@
                 android:headerDividersEnabled="false"
                 android:smoothScrollbar="true"
                 />
-        </in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer>
-    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
-
 </FrameLayout>
