@@ -44,7 +44,6 @@ public class GetMainDataServant extends BaseServant<MainEntity> {
             }
             mNetWorkListener.successful(parseDocument(docString));
         } else {
-
             getDocument(UrlConstant.mainUrl, mNetWorkListener);
         }
     }
