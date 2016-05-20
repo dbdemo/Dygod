@@ -37,10 +37,12 @@ public class GetMainDataServant extends BaseServant<MainEntity> {
         this.isAddCache = isAddCache;
         this.isReadCache = isReadCache;
 
-        if (isReadCache || !DateUtils.isReachDIF(System.currentTimeMillis(), Long.parseLong(NetwokCacheDao.getUpdateTime(TAG)), REQUEST_RATE)) {
+        if (isReadCache || DateUtils.isReachDIF(System.currentTimeMillis(), Long.parseLong(NetwokCacheDao.getUpdateTime(TAG)), REQUEST_RATE)) {
+            isAddCache=false;
             String docString=NetwokCacheDao.getValueForID(TAG);
             if(docString!=null&&"".equals(docString)){
                 docString=  HtmlCache.mainCache+HtmlCache.mainCache2;
+                NetwokCacheDao.addValueForId(TAG,docString);
             }
             mNetWorkListener.successful(parseDocument(docString));
         } else {
