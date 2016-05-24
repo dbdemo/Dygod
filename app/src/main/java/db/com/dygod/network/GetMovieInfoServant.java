@@ -36,14 +36,14 @@ public class GetMovieInfoServant extends BaseServant<MovieInfoEntity> {
         Elements elsementP = contextCo.getElementsByTag("p");
 
         for(int i=0;i<elsementP.size();i++){
-            introduce+=elsementP.get(i).text();
+            introduce+=elsementP.get(i).text()+"\n";
         }
         Elements imgElse = contextCo.getElementsByTag("img");
         if(imgElse.size()>=1){
-            movieInfoEntity.setMoveImg(imgElse.get(0).attr("href"));
+            movieInfoEntity.setMoveImg(imgElse.get(0).attr("src"));
         }
         if(imgElse.size()>=2){
-            movieInfoEntity.setMovieCapture(imgElse.get(1).attr("href"));
+            movieInfoEntity.setMovieCapture(imgElse.get(1).attr("src"));
         }
         String address=content.getElementsByAttributeValueContaining("style", divStyle).text();
         movieInfoEntity.setAddress(address);

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import db.com.dygod.R;
 import db.com.dygod.base.BaseActivity;
 import db.com.dygod.bean.MovieInfoEntity;
+import db.com.dygod.utils.ImageLoaderUtils;
 
 /**
  * Created by zdb on 15/12/28.
@@ -42,6 +43,8 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
     private void initData() {
         name.setText(movieInfoEntity.getName());
         introduce.setText(movieInfoEntity.getIntroduce());
+        ImageLoaderUtils.displayAvatar(movieInfoEntity.getMoveImg(),img);
+        ImageLoaderUtils.displayAvatar(movieInfoEntity.getMovieCapture(),capture);
     }
 
     private void initView() {

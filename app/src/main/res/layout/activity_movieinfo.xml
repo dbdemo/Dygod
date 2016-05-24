@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
     <ScrollView
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
@@ -26,7 +28,8 @@
                 android:id="@+id/movieinfo_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/movieinfo_name" />
+                android:layout_below="@id/movieinfo_name"
+                android:layout_centerHorizontal="true" />
 
             <TextView
                 android:id="@+id/movieinfo_introduce"
@@ -37,20 +40,25 @@
                 android:text="介绍" />
 
             <ImageView
+                android:layout_marginBottom="10dp"
                 android:id="@+id/movieinfo_Capture"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/movieinfo_introduce" />
+                android:layout_below="@id/movieinfo_introduce"
+                android:layout_centerHorizontal="true" />
         </RelativeLayout>
     </ScrollView>
 
     <Button
-        android:layout_weight="1"
-        android:background="@drawable/public_button_selector"
+        android:layout_marginLeft="-10dp"
+        android:layout_marginRight="-10dp"
+        android:layout_marginBottom="2dp"
+        android:textSize="@dimen/font3"
         android:id="@+id/movieinfo_start"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:background="@drawable/public_button_selector"
         android:text="播放" />
-</RelativeLayout>
+</LinearLayout>

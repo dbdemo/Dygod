@@ -25,18 +25,19 @@ import db.com.dygod.module.main.news.adapter.MainNewsDataAdapter;
 import db.com.dygod.network.GetMainDataServant;
 import db.com.dygod.network.GetMovieInfoServant;
 import db.com.dygod.network.base.NetWorkListener;
+import db.com.dygod.widget.StyleDialog;
 
 /**
-*  from zdb  create at 2016/5/20  16:53
-*   新片电影
-**/
+ * from zdb  create at 2016/5/20  16:53
+ * 新片电影
+ **/
 public class MainNewsFragment extends BaseFragment {
-
 
     private PullToRefreshListView mNewsList;
     private ArrayList<MainNesEntity> mMainNesEntities = new ArrayList<>();
     private MainNewsDataAdapter mAdapter;
-   private  MainFragment mMainFragment;
+    private MainFragment mMainFragment;
+    private StyleDialog mDialog;
 
     public void setmMainFragment(MainFragment mMainFragment) {
         this.mMainFragment = mMainFragment;
@@ -49,7 +50,7 @@ public class MainNewsFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(mMainFragment!=null&&mAdapter!=null){
+        if (mMainFragment != null && mAdapter != null) {
             mMainNesEntities.clear();
             mMainNesEntities.addAll(mMainFragment.getmMainEntity().getMainNesEntities());
             mAdapter.notifyDataSetChanged();
@@ -80,32 +81,38 @@ public class MainNewsFragment extends BaseFragment {
     }
 
 
-    /**条目点击事件监听**/
-    private AdapterView.OnItemClickListener mItemClickListener=new AdapterView.OnItemClickListener() {
+    /**
+     * 条目点击事件监听
+     **/
+    private AdapterView.OnItemClickListener mItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if (mDialog == null) {
+                mDialog = new StyleDialog(MainNewsFragment.this.getContext(), "正在获取数据");
+            }
+            mDialog.show();
             //根据地址获取电影信息
-            System.out.println(mMainNesEntities.get(position).getTitlinkle());
-            GetMovieInfoServant movieInfoServant=new GetMovieInfoServant();
-            movieInfoServant.getMovieInfoData(mMainNesEntities.get(position).getTitlinkle(), new NetWorkListener<MovieInfoEntity>() {
+            GetMovieInfoServant movieInfoServant = new GetMovieInfoServant();
+            movieInfoServant.getMovieInfoData(mMainNesEntities.get(position - 1).getTitlinkle(), new NetWorkListener<MovieInfoEntity>() {
 
                 @Override
                 public void successful(MovieInfoEntity movieInfoEntity) {
-                    System.out.println(movieInfoEntity.getIntroduce());
+                    mDialog.dismiss();
                     MovieInfoActivity.start(MainNewsFragment.this.getContext(), movieInfoEntity);
                 }
 
                 @Override
                 public void failure(IOException e) {
-
+                    mDialog.dismiss();
                     System.out.println("请求失败");
-
                 }
             });
         }
     };
 
-    /**下拉刷新事件监听**/
+    /**
+     * 下拉刷新事件监听
+     **/
     private PullToRefreshBase.OnRefreshListener<ListView> mOnRefreshListener = new PullToRefreshBase.OnRefreshListener<ListView>() {
         @Override
         public void onRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -119,7 +126,7 @@ public class MainNewsFragment extends BaseFragment {
             mMainNesEntities.clear();
             mMainNesEntities.addAll(mainEntity.getMainNesEntities());
             mAdapter.notifyDataSetChanged();
-            if(mMainFragment!=null){
+            if (mMainFragment != null) {
                 mMainFragment.setmMainEntity(mainEntity);
             }
         }
@@ -132,6 +139,6 @@ public class MainNewsFragment extends BaseFragment {
 
     public void getNetData() {
         GetMainDataServant mainDataServant = new GetMainDataServant();
-        mainDataServant.getMainData(true,false,mNetWorkListener);
+        mainDataServant.getMainData(true, false, mNetWorkListener);
     }
 }
