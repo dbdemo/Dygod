@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -17,9 +18,12 @@ import db.com.dygod.R;
 import db.com.dygod.base.BaseFragment;
 import db.com.dygod.bean.MainEntity;
 import db.com.dygod.bean.MainNesEntity;
+import db.com.dygod.bean.MovieInfoEntity;
+import db.com.dygod.module.common.MovieInfoActivity;
 import db.com.dygod.module.main.fragment.MainFragment;
 import db.com.dygod.module.main.news.adapter.MainNewsDataAdapter;
 import db.com.dygod.network.GetMainDataServant;
+import db.com.dygod.network.GetMovieInfoServant;
 import db.com.dygod.network.base.NetWorkListener;
 
 /**
@@ -72,8 +76,36 @@ public class MainNewsFragment extends BaseFragment {
     private void initView(View newView) {
         mNewsList = (PullToRefreshListView) newView.findViewById(R.id.main_news_list);
         mNewsList.setOnRefreshListener(mOnRefreshListener);
+        mNewsList.setOnItemClickListener(mItemClickListener);
     }
 
+
+    /**条目点击事件监听**/
+    private AdapterView.OnItemClickListener mItemClickListener=new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            //根据地址获取电影信息
+            System.out.println(mMainNesEntities.get(position).getTitlinkle());
+            GetMovieInfoServant movieInfoServant=new GetMovieInfoServant();
+            movieInfoServant.getMovieInfoData(mMainNesEntities.get(position).getTitlinkle(), new NetWorkListener<MovieInfoEntity>() {
+
+                @Override
+                public void successful(MovieInfoEntity movieInfoEntity) {
+                    System.out.println(movieInfoEntity.getIntroduce());
+                    MovieInfoActivity.start(MainNewsFragment.this.getContext(), movieInfoEntity);
+                }
+
+                @Override
+                public void failure(IOException e) {
+
+                    System.out.println("请求失败");
+
+                }
+            });
+        }
+    };
+
+    /**下拉刷新事件监听**/
     private PullToRefreshBase.OnRefreshListener<ListView> mOnRefreshListener = new PullToRefreshBase.OnRefreshListener<ListView>() {
         @Override
         public void onRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -81,7 +113,6 @@ public class MainNewsFragment extends BaseFragment {
         }
     };
     private NetWorkListener mNetWorkListener = new NetWorkListener<MainEntity>() {
-
         @Override
         public void successful(MainEntity mainEntity) {
             mNewsList.onRefreshComplete();

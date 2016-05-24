@@ -4,18 +4,17 @@
     android:layout_height="match_parent"
     tools:context="db.com.dygod.module.main.news.fragment.MainNewsFragment">
 
-            <com.handmark.pulltorefresh.library.PullToRefreshListView
-                android:id="@+id/main_news_list"
-                android:background="@color/bgcolor9"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:cacheColorHint="@color/bgcolor10"
-                android:divider="@color/bgcolor7"
-                android:dividerHeight="0.5dp"
-                android:fastScrollEnabled="false"
-                android:scrollbars="none"
-                android:footerDividersEnabled="false"
-                android:headerDividersEnabled="false"
-                android:smoothScrollbar="true"
-                />
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/main_news_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bgcolor9"
+        android:cacheColorHint="@color/bgcolor10"
+        android:divider="@color/bgcolor7"
+        android:dividerHeight="0.5dp"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:scrollbars="none"
+        android:smoothScrollbar="true" />
 </FrameLayout>

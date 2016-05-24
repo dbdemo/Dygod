@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/movieinfo_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="名称"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/movieinfo_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/movieinfo_name" />
+
+            <TextView
+                android:id="@+id/movieinfo_introduce"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/movieinfo_img"
+                android:gravity="clip_horizontal"
+                android:text="介绍" />
+
+            <ImageView
+                android:id="@+id/movieinfo_Capture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/movieinfo_introduce" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:layout_weight="1"
+        android:background="@drawable/public_button_selector"
+        android:id="@+id/movieinfo_start"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="播放" />
+</RelativeLayout>

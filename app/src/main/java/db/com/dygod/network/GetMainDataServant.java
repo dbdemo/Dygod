@@ -72,7 +72,7 @@ public class GetMainDataServant extends BaseServant<MainEntity> {
             return mainEntity;
         }
         Elements elsementsTitle = elsements.get(0).getElementsByClass("co_content222");
-        for (int i = 0; i < elsements.size(); i++) {
+        for (int i = 0; i < elsementsTitle.size(); i++) {
             Elements elsementsLi = elsementsTitle.get(i).getElementsByTag("li");
 
             for (int j = 0; j < elsementsLi.size(); j++) {

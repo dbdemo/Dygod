@@ -24,6 +24,7 @@
         <activity android:name=".module.main.SplashActivity" android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"/>
         <activity android:name=".module.main.MainActivity" />
         <activity android:name=".base.BaseActivity" />
+        <activity android:name=".module.common.MovieInfoActivity" />
     </application>
 
 </manifest>

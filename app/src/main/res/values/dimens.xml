@@ -19,4 +19,7 @@
     <dimen name="font12">26sp</dimen>
     <dimen name="font13">30sp</dimen>
 
+    <!--图片查看-->
+    <dimen name="view_pager_margin">12sp</dimen>
+
 </resources>
