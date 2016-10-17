@@ -10,6 +10,7 @@ import android.widget.TextView;
 import db.com.dygod.R;
 import db.com.dygod.base.BaseActivity;
 import db.com.dygod.bean.MovieInfoEntity;
+import db.com.dygod.module.start.StartVideoActiviy;
 import db.com.dygod.utils.ImageLoaderUtils;
 
 /**
@@ -60,7 +61,7 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
 
         switch (v.getId()){
             case R.id.movieinfo_start:
-                System.out.println("播放");
+                StartVideoActiviy.onStartActivity(this,movieInfoEntity.getAddress());
                 break;
         }
 

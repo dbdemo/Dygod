@@ -64,8 +64,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener{
         mainNewsFragment.setArguments(bundleNew);
         mainNewsFragment.setmMainFragment(this);
 
-        /*getChildFragmentManager().beginTransaction().add(mainNewsFragment,"tag1");
-        getChildFragmentManager().beginTransaction().add(mainNewsFragment,"tag2");*/
 
         MainHotFragment mainReleaseFragment= new MainHotFragment();
         Bundle bundleHot=new Bundle();
