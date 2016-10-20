@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/public_list1_bg_selector"
-        card_view:cardCornerRadius="5dp"
-        card_view:cardElevation="5dp">
+        card_view:cardCornerRadius="3dp"
+        card_view:cardElevation="3dp">
 
         <LinearLayout
             android:gravity="center"
