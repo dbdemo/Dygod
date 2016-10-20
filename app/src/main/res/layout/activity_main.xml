@@ -3,16 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/bgcolor10"
+    android:background="@color/bgcolor1"
     android:layout_height="match_parent"
     tools:context=".module.main.MainActivity">
     <db.com.dygod.widget.chameleonPagerTabStrip.ChameleonPagerTabStrip
         android:id="@+id/main_strip"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/bgcolor8"
-        app:normalColor="@color/bgcolor12"
-        app:focusColor="@color/bgcolor10"
+        android:background="@color/bgcolor"
+        app:normalColor="@color/bgcolor4_1"
+        app:focusColor="@color/bgcolor1"
         app:paddingStart="10dp"
         app:tabTextSize="@dimen/font1"
         />

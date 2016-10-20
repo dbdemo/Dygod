@@ -3,6 +3,12 @@
     <string name="welcome_comein">进入主页</string>
     <string name="user_exit_hint_again">再按一次退出应用</string>
 
+    <string name="toast_server_err">获取数据失败！服务器出事故了</string>
+    <string name="toast_no_data">获取数据为空！</string>
+    <string name="toast_movie_info_err">获取电影信息失败!</string>
+    <string name="dialog_getdataing">正在获取数据</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

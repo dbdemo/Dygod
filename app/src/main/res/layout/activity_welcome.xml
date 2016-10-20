@@ -15,7 +15,7 @@
         android:visibility="gone"
         android:padding="5dp"
         android:textSize="@dimen/font2"
-        android:textColor="@color/textcolor7"
+        android:textColor="@color/bgcolor3"
         android:background="@drawable/public_button_selector"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"

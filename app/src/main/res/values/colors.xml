@@ -1,37 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+
+    <color name="colorPrimary">#00000000</color>
+    <color name="colorPrimaryDark">#00000000</color>
     <color name="colorAccent">#FF4081</color>
 
-
-    <!-- 字体颜色 -->
-    <color name="textcolor1">#1DC4DC</color>
-    <color name="textcolor2">#FF900D</color>
-    <color name="textcolor3">#333333</color>
-    <color name="textcolor4">#999999</color>
-    <color name="textcolor5">#DDDDDD</color>
-    <color name="textcolor6">#FFFFFF</color>
-    <color name="textcolor7">#79797e</color>
-    <color name="textcolor8">#87effe</color>
-
-    <!-- 基本色 -->
-    <color name="bgcolor1">#1DC4DC</color>
-    <color name="bgcolor2">#FF900D</color>
-    <color name="bgcolor3">#FAFAFA</color>
-    <color name="bgcolor4">#eaeaea</color>
-    <color name="bgcolor5">#999999</color>
-    <color name="bgcolor6">#333333</color>
-    <color name="bgcolor7">#DDDDDD</color>
-    <color name="bgcolor8">#79797e</color>
-    <color name="bgcolor9">#F5F5F5</color>
-    <color name="bgcolor10">#ffffff</color>
-    <color name="bgcolor11">#1aafc5</color>
-    <color name="bgcolor12">#55ffffff</color>
-
-    <!-- 分割线颜色-->
-    <color name="linecolor1">#dddddd</color>
-
-    <color name="transparent">#66000000</color>
-
+    <color name="bgcolor">#cd853f</color>
+    <color name="bgcolor1">#FFFFFf</color>
+    <color name="bgcolor2">#000000</color>
+    <color name="bgcolor3">#999999</color>
+    <color name="bgcolor4">#dddddd</color>
+    <color name="bgcolor4_1">#66dddddd</color>
 </resources>

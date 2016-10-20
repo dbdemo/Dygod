@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/bgcolor10">
+    android:background="@color/bgcolor1">
 
     <android.support.v4.view.ViewPager
         android:layout_weight="1"
@@ -13,7 +13,7 @@
         <RadioGroup
             android:layout_weight="1"
             android:id="@+id/mainf_strip"
-            android:background="@color/bgcolor8"
+            android:background="@color/bgcolor"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:orientation="horizontal"

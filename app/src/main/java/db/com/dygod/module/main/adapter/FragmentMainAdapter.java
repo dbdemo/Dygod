@@ -29,9 +29,9 @@ public class FragmentMainAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "主页";
+                return "推荐";
             case 1:
-                return "man1";
+                return "最新电影";
         }
         return "";
     }

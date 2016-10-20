@@ -44,6 +44,7 @@ public class AdActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTintColor("#00000000");
         setContentView(R.layout.activity_ad);
         ad_time = (TextView) findViewById(R.id.ad_time);
         ad_time.setText("1");

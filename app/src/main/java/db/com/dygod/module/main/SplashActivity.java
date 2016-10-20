@@ -1,10 +1,9 @@
 package db.com.dygod.module.main;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,10 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.com.dygod.R;
+import db.com.dygod.base.BaseActivity;
 import db.com.dygod.define.SpHelper;
 import db.com.dygod.utils.CommonUtils;
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends BaseActivity {
 
     private ViewPager welcome_viewPager;
     private List<ImageView> mImageList;
@@ -31,13 +31,12 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTintColor("#00000000");
         setContentView(R.layout.activity_welcome);
-
         initView();
         initImage();
         welcome_viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
     }
-
 
     /**
      * 加载ViewPager 的图片

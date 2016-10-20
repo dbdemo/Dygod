@@ -2,6 +2,7 @@ package db.com.dygod.module.common;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,7 +11,6 @@ import android.widget.TextView;
 import db.com.dygod.R;
 import db.com.dygod.base.BaseActivity;
 import db.com.dygod.bean.MovieInfoEntity;
-import db.com.dygod.module.start.StartVideoActiviy;
 import db.com.dygod.utils.ImageLoaderUtils;
 
 /**
@@ -61,7 +61,11 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
 
         switch (v.getId()){
             case R.id.movieinfo_start:
-                StartVideoActiviy.onStartActivity(this,movieInfoEntity.getAddress());
+                String link = movieInfoEntity.getAddress();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                intent.addCategory("android.intent.category.DEFAULT");
+                startActivity(intent);
+                //StartVideoActiviy.onStartActivity(this,movieInfoEntity.getAddress());
                 break;
         }
 
