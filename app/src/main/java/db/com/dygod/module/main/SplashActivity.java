@@ -32,6 +32,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTintColor("#00000000");
+        setToolbarvisibility(View.GONE);
         initView();
         initImage();
         welcome_viewPager.addOnPageChangeListener(new MyOnPageChangeListener());

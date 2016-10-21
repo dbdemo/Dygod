@@ -74,6 +74,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
         return false;
     }
 
+    /***
+     * 设置toolbar是否显示
+     * @param b
+     */
+    public void setToolbarvisibility(int b){
+            mToolbar.setVisibility(b);
+    }
+
     //这是子类布局
     protected abstract int setBodyView();
 

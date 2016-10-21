@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -45,6 +46,7 @@ public class AdActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTintColor("#00000000");
+        setToolbarvisibility(View.GONE);
         ad_time = (TextView) findViewById(R.id.ad_time);
         ad_time.setText("1");
         mHandler.sendEmptyMessageDelayed(timeMsg, 1000);

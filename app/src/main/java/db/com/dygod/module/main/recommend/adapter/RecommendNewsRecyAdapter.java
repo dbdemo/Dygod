@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import db.com.dygod.R;
 import db.com.dygod.bean.MainNesEntity;
@@ -19,8 +20,8 @@ public class RecommendNewsRecyAdapter extends RecyclerView.Adapter<RecommendNews
     private ArrayList<MainNesEntity> mMainNesEntities;
     private RecyclerViewItemClickListener mItemClickListener;
 
-    public RecommendNewsRecyAdapter(ArrayList<MainNesEntity> mMainNesEntities, RecyclerViewItemClickListener listener) {
-        this.mMainNesEntities = mMainNesEntities;
+    public RecommendNewsRecyAdapter(List<MainNesEntity> mMainNesEntities, RecyclerViewItemClickListener listener) {
+        this.mMainNesEntities = (ArrayList<MainNesEntity>) mMainNesEntities;
         this.mItemClickListener=listener;
     }
 

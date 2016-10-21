@@ -35,12 +35,11 @@ public class GetNewsServant extends BaseServant<List<MainNesEntity>> {
         this.isAddCache = isAddCache;
         this.isReadCache = isReadCache;
         this.currentPageIndex = currentPageIndex;
-
         if (isReadCache) {
             isAddCache = false;
             String docString = NetwokCacheDao.getValueForID(TAG);
             if (docString != null && "".equals(docString)) {
-                docString = HtmlCache.mainCache + HtmlCache.mainCache2;
+                docString = HtmlCache.newsCache + HtmlCache.newsCache2;
                 NetwokCacheDao.addValueForId(TAG, docString);
             }
             mNetWorkListener.successful(parseDocument(docString));
@@ -65,22 +64,22 @@ public class GetNewsServant extends BaseServant<List<MainNesEntity>> {
         Document content = Jsoup.parse(doc);
         Elements rootDoc = content.getElementsByClass(rootDivClass);
         List<MainNesEntity> data=new ArrayList<>();
-        MainNesEntity infoEntity=new MainNesEntity();
         if (rootDoc != null && rootDoc.size() > 0) {
             Elements tables = rootDoc.get(0).getElementsByTag("table");
             if (tables != null && tables.size() >= 0) {
                 for (int i = 0; i < tables.size(); i++) {
+                    MainNesEntity infoEntity=new MainNesEntity();
+                    String href;
+                    String title;
+
                     Element table = tables.get(i);
                     Elements aTexts = table.getElementsByClass("ulink");
                     if (aTexts != null && aTexts.size() >= 0) {
                         Element aObj = aTexts.get(0);
-                        String href = aObj.attr("href").trim();
-                        String title = aObj.attr("title").trim();
+                         href = aObj.attr("href").trim();
+                         title = aObj.attr("title").trim();
                         infoEntity.setTitlinkle(href);
                         infoEntity.setTitle(title);
-                    }else{
-                        infoEntity.setTitle("没有获取到电影信息4");
-                        data.add(infoEntity);
                     }
                     //获取时间
                     Elements tdTimes = table.getElementsByAttributeValue("color", "#8F8C89");
@@ -91,19 +90,10 @@ public class GetNewsServant extends BaseServant<List<MainNesEntity>> {
                         }else{
                             infoEntity.setTime(DateUtils.getCurrDate("yyyy-MM-dd"));
                         }
-                    }else{
-                        infoEntity.setTitle("没有获取到电影信息3");
-                        data.add(infoEntity);
                     }
                     data.add(infoEntity);
                 }
-            }else{
-                infoEntity.setTitle("没有获取到电影信息2");
-                data.add(infoEntity);
             }
-        }else{
-            infoEntity.setTime("没有获取到电影信息1");
-            data.add(infoEntity);
         }
         return data;
     }
