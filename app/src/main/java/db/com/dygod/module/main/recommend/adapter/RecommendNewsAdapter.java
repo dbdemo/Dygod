@@ -1,4 +1,4 @@
-package db.com.dygod.module.main.news.adapter;
+package db.com.dygod.module.main.recommend.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,15 +11,15 @@ import db.com.dygod.base.BaseFragment;
 /**
  * Created by Administrator on 2016/5/19.
  */
-public class MainNewsAdapter extends FragmentPagerAdapter {
+public class RecommendNewsAdapter extends FragmentPagerAdapter {
 
     private ArrayList<BaseFragment> data;
 
-    public MainNewsAdapter(FragmentManager fm) {
+    public RecommendNewsAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public MainNewsAdapter(FragmentManager fm, ArrayList<BaseFragment> data) {
+    public RecommendNewsAdapter(FragmentManager fm, ArrayList<BaseFragment> data) {
         super(fm);
         this.data = data;
     }

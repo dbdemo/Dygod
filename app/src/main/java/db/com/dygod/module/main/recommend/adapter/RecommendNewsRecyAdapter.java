@@ -1,4 +1,4 @@
-package db.com.dygod.module.main.news.adapter;
+package db.com.dygod.module.main.recommend.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,19 +14,19 @@ import db.com.dygod.bean.MainNesEntity;
  * Created by zdb on 2016/10/20.
  */
 
-public class MainNewsRecyAdapter extends RecyclerView.Adapter<MainNewsRecyAdapter.ViewHolder> {
+public class RecommendNewsRecyAdapter extends RecyclerView.Adapter<RecommendNewsRecyAdapter.ViewHolder> {
 
     private ArrayList<MainNesEntity> mMainNesEntities;
     private RecyclerViewItemClickListener mItemClickListener;
 
-    public MainNewsRecyAdapter(ArrayList<MainNesEntity> mMainNesEntities,RecyclerViewItemClickListener listener) {
+    public RecommendNewsRecyAdapter(ArrayList<MainNesEntity> mMainNesEntities, RecyclerViewItemClickListener listener) {
         this.mMainNesEntities = mMainNesEntities;
         this.mItemClickListener=listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView= View.inflate(parent.getContext(),R.layout.mainnews_item,null);
+        View itemView= View.inflate(parent.getContext(),R.layout.item_common,null);
         return new ViewHolder(itemView,mItemClickListener);
     }
 

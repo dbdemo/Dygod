@@ -1,0 +1,21 @@
+<resources>
+    <style name="AppTheme" parent="appTheme.base">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:fitsSystemWindows">false</item>
+        <item name="android:textColorPrimary">@color/bgcolor1</item>
+    </style>
+    <style name="adTheme" parent="appTheme.base">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="appTheme.base" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
+
+    <style name="ToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/font9</item>
+    </style>
+</resources>

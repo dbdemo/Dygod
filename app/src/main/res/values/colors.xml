@@ -10,5 +10,6 @@
     <color name="bgcolor2">#000000</color>
     <color name="bgcolor3">#999999</color>
     <color name="bgcolor4">#dddddd</color>
-    <color name="bgcolor4_1">#66dddddd</color>
+    <color name="bgcolor4_1">#7b7b7b</color>
+    <color name="bgcolor5">#fbcb99</color>
 </resources>

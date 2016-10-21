@@ -3,8 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     tools:context="db.com.dygod.base.BaseActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/main_base_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bgcolor"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:titleTextAppearance="@style/ToolbarTitleText" >
+    </android.support.v7.widget.Toolbar>
+    <FrameLayout
+        android:layout_below="@+id/main_base_toolbar"
+        android:id="@+id/main_base_bodyLayout"
+        android:layout_width="match_parent"
+        android:background="@color/bgcolor1"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>

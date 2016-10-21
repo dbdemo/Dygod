@@ -11,29 +11,33 @@ import db.com.dygod.DyGodApplication;
 import db.com.dygod.R;
 import db.com.dygod.base.BaseActivity;
 import db.com.dygod.base.BaseFragment;
-import db.com.dygod.module.main.fragment.MainFragment;
-import db.com.dygod.module.main.fragment.MainFragments;
 import db.com.dygod.module.main.adapter.FragmentMainAdapter;
+import db.com.dygod.module.main.recommend.RecommendMainFragment;
+import db.com.dygod.module.main.news.NewsFragments;
 import db.com.dygod.utils.StringUtils;
 import db.com.dygod.widget.chameleonPagerTabStrip.ChameleonPagerTabStrip;
 
 public class MainActivity extends BaseActivity {
     private long mExitTime;
     private ViewPager mMainViewPager;
-    private MainFragment mMainFragment;
+    private RecommendMainFragment mMainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         ChameleonPagerTabStrip mStrip= (ChameleonPagerTabStrip) findViewById(R.id.main_strip);
         mMainViewPager = (ViewPager) findViewById(R.id.main_viewPager);
         ArrayList<BaseFragment> mainData=new ArrayList<>();
-        mMainFragment=new MainFragment();
+        mMainFragment=new RecommendMainFragment();
         mainData.add(mMainFragment);
-        mainData.add(new MainFragments());
+        mainData.add(new NewsFragments());
         mMainViewPager.setAdapter(new FragmentMainAdapter(this.getSupportFragmentManager(), mainData));
         mStrip.setViewPager(mMainViewPager);
+    }
+
+    @Override
+    protected int setBodyView() {
+        return  R.layout.activity_main;
     }
 
     @Override

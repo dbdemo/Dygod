@@ -10,18 +10,19 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="70dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/public_list1_bg_selector"
         card_view:cardCornerRadius="3dp"
         card_view:cardElevation="3dp">
 
         <LinearLayout
-            android:gravity="center"
-            android:layout_gravity="center"
+            android:layout_gravity="fill_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:minHeight="70dp"
             android:orientation="vertical">
 
             <TextView
@@ -31,19 +32,21 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="测试测试测试测试测试测试测试测试测试测试测试测试测试测试"
-                android:textSize="@dimen/font2" />
+                android:textColor="@color/bgcolor4_1"
+                android:text="测试测试测试测试测试测试测试测试测试测试测试测试测试"
+                android:textSize="@dimen/font5" />
 
             <TextView
                 android:id="@+id/mainnews_item_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:textColor="@color/bgcolor4_1"
                 android:text="2015-01-22"
-                android:textSize="@dimen/font3" />
+                android:textSize="@dimen/font4" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

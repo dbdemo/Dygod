@@ -1,4 +1,4 @@
-package db.com.dygod.module.main.news.fragment;
+package db.com.dygod.module.main.recommend.fragment;
 
 
 import android.os.Bundle;
@@ -19,8 +19,8 @@ import db.com.dygod.bean.MainEntity;
 import db.com.dygod.bean.MainNesEntity;
 import db.com.dygod.bean.MovieInfoEntity;
 import db.com.dygod.module.common.MovieInfoActivity;
-import db.com.dygod.module.main.fragment.MainFragment;
-import db.com.dygod.module.main.news.adapter.MainNewsRecyAdapter;
+import db.com.dygod.module.main.recommend.RecommendMainFragment;
+import db.com.dygod.module.main.recommend.adapter.RecommendNewsRecyAdapter;
 import db.com.dygod.network.GetMainDataServant;
 import db.com.dygod.network.GetMovieInfoServant;
 import db.com.dygod.network.base.NetWorkListener;
@@ -31,22 +31,22 @@ import db.com.dygod.widget.StyleDialog;
  * from zdb  create at 2016/5/20  16:53
  * 主页2016 新片精品
  **/
-public class MainNewsFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
+public class RecommendNewsFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private RecyclerView mNewsList;
     private ArrayList<MainNesEntity> mMainNesEntities = new ArrayList<>();
-//    private MainNewsDataAdapter mAdapter;
-    private MainNewsRecyAdapter mAdapter;
+    private RecommendNewsRecyAdapter mAdapter;
 
-    private MainFragment mMainFragment;
+    private RecommendMainFragment mMainFragment;
     private StyleDialog mDialog;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private boolean isAutoRefresh=true;
 
-    public void setmMainFragment(MainFragment mMainFragment) {
+    public void setmMainFragment(RecommendMainFragment mMainFragment) {
         this.mMainFragment = mMainFragment;
     }
 
-    public MainNewsFragment() {
+    public RecommendNewsFragment() {
 
     }
 
@@ -63,9 +63,9 @@ public class MainNewsFragment extends BaseFragment implements SwipeRefreshLayout
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View newView = inflater.inflate(R.layout.fragment_main_news, container, false);
+        View newView = inflater.inflate(R.layout.fragment_recommend_news, container, false);
         Bundle bundle = getArguments();
-        ArrayList<MainNesEntity> entity = bundle.getParcelableArrayList(MainFragment.ENTITY_NAME);
+        ArrayList<MainNesEntity> entity = bundle.getParcelableArrayList(RecommendMainFragment.ENTITY_NAME);
         mMainNesEntities.addAll(entity);
         initView(newView);
         initData();
@@ -73,12 +73,13 @@ public class MainNewsFragment extends BaseFragment implements SwipeRefreshLayout
     }
 
     private void initData() {
-        mAdapter = new MainNewsRecyAdapter(mMainNesEntities,mItemClickListener);
+        mAdapter = new RecommendNewsRecyAdapter(mMainNesEntities,mItemClickListener);
         mAdapter.setOnItemClickListener(mItemClickListener);
         mNewsList.setHasFixedSize(true);
         mNewsList.setAdapter(mAdapter);
         mNewsList.setLayoutManager(new LinearLayoutManager(this.getContext()));
         mNewsList.setItemAnimator(new DefaultItemAnimator());
+        autoRefresh();
         getNetData();
     }
 
@@ -92,11 +93,11 @@ public class MainNewsFragment extends BaseFragment implements SwipeRefreshLayout
     /**
      * 条目点击事件监听
      **/
-    private MainNewsRecyAdapter.RecyclerViewItemClickListener mItemClickListener = new MainNewsRecyAdapter.RecyclerViewItemClickListener() {
+    private RecommendNewsRecyAdapter.RecyclerViewItemClickListener mItemClickListener = new RecommendNewsRecyAdapter.RecyclerViewItemClickListener() {
         @Override
         public void onItemClick(View view, int position) {
             if (mDialog == null) {
-                mDialog = new StyleDialog(MainNewsFragment.this.getContext(), "正在获取数据");
+                mDialog = new StyleDialog(RecommendNewsFragment.this.getContext(), "正在获取数据");
             }
             mDialog.show();
             //根据地址获取电影信息
@@ -106,7 +107,7 @@ public class MainNewsFragment extends BaseFragment implements SwipeRefreshLayout
                 @Override
                 public void successful(MovieInfoEntity movieInfoEntity) {
                     mDialog.dismiss();
-                    MovieInfoActivity.start(MainNewsFragment.this.getContext(), movieInfoEntity);
+                    MovieInfoActivity.start(RecommendNewsFragment.this.getContext(), movieInfoEntity);
                 }
 
                 @Override
@@ -121,7 +122,12 @@ public class MainNewsFragment extends BaseFragment implements SwipeRefreshLayout
     private NetWorkListener mNetWorkListener = new NetWorkListener<MainEntity>() {
         @Override
         public void successful(MainEntity mainEntity) {
-            mSwipeRefreshLayout.setRefreshing(false);
+            if(isAutoRefresh){
+                isAutoRefresh=false;
+                stopRefresh();
+            }else{
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
             if(mainEntity!=null&&mainEntity.getMainNesEntities().size()>0) {
                 mMainNesEntities.clear();
                 mMainNesEntities.addAll(mainEntity.getMainNesEntities());
@@ -136,7 +142,12 @@ public class MainNewsFragment extends BaseFragment implements SwipeRefreshLayout
 
         @Override
         public void failure(IOException e) {
-            mSwipeRefreshLayout.setRefreshing(false);
+            if(isAutoRefresh){
+                isAutoRefresh=false;
+                stopRefresh();
+            }else{
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
             ToastUtil.showMsg(R.string.toast_server_err);
         }
     };
@@ -149,5 +160,28 @@ public class MainNewsFragment extends BaseFragment implements SwipeRefreshLayout
     @Override
     public void onRefresh() {
         getNetData();
+    }
+    /**
+     * 自动刷新
+     */
+    private void autoRefresh(){
+        mSwipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(true);
+            }
+        });
+    }
+
+    /**
+     * 停止自动刷新
+     */
+    private void stopRefresh(){
+        mSwipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 }

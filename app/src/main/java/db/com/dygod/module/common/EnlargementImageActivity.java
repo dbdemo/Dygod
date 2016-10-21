@@ -1,5 +1,6 @@
 package db.com.dygod.module.common;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,13 +10,12 @@ import android.text.TextUtils;
 import java.util.ArrayList;
 
 import db.com.dygod.R;
-import db.com.dygod.base.BaseActivity;
 
 /**
 *  from zdb  create at 2016/3/26  14:57
 *   查看大图
 **/
-public class EnlargementImageActivity extends BaseActivity implements ViewPager.OnPageChangeListener{
+public class EnlargementImageActivity extends Activity implements ViewPager.OnPageChangeListener{
 
     private ViewPager mViewPager;
     private ArrayList<String> mArrayImageUrl=new ArrayList<>();

@@ -32,10 +32,14 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTintColor("#00000000");
-        setContentView(R.layout.activity_welcome);
         initView();
         initImage();
         welcome_viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
+    }
+
+    @Override
+    protected int setBodyView() {
+        return R.layout.activity_welcome;
     }
 
     /**

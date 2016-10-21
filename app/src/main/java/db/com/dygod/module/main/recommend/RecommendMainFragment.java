@@ -1,4 +1,4 @@
-package db.com.dygod.module.main.fragment;
+package db.com.dygod.module.main.recommend;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,16 +14,16 @@ import java.util.ArrayList;
 import db.com.dygod.R;
 import db.com.dygod.base.BaseFragment;
 import db.com.dygod.bean.MainEntity;
-import db.com.dygod.module.main.news.adapter.MainNewsAdapter;
-import db.com.dygod.module.main.news.fragment.MainHotFragment;
-import db.com.dygod.module.main.news.fragment.MainNewsFragment;
+import db.com.dygod.module.main.recommend.adapter.RecommendNewsAdapter;
+import db.com.dygod.module.main.recommend.fragment.RecommendHotFragment;
+import db.com.dygod.module.main.recommend.fragment.RecommendNewsFragment;
 import db.com.dygod.network.GetMainDataServant;
 import db.com.dygod.network.base.NetWorkListener;
 
 /**
  * Created by zdb on 2016/5/17.
  */
-public class MainFragment extends BaseFragment implements View.OnClickListener{
+public class RecommendMainFragment extends BaseFragment implements View.OnClickListener{
 
     private ViewPager mMainfViewPager;
     private RadioButton mMainNews;
@@ -34,7 +34,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fragment_main=inflater.inflate(R.layout.fragment_main, null);
+        View fragment_main=inflater.inflate(R.layout.fragment_recommend, null);
         initView(fragment_main);
         getNetData();
         return fragment_main;
@@ -43,7 +43,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener{
     public void getNetData() {
         GetMainDataServant mainDataServant = new GetMainDataServant();
         mainDataServant.getMainData(false,true,mNetWorkListener);
-        mainDataServant.getMainData(true,false,mNetWorkListener);
+        //mainDataServant.getMainData(true,false,mNetWorkListener);
     }
 
     private void initView(View fragment_main) {
@@ -52,20 +52,18 @@ public class MainFragment extends BaseFragment implements View.OnClickListener{
         mMainhots = (RadioButton)fragment_main.findViewById(R.id.Main_hots);
         mMainhots.setOnClickListener(this);
         mMainNews.setOnClickListener(this);
-
     }
 
     public void initFragments(){
-
         ArrayList<BaseFragment> mainfData=new ArrayList<>();
-        MainNewsFragment mainNewsFragment=new MainNewsFragment();
+        RecommendNewsFragment mainNewsFragment=new RecommendNewsFragment();
         Bundle bundleNew=new Bundle();
         bundleNew.putParcelableArrayList(ENTITY_NAME,mMainEntity.getMainNesEntities());
         mainNewsFragment.setArguments(bundleNew);
         mainNewsFragment.setmMainFragment(this);
 
 
-        MainHotFragment mainReleaseFragment= new MainHotFragment();
+        RecommendHotFragment mainReleaseFragment= new RecommendHotFragment();
         Bundle bundleHot=new Bundle();
         bundleHot.putParcelableArrayList(ENTITY_NAME,mMainEntity.getMainReleEntities());
         mainNewsFragment.setArguments(bundleHot);
@@ -75,7 +73,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener{
         mainfData.add(mainNewsFragment);
         mainfData.add(mainReleaseFragment);
 
-        mMainfViewPager.setAdapter(new MainNewsAdapter(this.getChildFragmentManager(), mainfData));
+        mMainfViewPager.setAdapter(new RecommendNewsAdapter(this.getChildFragmentManager(), mainfData));
         mMainfViewPager.addOnPageChangeListener(mViewPagerSelectLinner);
     }
 
@@ -136,4 +134,5 @@ public class MainFragment extends BaseFragment implements View.OnClickListener{
     public void setmMainEntity(MainEntity mainEntity) {
         this.mMainEntity = mainEntity;
     }
+
 }

@@ -8,5 +8,6 @@ public class UrlConstant {
     /**
      * 主页地址
      */
-    public static String mainUrl="http://www.xiaopian.com/";
+    public static String mainUrl="http://www.xiaopian.com/";//主页
+    public static String newsUrl="http://www.xiaopian.com/html/gndy/dyzz/index";//最新电影
 }

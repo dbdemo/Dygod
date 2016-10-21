@@ -2,30 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="db.com.dygod.module.main.news.fragment.MainNewsFragment">
+    tools:context="db.com.dygod.module.main.recommend.fragment.RecommendNewsFragment">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/main_news_swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/main_news_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-
-    <!--<ListView
-        android:id="@+id/main_news_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bgcolor1"
-        android:cacheColorHint="@null"
-        android:divider="@color/bgcolor4"
-        android:dividerHeight="0.5dp"
-        android:fastScrollEnabled="false"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        android:scrollbars="none"
-        android:smoothScrollbar="true" />-->
     </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

@@ -19,6 +19,7 @@
             android:orientation="horizontal"
             android:layout_height="100dp">
             <RadioButton
+                android:textSize="@dimen/font8"
                 android:gravity="center"
                 android:button="@null"
                 android:textColor="@drawable/main_radiobutton_selector"
@@ -29,6 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
             <RadioButton
+                android:textSize="@dimen/font8"
                 android:gravity="center"
                 android:button="@null"
                 android:textColor="@drawable/main_radiobutton_selector"

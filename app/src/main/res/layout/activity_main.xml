@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:background="@color/bgcolor1"
     android:layout_height="match_parent"
     tools:context=".module.main.MainActivity">
@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/bgcolor"
-        app:normalColor="@color/bgcolor4_1"
+        app:normalColor="@color/bgcolor5"
         app:focusColor="@color/bgcolor1"
         app:paddingStart="10dp"
-        app:tabTextSize="@dimen/font1"
+        app:tabTextSize="@dimen/font8"
         />
     <android.support.v4.view.ViewPager
         android:layout_below="@+id/main_strip"

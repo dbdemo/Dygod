@@ -35,10 +35,14 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movieinfo);
         movieInfoEntity=getIntent().getParcelableExtra(entityName);
         initView();
         initData();
+    }
+
+    @Override
+    protected int setBodyView() {
+        return R.layout.activity_movieinfo;
     }
 
     private void initData() {

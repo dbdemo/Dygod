@@ -71,8 +71,8 @@ public class HtmlCache {
             "<div style=\"clear:both;\"></div>\n" +
             "<div  style=\"float:left;width:950px;height:auto;overflow:hidden;margin:10px 0 0px 2px;\">\n" +
             "<!--{start:搜索框-->\n" +
-            "<div class=\"search\" style=\"float:left;width:535px;\" >\n" +
-            "<script src=\"/js/search.js\" type=\"text/javascript\"></script>\n" +
+            "<div class=\"toolbar_search\" style=\"float:left;width:535px;\" >\n" +
+            "<script src=\"/js/toolbar_search.js\" type=\"text/javascript\"></script>\n" +
             "</div>\n" +
             "<!--}end:搜索框-->\n" +
             "<!--{start:dy2018 buttton-->\n" +

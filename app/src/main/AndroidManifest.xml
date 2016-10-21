@@ -12,9 +12,6 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
-
-
-
     <application
         android:name=".DyGodApplication"
         android:allowBackup="true"
@@ -25,7 +22,8 @@
     >
         <activity
             android:name=".module.main.AdActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+            android:theme="@style/adTheme"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,9 +32,9 @@
         </activity>
         <activity
             android:name=".module.main.SplashActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" />
+            android:theme="@style/adTheme" />
+
         <activity android:name=".module.main.MainActivity" />
-        <activity android:name=".base.BaseActivity" />
         <activity android:name=".module.common.MovieInfoActivity" />
         <activity android:name=".module.start.StartVideoActiviy"/>
     </application>
