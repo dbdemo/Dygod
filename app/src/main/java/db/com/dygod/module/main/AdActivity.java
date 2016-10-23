@@ -18,7 +18,7 @@ import db.com.dygod.define.SpHelper;
 import db.com.dygod.network.GetTitleDataServant;
 import db.com.dygod.network.base.NetWorkListener;
 
-public class AdActivity extends BaseActivity {
+public class AdActivity extends BaseActivity implements View.OnClickListener {
 
     private int timeMsg = 1;
     private TextView ad_time;
@@ -48,7 +48,8 @@ public class AdActivity extends BaseActivity {
         setTintColor("#00000000");
         setToolbarvisibility(View.GONE);
         ad_time = (TextView) findViewById(R.id.ad_time);
-        ad_time.setText("1");
+        ad_time.setText("5");
+        ad_time.setOnClickListener(this);
         mHandler.sendEmptyMessageDelayed(timeMsg, 1000);
         MovieTitleDao dao=new MovieTitleDao();
         if(dao.getDataCount()>0)return;
@@ -70,5 +71,10 @@ public class AdActivity extends BaseActivity {
     @Override
     protected int setBodyView() {
         return R.layout.activity_ad;
+    }
+
+    @Override
+    public void onClick(View v) {
+        ad_time.setText("1");
     }
 }

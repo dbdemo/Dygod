@@ -110,7 +110,7 @@ public class RecommendHotFragment extends BaseFragment implements SwipeRefreshLa
 
     public void getNetData() {
         GetMainDataServant mainDataServant = new GetMainDataServant();
-        mainDataServant.getMainData(true,false,mNetWorkListener);
+        mainDataServant.getMainData(true, false, mNetWorkListener);
     }
     /**
      * 条目点击事件监听

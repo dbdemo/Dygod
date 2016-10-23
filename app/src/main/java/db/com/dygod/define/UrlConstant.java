@@ -10,4 +10,5 @@ public class UrlConstant {
      */
     public static String mainUrl="http://www.xiaopian.com/";//主页
     public static String newsUrl="http://www.xiaopian.com/html/gndy/dyzz/index";//最新电影
+    public static String searchUrl=mainUrl+"e/search/index.php";//搜索页面
 }

@@ -1,6 +1,8 @@
 package db.com.dygod.base;
 
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -22,12 +26,17 @@ import java.lang.ref.WeakReference;
 
 import db.com.dygod.DyGodApplication;
 import db.com.dygod.R;
+import db.com.dygod.module.search.SearchActivity;
+import db.com.dygod.utils.ToastUtil;
 
 public abstract class BaseActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener{
     private SystemBarTintManager tintManager;
 
     private SelfHandler mSelfHandler;
-    private Toolbar mToolbar;
+    public Toolbar mToolbar;
+    public TextView mSearchText;
+    public String searchString;
+    private InputMethodManager imm;
 
     protected Handler getSelfHandler() {
         return mSelfHandler;
@@ -41,6 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        imm= (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }
@@ -54,6 +64,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
         FrameLayout bodyLayout= (FrameLayout) findViewById(R.id.main_base_bodyLayout);
         bodyLayout.addView(View.inflate(this,setBodyView(),null));
         mToolbar= (Toolbar) findViewById(R.id.main_base_toolbar);
+        mSearchText = (TextView) findViewById(R.id.base_search);
         mToolbar.setTitle("电影之家");
         mToolbar.setNavigationIcon(R.mipmap.toolbar_menu);
         mToolbar.inflateMenu(R.menu.base_toolbar_menu);
@@ -64,12 +75,26 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     public boolean onMenuItemClick(MenuItem item) {
         int menuItemId = item.getItemId();
         if (menuItemId == R.id.toolbar_search) {
-            Toast.makeText(this , "点击了搜索" , Toast.LENGTH_SHORT).show();
-
+            if(mSearchText.getVisibility()==View.GONE){
+                mSearchText.setVisibility(View.VISIBLE);
+                mSearchText.requestFocus();
+                imm.showSoftInput(mSearchText, InputMethodManager.SHOW_FORCED);
+            }else{
+                View view = this.getWindow().peekDecorView();
+                if (view != null) {
+                    imm.hideSoftInputFromWindow(mSearchText.getWindowToken(), 0);
+                }
+                 searchString=mSearchText.getText().toString().trim();
+                if(TextUtils.isEmpty(searchString)){
+                    mSearchText.setVisibility(View.GONE);
+                }else{
+                   search();
+                }
+            }
         } else if (menuItemId == R.id.toolbar_feed) {
-            Toast.makeText(this , "意见反馈" , Toast.LENGTH_SHORT).show();
+            feed();
         }else if (menuItemId == R.id.toolbar_share) {
-            Toast.makeText(this , "分享" , Toast.LENGTH_SHORT).show();
+            share();
         }
         return false;
     }
@@ -114,5 +139,19 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
             mRef = new WeakReference<BaseActivity>(mActivity);
         }
         private WeakReference<BaseActivity> mRef;
+    }
+
+    public  void search(){
+        mSearchText.setVisibility(View.GONE);
+        Intent intent=new Intent();
+        intent.putExtra("searchText",searchString);
+        intent.setClass(this, SearchActivity.class);
+        startActivity(intent);
+    }
+    public void share(){
+        Toast.makeText(this , "分享" , Toast.LENGTH_SHORT).show();
+    }
+    public void feed(){
+        Toast.makeText(this , "意见反馈" , Toast.LENGTH_SHORT).show();
     }
 }

@@ -30,7 +30,7 @@ import db.com.dygod.widget.StyleDialog;
  * 最新电影
  * Created by zdb on 2016/5/17.
  */
-public class NewsFragments extends BaseFragment {
+public class NewsFragments extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
     private View newsView;
     private int currentPageIndex = 1;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -38,6 +38,7 @@ public class NewsFragments extends BaseFragment {
     private List<MainNesEntity> data = new ArrayList<>();
     private RecommendNewsRecyAdapter mAdapter;
     private StyleDialog mDialog;
+    private boolean isAutoRefresh=true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,7 +90,7 @@ public class NewsFragments extends BaseFragment {
 
     private void initView(View newsView) {
         mSwipeRefreshLayout = (SwipeRefreshLayout) newsView.findViewById(R.id.main_hot_SwipeRefreshLayout);
-
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         mRecyclerView = (RecyclerView) newsView.findViewById(R.id.main_news_list);
     }
 
@@ -108,17 +109,59 @@ public class NewsFragments extends BaseFragment {
 
         @Override
         public void successful(List<MainNesEntity> mainNesEntities) {
+            if(isAutoRefresh){
+                isAutoRefresh=false;
+                stopRefresh();
+            }else{
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
             if (mainNesEntities != null && mainNesEntities.size() > 0) {
                 if(currentPageIndex==1){
                     data.clear();
                 }
                 data.addAll(mainNesEntities);
+            }else{
+                ToastUtil.showMsg(R.string.toast_no_data);
             }
         }
 
         @Override
         public void failure(IOException e) {
+            if(isAutoRefresh){
+                isAutoRefresh=false;
+                stopRefresh();
+            }else{
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
             ToastUtil.showMsg(R.string.toast_server_err);
         }
     };
+
+    @Override
+    public void onRefresh() {
+        getNetData();
+    }
+    /**
+     * 自动刷新
+     */
+    private void autoRefresh(){
+        mSwipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(true);
+            }
+        });
+    }
+
+    /**
+     * 停止自动刷新
+     */
+    private void stopRefresh(){
+        mSwipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
 }
