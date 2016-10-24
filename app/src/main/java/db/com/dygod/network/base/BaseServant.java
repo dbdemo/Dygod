@@ -69,13 +69,15 @@ public abstract class BaseServant<T> {
         }).start();
     }
 
-    public void getSearchDocument(final String url,  String keyboard, NetWorkListener netWorkListener) {
+    public void getSearchDocument(final String url,  final String keyboard, NetWorkListener netWorkListener) {
         keyboardStr = keyboard;
         try {
-           keyboardStr = URLEncoder.encode(keyboard, "GBK");
-            System.out.println("gbk  " + keyboardStr);
-            keyboardStr=URLEncoder.encode(keyboardStr, "GBK");
-            System.out.println("=== "+keyboardStr);
+           //keyboardStr = URLEncoder.encode(keyboard, "gb2312");
+            //System.out.println("gbk  " + keyboardStr);
+           // keyboardStr = URLEncoder.encode(keyboard, "gb2312");
+            //System.out.println("========1" + keyboardStr);
+          /*  keyboardStr=URLEncoder.encode(keyboardStr, "GBK");
+            System.out.println("=== "+keyboardStr);*/
              /*
             String strUTF8 = URLDecoder.decode("%25BE%25F8%25B5%25D8%25CC%25D3%25CD%25F6", "UTF-8");
             System.out.println("urf" + strUTF8);
@@ -90,7 +92,18 @@ public abstract class BaseServant<T> {
             public void run() {
                 Document doc = null;
                 try {
-                    doc = Jsoup.connect(url).header("Content-Type", "application/x-www-form-urlencoded").header("Charset","gbk").method(Connection.Method.POST).timeout(timeOut).data("show", "title").data("tempid", "1").data("keyboard", keyboardStr).ignoreContentType(true).post();
+                    //System.out.println("==============2"+keyboardStr);
+                   // doc = Jsoup.connect(url).method(Connection.Method.POST).timeout(timeOut).data("show", "title").data("tempid", "1").data("keyboard", keyboardStr).ignoreContentType(true).post();
+
+                    Connection conn=Jsoup.connect(url);
+                    conn.header("accept-charset","gb2312");
+//                    conn.header("Charset", "gb2312");
+                    Map<String,String> pram=new HashMap<String, String>();
+                    pram.put("keyboard", keyboardStr);
+                    pram.put("show", "title");
+                    pram.put("tempid", "1");
+                    conn.data(pram);
+                    doc=conn.post();
                 } catch (IOException e) {
                     e.printStackTrace();
                     Message msg = Message.obtain();

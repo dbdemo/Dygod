@@ -143,8 +143,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
         mSearchText.setVisibility(View.GONE);
         Intent intent=new Intent();
         intent.putExtra("searchText",searchString);
-       // intent.setClass(this, SearchActivity.class);
-       // startActivity(intent);
+        intent.setClass(this, db.com.dygod.module.search.SearchActivity.class);
+        startActivity(intent);
     }
     public void share(){
         Toast.makeText(this , "分享" , Toast.LENGTH_SHORT).show();
