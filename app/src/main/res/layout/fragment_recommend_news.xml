@@ -5,11 +5,11 @@
     tools:context="db.com.dygod.module.main.recommend.fragment.RecommendNewsFragment">
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/main_news_swipeRefreshLayout"
+        android:id="@+id/main_recommend_swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/main_news_list"
+            android:id="@+id/main_recommend_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </android.support.v4.widget.SwipeRefreshLayout>

@@ -41,6 +41,15 @@ public class RecommendNewsFragment extends BaseFragment implements SwipeRefreshL
     private StyleDialog mDialog;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private boolean isAutoRefresh=true;
+    private boolean isPrepared;
+
+    @Override
+    protected void lazyLoad() {
+        if(!isPrepared || !isVisible) {
+            return;
+        }
+        initData();
+    }
 
     public void setmMainFragment(RecommendMainFragment mMainFragment) {
         this.mMainFragment = mMainFragment;
@@ -68,12 +77,13 @@ public class RecommendNewsFragment extends BaseFragment implements SwipeRefreshL
         ArrayList<MainNesEntity> entity = bundle.getParcelableArrayList(RecommendMainFragment.ENTITY_NAME);
         mMainNesEntities.addAll(entity);
         initView(newView);
-        initData();
+        isPrepared = true;
+        lazyLoad();
         return newView;
     }
 
     private void initData() {
-        mAdapter = new RecommendNewsRecyAdapter(mMainNesEntities,mItemClickListener);
+        mAdapter = new RecommendNewsRecyAdapter(mMainNesEntities,mItemClickListener,null);
         mAdapter.setOnItemClickListener(mItemClickListener);
         mNewsList.setHasFixedSize(true);
         mNewsList.setAdapter(mAdapter);
@@ -84,11 +94,10 @@ public class RecommendNewsFragment extends BaseFragment implements SwipeRefreshL
     }
 
     private void initView(View newView) {
-        mNewsList = (RecyclerView) newView.findViewById(R.id.main_news_list);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) newView.findViewById(R.id.main_news_swipeRefreshLayout);
+        mNewsList = (RecyclerView) newView.findViewById(R.id.main_recommend_list);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) newView.findViewById(R.id.main_recommend_swipeRefreshLayout);
         mSwipeRefreshLayout.setOnRefreshListener(this);
     }
-
 
     /**
      * 条目点击事件监听

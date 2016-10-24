@@ -1,4 +1,4 @@
-package db.com.dygod.module.main.news;
+package db.com.dygod.module.main.JapanOrSouth;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -27,11 +27,13 @@ import db.com.dygod.utils.ToastUtil;
 import db.com.dygod.widget.StyleDialog;
 
 /**
- * 最新电影
- * Created by zdb on 2016/5/17.
+ * Created by zdb on 2016/10/24.
+ * 日韩电影
  */
-public class NewsFragments extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener , View.OnClickListener {
-    private View newsView;
+
+public class JapanOrSouth extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener , View.OnClickListener {
+
+    private View JapanView;
     private int currentPageIndex = 1;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
@@ -39,6 +41,7 @@ public class NewsFragments extends BaseFragment implements SwipeRefreshLayout.On
     private RecommendNewsRecyAdapter mAdapter;
     private StyleDialog mDialog;
     private boolean isAutoRefresh=true;
+
     private boolean isPrepared;
 
     @Override
@@ -46,31 +49,32 @@ public class NewsFragments extends BaseFragment implements SwipeRefreshLayout.On
         if(!isPrepared || !isVisible) {
             return;
         }
-        System.out.println("最新电影lazyLoad");
+        System.out.println("日韩电影lazyLoad");
         initData();
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        if(newsView!=null){
+        if(JapanView!=null){
             isPrepared = false;
-            System.out.println("最新电影onCreateView===不为空");
-//            lazyLoad();
-            return newsView;
+            System.out.println("日韩电影onCreateView===不为空");
+            return JapanView;
         }
-        newsView = View.inflate(mContext, R.layout.fragment_news, null);
-        initView(newsView);
+        JapanView = View.inflate(mContext, R.layout.fragment_japan, null);
+        initView(JapanView);
+        System.out.println("日韩电影onCreateView");
         isPrepared = true;
-        System.out.println("最新电影onCreateView");
-        lazyLoad();
-        return newsView;
+        return JapanView;
+
     }
+
 
     private void initData() {
         mAdapter = new RecommendNewsRecyAdapter(data,mItemClickListener,mLoadMoreListener);
+
         GetClassifyServant mainDataServant = new GetClassifyServant();
-        mainDataServant.getNewsData(UrlConstant.getInstance().getNewsUrlCache(),false, true, currentPageIndex, mNetWorkListener);
+        mainDataServant.getNewsData(UrlConstant.getInstance().getJndyUrlCache(),false, true, currentPageIndex, mNetWorkListener);
+
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -78,13 +82,18 @@ public class NewsFragments extends BaseFragment implements SwipeRefreshLayout.On
         getNetData();
     }
 
-    private RecommendNewsRecyAdapter.RecyclerViewLoadMoreListener mLoadMoreListener=new RecommendNewsRecyAdapter.RecyclerViewLoadMoreListener() {
-        @Override
-        public void onLoadMore() {
-            currentPageIndex++;
-            getNetData();
-        }
-    };
+    private void initView(View japanView) {
+        mSwipeRefreshLayout = (SwipeRefreshLayout) japanView.findViewById(R.id.main_japan_SwipeRefreshLayout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mRecyclerView = (RecyclerView) japanView.findViewById(R.id.main_japan_list);
+        (japanView.findViewById(R.id.main_japan_fab)).setOnClickListener(this);
+    }
+
+    @Override
+    public void onRefresh() {
+        currentPageIndex=1;
+        getNetData();
+    }
 
     /**
      * 条目点击事件监听
@@ -93,7 +102,7 @@ public class NewsFragments extends BaseFragment implements SwipeRefreshLayout.On
         @Override
         public void onItemClick(View view, int position) {
             if (mDialog == null) {
-                mDialog = new StyleDialog(NewsFragments.this.getContext(), "正在获取数据");
+                mDialog = new StyleDialog(JapanOrSouth.this.getContext(), "正在获取数据");
             }
             mDialog.show();
             //根据地址获取电影信息
@@ -102,7 +111,7 @@ public class NewsFragments extends BaseFragment implements SwipeRefreshLayout.On
                 @Override
                 public void successful(MovieInfoEntity movieInfoEntity) {
                     mDialog.dismiss();
-                    MovieInfoActivity.start(NewsFragments.this.getContext(), movieInfoEntity);
+                    MovieInfoActivity.start(JapanOrSouth.this.getContext(), movieInfoEntity);
                 }
 
                 @Override
@@ -113,26 +122,17 @@ public class NewsFragments extends BaseFragment implements SwipeRefreshLayout.On
             });
         }
     };
-
-
-    private void initView(View newsView) {
-        mSwipeRefreshLayout = (SwipeRefreshLayout) newsView.findViewById(R.id.main_news_SwipeRefreshLayout);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-        mRecyclerView = (RecyclerView) newsView.findViewById(R.id.main_news_list);
-        (newsView.findViewById(R.id.main_news_fab)).setOnClickListener(this);
-    }
-
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
+    private RecommendNewsRecyAdapter.RecyclerViewLoadMoreListener mLoadMoreListener=new RecommendNewsRecyAdapter.RecyclerViewLoadMoreListener() {
+        @Override
+        public void onLoadMore() {
+            currentPageIndex++;
+            getNetData();
+        }
+    };
     public void getNetData() {
         GetClassifyServant mainDataServant = new GetClassifyServant();
-        mainDataServant.getNewsData(UrlConstant.getInstance().getNewsUrlCache(),true, false, currentPageIndex, mNetWorkListener);
+        mainDataServant.getNewsData(UrlConstant.getInstance().getJndyUrlCache(),true, false, currentPageIndex, mNetWorkListener);
     }
-
     private NetWorkListener mNetWorkListener = new NetWorkListener<List<MainNesEntity>>() {
 
         @Override
@@ -167,12 +167,6 @@ public class NewsFragments extends BaseFragment implements SwipeRefreshLayout.On
             ToastUtil.showMsg(R.string.toast_server_err);
         }
     };
-
-    @Override
-    public void onRefresh() {
-        currentPageIndex=1;
-        getNetData();
-    }
     /**
      * 自动刷新
      */
@@ -200,7 +194,7 @@ public class NewsFragments extends BaseFragment implements SwipeRefreshLayout.On
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.main_news_fab:
+            case R.id.main_japan_fab:
                 mRecyclerView.smoothScrollToPosition(0);
                 break;
         }

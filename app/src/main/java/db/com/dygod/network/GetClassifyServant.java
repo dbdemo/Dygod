@@ -9,11 +9,10 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import db.com.dygod.bean.MainNesEntity;
 import db.com.dygod.db.dao.NetwokCacheDao;
-import db.com.dygod.define.HtmlCache;
-import db.com.dygod.define.UrlConstant;
 import db.com.dygod.network.base.BaseServant;
 import db.com.dygod.network.base.NetWorkListener;
 import db.com.dygod.utils.DateUtils;
@@ -25,33 +24,35 @@ import static com.nostra13.universalimageloader.core.ImageLoader.TAG;
  * 获取最新电影
  */
 
-public class GetNewsServant extends BaseServant<List<MainNesEntity>> {
+public class GetClassifyServant extends BaseServant<List<MainNesEntity>> {
 
     private boolean isAddCache;
     private boolean isReadCache;
     private int currentPageIndex;
 
-    public void getNewsData(boolean isAddCache, boolean isReadCache, int currentPageIndex, NetWorkListener mNetWorkListener) {
+    public void getNewsData(Map<String, String> urlMap, boolean isAddCache, boolean isReadCache, int currentPageIndex, NetWorkListener mNetWorkListener) {
         this.isAddCache = isAddCache;
         this.isReadCache = isReadCache;
         this.currentPageIndex = currentPageIndex;
+
+        String url = urlMap.get("url");
+        String cache = urlMap.get("cache");
         if (isReadCache) {
             isAddCache = false;
-            String docString = NetwokCacheDao.getValueForID(TAG);
+            String docString = NetwokCacheDao.getValueForID(url);
             if (docString != null && "".equals(docString)) {
-                docString = HtmlCache.newsCache + HtmlCache.newsCache2;
-                NetwokCacheDao.addValueForId(TAG, docString);
+                docString = cache;
+                NetwokCacheDao.addValueForId(url, docString);
             }
             mNetWorkListener.successful(parseDocument(docString));
         } else {
-            String url;
-
+            String urlpage;
             if (currentPageIndex == 1) {
-                url = UrlConstant.newsUrl + ".html";
+                urlpage = url + ".html";
             } else {
-                url = UrlConstant.newsUrl + "_" + currentPageIndex + ".html";
+                urlpage = url + "_" + currentPageIndex + ".html";
             }
-            getDocument(url, mNetWorkListener);
+            getDocument(urlpage, mNetWorkListener);
         }
     }
 
@@ -63,21 +64,25 @@ public class GetNewsServant extends BaseServant<List<MainNesEntity>> {
         String rootDivClass = "co_content8";
         Document content = Jsoup.parse(doc);
         Elements rootDoc = content.getElementsByClass(rootDivClass);
-        List<MainNesEntity> data=new ArrayList<>();
+        List<MainNesEntity> data = new ArrayList<>();
         if (rootDoc != null && rootDoc.size() > 0) {
             Elements tables = rootDoc.get(0).getElementsByTag("table");
             if (tables != null && tables.size() >= 0) {
                 for (int i = 0; i < tables.size(); i++) {
-                    MainNesEntity infoEntity=new MainNesEntity();
+                    MainNesEntity infoEntity = new MainNesEntity();
                     String href;
                     String title;
-
                     Element table = tables.get(i);
                     Elements aTexts = table.getElementsByClass("ulink");
                     if (aTexts != null && aTexts.size() >= 0) {
-                        Element aObj = aTexts.get(0);
-                         href = aObj.attr("href").trim();
-                         title = aObj.attr("title").trim();
+                        Element aObj;
+                        if(aTexts.size()==2){
+                            aObj = aTexts.get(1);
+                        }else {
+                            aObj = aTexts.get(0);
+                        }
+                        href = aObj.attr("href").trim();
+                        title = aObj.attr("title").trim();
                         infoEntity.setTitlinkle(href);
                         infoEntity.setTitle(title);
                     }
@@ -85,9 +90,9 @@ public class GetNewsServant extends BaseServant<List<MainNesEntity>> {
                     Elements tdTimes = table.getElementsByAttributeValue("color", "#8F8C89");
                     if (tdTimes != null && tdTimes.size() >= 0) {
                         String time = tdTimes.get(0).text();
-                        if(!TextUtils.isEmpty(time)&&time.length()>=13){
+                        if (!TextUtils.isEmpty(time) && time.length() >= 13) {
                             infoEntity.setTime(time.substring(3, 13));
-                        }else{
+                        } else {
                             infoEntity.setTime(DateUtils.getCurrDate("yyyy-MM-dd"));
                         }
                     }

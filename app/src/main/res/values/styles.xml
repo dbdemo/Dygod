@@ -1,10 +1,12 @@
 <resources>
+
     <style name="AppTheme" parent="appTheme.base">
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:fitsSystemWindows">false</item>
         <item name="android:textColorPrimary">@color/bgcolor1</item>
     </style>
+
     <style name="adTheme" parent="appTheme.base">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -12,8 +14,7 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <style name="appTheme.base" parent="Theme.AppCompat.Light.NoActionBar">
-    </style>
+    <style name="appTheme.base" parent="Theme.AppCompat.Light.NoActionBar"></style>
 
     <style name="ToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">@dimen/font9</item>
@@ -31,12 +32,29 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-    <style name="myProgressBarStyleLarge" >
-        　　<item name="android:indeterminateDrawable">@anim/loading_progressbar_style</item>
-        　　<item name="android:minWidth">60sp</item>
-        　　<item name="android:maxWidth">60sp</item>
-        　　<item name="android:minHeight">60sp</item>
-        　　<item name="android:maxHeight">60sp</item>
+    <style name="myProgressBarStyleLarge">
+        　　
+        <item name="android:indeterminateDrawable">@anim/loading_progressbar_style</item>
+        　　
+        <item name="android:minWidth">60sp</item>
+        　　
+        <item name="android:maxWidth">60sp</item>
+        　　
+        <item name="android:minHeight">60sp</item>
+        　　
+        <item name="android:maxHeight">60sp</item>
+    </style>
+    <style name="footer_load_style">
+        　　
+        <item name="android:indeterminateDrawable">@anim/footer_loading_progressbar_style</item>
+        　　
+        <item name="android:minWidth">60sp</item>
+        　　
+        <item name="android:maxWidth">60sp</item>
+        　　
+        <item name="android:minHeight">60sp</item>
+        　　
+        <item name="android:maxHeight">60sp</item>
     </style>
 
 </resources>

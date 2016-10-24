@@ -31,6 +31,11 @@ public class RecommendMainFragment extends BaseFragment implements View.OnClickL
     private MainEntity mMainEntity;
     public final static String ENTITY_NAME="entity";
 
+    @Override
+    protected void lazyLoad() {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -32,6 +32,14 @@ public class FragmentMainAdapter extends FragmentStatePagerAdapter {
                 return "推荐";
             case 1:
                 return "最新电影";
+            case 2:
+                return "日韩电影";
+            case 3:
+                return "国内电影";
+            case 4:
+                return "欧美电影";
+            case 5:
+                return "最新综艺";
         }
         return "";
     }

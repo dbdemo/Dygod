@@ -26,8 +26,6 @@ import java.lang.ref.WeakReference;
 
 import db.com.dygod.DyGodApplication;
 import db.com.dygod.R;
-import db.com.dygod.module.search.SearchActivity;
-import db.com.dygod.utils.ToastUtil;
 
 public abstract class BaseActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener{
     private SystemBarTintManager tintManager;
@@ -145,8 +143,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
         mSearchText.setVisibility(View.GONE);
         Intent intent=new Intent();
         intent.putExtra("searchText",searchString);
-        intent.setClass(this, SearchActivity.class);
-        startActivity(intent);
+       // intent.setClass(this, SearchActivity.class);
+       // startActivity(intent);
     }
     public void share(){
         Toast.makeText(this , "分享" , Toast.LENGTH_SHORT).show();

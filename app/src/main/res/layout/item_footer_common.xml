@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/bgcolor4"
+    android:id="@+id/footer_load_layout"
+    android:gravity="center"
+    android:orientation="horizontal"
+    >
+        <ProgressBar
+            style="@style/footer_load_style"
+            android:id="@+id/footer_load_pro"
+            android:layout_marginRight="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <TextView
+            android:id="@+id/footer_load_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正在加载更多" />
+</LinearLayout>

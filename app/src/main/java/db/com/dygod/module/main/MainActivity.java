@@ -11,9 +11,12 @@ import db.com.dygod.DyGodApplication;
 import db.com.dygod.R;
 import db.com.dygod.base.BaseActivity;
 import db.com.dygod.base.BaseFragment;
+import db.com.dygod.module.main.JapanOrSouth.JapanOrSouth;
+import db.com.dygod.module.main.Local.LocalFragment;
+import db.com.dygod.module.main.Xvdieo.XvdieoFragments;
 import db.com.dygod.module.main.adapter.FragmentMainAdapter;
-import db.com.dygod.module.main.recommend.RecommendMainFragment;
 import db.com.dygod.module.main.news.NewsFragments;
+import db.com.dygod.module.main.recommend.RecommendMainFragment;
 import db.com.dygod.utils.StringUtils;
 import db.com.dygod.widget.chameleonPagerTabStrip.ChameleonPagerTabStrip;
 
@@ -31,6 +34,10 @@ public class MainActivity extends BaseActivity {
         mMainFragment=new RecommendMainFragment();
         mainData.add(mMainFragment);
         mainData.add(new NewsFragments());
+        mainData.add(new JapanOrSouth());
+        mainData.add(new LocalFragment());
+        mainData.add(new XvdieoFragments());
+        mainData.add(new VarietyFragment());
         mMainViewPager.setAdapter(new FragmentMainAdapter(this.getSupportFragmentManager(), mainData));
         mStrip.setViewPager(mMainViewPager);
     }

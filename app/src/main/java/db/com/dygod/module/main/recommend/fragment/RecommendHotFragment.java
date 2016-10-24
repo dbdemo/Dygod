@@ -44,6 +44,15 @@ public class RecommendHotFragment extends BaseFragment implements SwipeRefreshLa
 
     public RecommendHotFragment() {
     }
+    private boolean isPrepared;
+
+    @Override
+    protected void lazyLoad() {
+        if(!isPrepared || !isVisible) {
+            return;
+        }
+        initData();
+    }
     @Override
     public void onResume() {
         super.onResume();
@@ -54,6 +63,7 @@ public class RecommendHotFragment extends BaseFragment implements SwipeRefreshLa
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,12 +72,13 @@ public class RecommendHotFragment extends BaseFragment implements SwipeRefreshLa
         ArrayList<MainNesEntity> entity = bundle.getParcelableArrayList(RecommendMainFragment.ENTITY_NAME);
         mMainNesEntities.addAll(entity);
         initView(ReleView);
-        initData();
+        isPrepared = true;
+        lazyLoad();
         return ReleView;
     }
 
     private void initData() {
-        mAdapter = new RecommendNewsRecyAdapter(mMainNesEntities,mItemClickListener);
+        mAdapter = new RecommendNewsRecyAdapter(mMainNesEntities,mItemClickListener,null);
         mAdapter.setOnItemClickListener(mItemClickListener);
         mReleaseList.setHasFixedSize(true);
         mReleaseList.setAdapter(mAdapter);
