@@ -94,6 +94,8 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
         introduce = (TextView) findViewById(R.id.movieinfo_introduce);
         img = (ImageView) findViewById(R.id.movieinfo_img);
         capture = (ImageView) findViewById(R.id.movieinfo_Capture);
+        img.setOnClickListener(this);
+        capture.setOnClickListener(this);
         downloadRg = (RadioGroup) findViewById(R.id.download_rg);
         checkAll = (CheckBox) findViewById(R.id.checkAll);
         checkAll.setOnCheckedChangeListener(this);
@@ -148,6 +150,12 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
                 } else {
                     ToastUtil.showMsg("没有获取到下载链接");
                 }
+                break;
+            case R.id.movieinfo_Capture:
+                EnlargementImageActivity.start(this,movieInfoEntity.getMovieCapture());
+                break;
+            case R.id.movieinfo_img:
+                EnlargementImageActivity.start(this,movieInfoEntity.getMoveImg());
                 break;
         }
     }

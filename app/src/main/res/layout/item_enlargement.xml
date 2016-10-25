@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:gesture-image="http://schemas.polites.com/android"
-    android:background="@color/bgcolor1"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" android:gravity="center"
+    android:layout_height="fill_parent"
+    android:background="@color/bgcolor1"
+    android:gravity="center"
     android:orientation="vertical">
 
-
-    <db.com.dyhome.widget.chameleonPagerTabStrip.GestureImageView
+    <db.com.dyhome.widget.gestureimageview.GestureImageView
         android:id="@+id/dmImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        gesture-image:min-scale="0.1"
         gesture-image:max-scale="10.0"
-        gesture-image:strict="false"  />
+        gesture-image:min-scale="0.1"
+        gesture-image:strict="false" />
 
-</LinearLayout>
+    <ProgressBar
+        android:visibility="gone"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_centerInParent="true"
+        android:id="@+id/dmImageViewPro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="0" />
+</RelativeLayout>

@@ -1,12 +1,16 @@
 package db.com.dyhome.utils;
 
 import android.graphics.Bitmap;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 
 import db.com.dyhome.DyGodApplication;
 import db.com.dyhome.R;
@@ -20,6 +24,9 @@ public class ImageLoaderUtils {
 
     public static void displayAvatar(String uri, ImageView view) {
         mImageLoader.displayImage(uri, view, getAvatarOptions());
+    }
+    public static void displayAvatar(String uri, ImageView view,ImageLoadingProgressListener listener) {
+        mImageLoader.displayImage(uri, view, getAvatarOptions(),null,listener);
     }
 
     private static DisplayImageOptions getAvatarOptions() {
