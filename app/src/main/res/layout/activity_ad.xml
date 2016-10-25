@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="db.com.dygod.module.main.AdActivity">
+    tools:context="db.com.dyhome.module.main.AdActivity">
 
     <TextView
         android:layout_alignParentRight="true"

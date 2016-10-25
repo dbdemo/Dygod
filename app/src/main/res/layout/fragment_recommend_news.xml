@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="db.com.dygod.module.main.recommend.fragment.RecommendNewsFragment">
+    tools:context="db.com.dyhome.module.main.recommend.fragment.RecommendNewsFragment">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/main_recommend_swipeRefreshLayout"

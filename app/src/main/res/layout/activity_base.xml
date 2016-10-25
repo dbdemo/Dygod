@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
-    tools:context="db.com.dygod.base.BaseActivity">
+    tools:context="db.com.dyhome.base.BaseActivity">
     <android.support.v7.widget.Toolbar
         android:id="@+id/main_base_toolbar"
         android:layout_width="match_parent"

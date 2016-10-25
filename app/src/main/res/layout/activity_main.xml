@@ -6,7 +6,7 @@
     android:background="@color/bgcolor1"
     android:layout_height="match_parent"
     tools:context=".module.main.MainActivity">
-    <db.com.dygod.widget.chameleonPagerTabStrip.ChameleonPagerTabStrip
+    <db.com.dyhome.widget.chameleonPagerTabStrip.ChameleonPagerTabStrip
         android:id="@+id/main_strip"
         android:layout_width="match_parent"
         android:layout_height="30dp"

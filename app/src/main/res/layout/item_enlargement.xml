@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
 
-    <db.com.dygod.widget.chameleonPagerTabStrip.GestureImageView
+    <db.com.dyhome.widget.chameleonPagerTabStrip.GestureImageView
         android:id="@+id/dmImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

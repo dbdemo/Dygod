@@ -6,27 +6,27 @@
         <shape >
             <solid android:color="@color/bgcolor1"/>
             <corners
-                android:radius="5dp"
-                android:topLeftRadius="5dp"
-                android:topRightRadius="5dp"
-                android:bottomLeftRadius="5dp"
-                android:bottomRightRadius="5dp"
+                android:radius="1dp"
+                android:topLeftRadius="1dp"
+                android:topRightRadius="1dp"
+                android:bottomLeftRadius="1dp"
+                android:bottomRightRadius="1dp"
                 />
             <size android:height="20dp" android:width="40dp" />
-            <stroke android:color="@color/bgcolor3" android:width="0.5dp"/>
+            <stroke android:color="@color/bgcolor1" android:width="0.5dp"/>
         </shape>
 
     </item>
     <item android:state_pressed="true">
         <shape >
             <solid android:color="@color/bgcolor4" />
-            <corners android:radius="5dp"
-                android:topLeftRadius="5dp"
-                android:topRightRadius="5dp"
-                android:bottomLeftRadius="5dp"
-                android:bottomRightRadius="5dp" />
+            <corners android:radius="1dp"
+                android:topLeftRadius="1dp"
+                android:topRightRadius="1dp"
+                android:bottomLeftRadius="1dp"
+                android:bottomRightRadius="1dp" />
             <size android:height="20dp" android:width="40dp" />
-            <stroke android:color="@color/bgcolor3" android:width="0.5dp"/>
+            <stroke android:color="@color/bgcolor1" android:width="0.5dp"/>
         </shape>
 
     </item>
