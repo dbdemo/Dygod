@@ -9,8 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import java.io.IOException;
 import java.util.ArrayList;
+
 import db.com.dyhome.R;
 import db.com.dyhome.base.BaseFragment;
 import db.com.dyhome.bean.MainEntity;
@@ -26,10 +28,10 @@ import db.com.dyhome.utils.ToastUtil;
 import db.com.dyhome.widget.StyleDialog;
 
 /**
-*  from zdb  create at 2016/5/20  14:46
-*   主页2016最新必看大片
-**/
-public class RecommendHotFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener  {
+ * from zdb  create at 2016/5/20  14:46
+ * 主页2016最新必看大片
+ **/
+public class RecommendHotFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView mReleaseList;
     private ArrayList<MainNesEntity> mMainNesEntities = new ArrayList<>();
@@ -37,6 +39,7 @@ public class RecommendHotFragment extends BaseFragment implements SwipeRefreshLa
     private RecommendMainFragment mMainFragment;
     private StyleDialog mDialog;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private View ReleView;
 
     public void setmMainFragment(RecommendMainFragment mMainFragment) {
         this.mMainFragment = mMainFragment;
@@ -44,19 +47,17 @@ public class RecommendHotFragment extends BaseFragment implements SwipeRefreshLa
 
     public RecommendHotFragment() {
     }
+
     private boolean isPrepared;
 
     @Override
     protected void lazyLoad() {
-        if(!isPrepared || !isVisible) {
-            return;
-        }
-        initData();
     }
+
     @Override
     public void onResume() {
         super.onResume();
-        if(mMainFragment!=null&&mAdapter!=null){
+        if (mMainFragment != null && mAdapter != null) {
             mMainNesEntities.clear();
             mMainNesEntities.addAll(mMainFragment.getmMainEntity().getMainReleEntities());
             mAdapter.notifyDataSetChanged();
@@ -67,30 +68,32 @@ public class RecommendHotFragment extends BaseFragment implements SwipeRefreshLa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View ReleView=inflater.inflate(R.layout.fragment_recommend_hot, container, false);
+        if (ReleView != null) {
+            return ReleView;
+        }
+        ReleView = inflater.inflate(R.layout.fragment_recommend_hot, container, false);
+        initView(ReleView);
         Bundle bundle = getArguments();
         ArrayList<MainNesEntity> entity = bundle.getParcelableArrayList(RecommendMainFragment.ENTITY_NAME);
         mMainNesEntities.addAll(entity);
-        initView(ReleView);
-        isPrepared = true;
-        lazyLoad();
+        initData();
         return ReleView;
     }
 
     private void initData() {
-        mAdapter = new RecommendNewsRecyAdapter(mMainNesEntities,mItemClickListener,null);
+        mAdapter = new RecommendNewsRecyAdapter(mMainNesEntities, mItemClickListener, null);
         mAdapter.setOnItemClickListener(mItemClickListener);
         mReleaseList.setHasFixedSize(true);
         mReleaseList.setAdapter(mAdapter);
         mReleaseList.setLayoutManager(new LinearLayoutManager(this.getContext()));
         mReleaseList.setItemAnimator(new DefaultItemAnimator());
-       // autoRefresh();不需要刷新
-       // getNetData();不需要获取数据
+        // autoRefresh();不需要刷新
+        // getNetData();不需要获取数据
     }
 
     private void initView(View releView) {
         mReleaseList = (RecyclerView) releView.findViewById(R.id.main_hot_list);
-        mSwipeRefreshLayout= (SwipeRefreshLayout) releView.findViewById(R.id.main_hot_SwipeRefreshLayout);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) releView.findViewById(R.id.main_hot_SwipeRefreshLayout);
         mSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
@@ -98,23 +101,23 @@ public class RecommendHotFragment extends BaseFragment implements SwipeRefreshLa
 
         @Override
         public void successful(MainEntity mainEntity) {
-                mSwipeRefreshLayout.setRefreshing(false);
+            mSwipeRefreshLayout.setRefreshing(false);
 
-            if(mainEntity!=null&&mainEntity.getMainNesEntities().size()>0){
+            if (mainEntity != null && mainEntity.getMainNesEntities().size() > 0) {
                 mMainNesEntities.clear();
                 mMainNesEntities.addAll(mainEntity.getMainReleEntities());
                 mAdapter.notifyDataSetChanged();
-                if(mMainFragment!=null){
+                if (mMainFragment != null) {
                     mMainFragment.setmMainEntity(mainEntity);
                 }
-            }else{
+            } else {
                 ToastUtil.showMsg(R.string.toast_no_data);
             }
         }
 
         @Override
         public void failure(IOException e) {
-                mSwipeRefreshLayout.setRefreshing(false);
+            mSwipeRefreshLayout.setRefreshing(false);
             ToastUtil.showMsg(R.string.toast_server_err);
         }
     };
@@ -123,6 +126,7 @@ public class RecommendHotFragment extends BaseFragment implements SwipeRefreshLa
         GetMainDataServant mainDataServant = new GetMainDataServant();
         mainDataServant.getMainData(true, false, mNetWorkListener);
     }
+
     /**
      * 条目点击事件监听
      **/

@@ -25,7 +25,6 @@ import db.com.dyhome.widget.StyleDialog;
 
 /**
  * Created by zdb on 2016/10/22.
- *
  */
 public class SearchActivity extends BaseActivity {
 
@@ -39,7 +38,8 @@ public class SearchActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setToolbarvisibility(View.VISIBLE);
-        String searchText=getIntent().getStringExtra("searchText");
+        String searchText = getIntent().getStringExtra("searchText");
+        mToolbar.setTitle("搜索：" + searchText + " 的结果");
         getSearchData(searchText);
         mToolbar.setNavigationIcon(R.mipmap.toolbar_back);
         initView();
@@ -47,8 +47,8 @@ public class SearchActivity extends BaseActivity {
 
     private void initView() {
 
-        mRecyclerView= (RecyclerView) findViewById(R.id.search_list);
-         mDataErr= (TextView) findViewById(R.id.no_data);
+        mRecyclerView = (RecyclerView) findViewById(R.id.search_list);
+        mDataErr = (TextView) findViewById(R.id.no_data);
     }
 
     @Override
@@ -56,13 +56,13 @@ public class SearchActivity extends BaseActivity {
         return R.layout.activity_search;
     }
 
-    private NetWorkListener mNetWorkListener=new NetWorkListener<List<MainNesEntity>>(){
+    private NetWorkListener mNetWorkListener = new NetWorkListener<List<MainNesEntity>>() {
 
         @Override
         public void successful(List<MainNesEntity> data) {
 
             mDialog.cancel();
-            if(data==null||data.size()==0){
+            if (data == null || data.size() == 0) {
                 mDataErr.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.GONE);
                 ToastUtil.showMsg("没有搜索到内容");
@@ -70,8 +70,8 @@ public class SearchActivity extends BaseActivity {
             }
             mDataErr.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.VISIBLE);
-            dataEntitys=data;
-            mAdapter = new RecommendNewsRecyAdapter(dataEntitys,mItemClickListener,null);
+            dataEntitys = data;
+            mAdapter = new RecommendNewsRecyAdapter(dataEntitys, mItemClickListener, null);
             mRecyclerView.setHasFixedSize(true);
             mRecyclerView.setAdapter(mAdapter);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
@@ -96,7 +96,7 @@ public class SearchActivity extends BaseActivity {
             mDialog.show();
             //根据地址获取电影信息
             GetMovieInfoServant movieInfoServant = new GetMovieInfoServant();
-            movieInfoServant.getMovieInfoData(UrlConstant.mainUrl+dataEntitys.get(position).getTitlinkle(), new NetWorkListener<MovieInfoEntity>() {
+            movieInfoServant.getMovieInfoData(UrlConstant.mainUrl + dataEntitys.get(position).getTitlinkle(), new NetWorkListener<MovieInfoEntity>() {
                 @Override
                 public void successful(MovieInfoEntity movieInfoEntity) {
                     mDialog.dismiss();
@@ -116,12 +116,13 @@ public class SearchActivity extends BaseActivity {
     public void search() {
         getSearchData(mSearchText.getText().toString().trim());
     }
-    public void getSearchData(String searchStr){
+
+    public void getSearchData(String searchStr) {
         if (mDialog == null) {
             mDialog = new StyleDialog(SearchActivity.this, "正在获取数据");
         }
         mDialog.show();
-        SearchServant searchServant=new SearchServant();
+        SearchServant searchServant = new SearchServant();
         searchServant.getSearchData(searchStr, 0, mNetWorkListener);
     }
 }

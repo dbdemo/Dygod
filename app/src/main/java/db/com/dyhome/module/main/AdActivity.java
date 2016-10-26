@@ -14,7 +14,6 @@ import db.com.dyhome.R;
 import db.com.dyhome.base.BaseActivity;
 import db.com.dyhome.bean.MovieCategoyEntity;
 import db.com.dyhome.db.dao.MovieTitleDao;
-import db.com.dyhome.define.SpHelper;
 import db.com.dyhome.network.GetTitleDataServant;
 import db.com.dyhome.network.base.NetWorkListener;
 
@@ -26,15 +25,8 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if(ad_time.getText().equals("1")){
-                Intent intent=null;
-                if(SpHelper.isFistOpenApp()){
-                     intent=new Intent(AdActivity.this,SplashActivity.class);
-                }else{
-                     intent=new Intent(AdActivity.this,MainActivity.class);
-                }
-                startActivity(intent);
-                AdActivity.this.finish();
+            if (ad_time.getText().equals("0")) {
+                extNext();
                 return;
             }
             ad_time.setText(String.valueOf(Integer.parseInt(ad_time.getText() + "") - 1));
@@ -50,10 +42,10 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
         ad_time = (TextView) findViewById(R.id.ad_time);
         ad_time.setText("5");
         ad_time.setOnClickListener(this);
-        mHandler.sendEmptyMessageDelayed(timeMsg, 1000);
-        MovieTitleDao dao=new MovieTitleDao();
-        if(dao.getDataCount()>0)return;
-       GetTitleDataServant getTitleDataServant=new GetTitleDataServant();
+        mHandler.sendEmptyMessage(timeMsg);
+        MovieTitleDao dao = new MovieTitleDao();
+        if (dao.getDataCount() > 0) return;
+        GetTitleDataServant getTitleDataServant = new GetTitleDataServant();
         getTitleDataServant.getTitleData(new NetWorkListener<ArrayList<MovieCategoyEntity>>() {
             @Override
             public void successful(ArrayList<MovieCategoyEntity> t) {
@@ -75,6 +67,24 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        ad_time.setText("1");
+        ad_time.setText("0");
+        mHandler.removeCallbacksAndMessages(null);
+        extNext();
     }
+
+    /**
+     * 进入下一个activity
+     */
+    public void extNext() {
+        Intent intent = null;
+        /*if(SpHelper.isFistOpenApp()){
+            intent=new Intent(AdActivity.this,SplashActivity.class);
+        }else{
+            intent=new Intent(AdActivity.this,MainActivity.class);
+        }*/
+        intent = new Intent(AdActivity.this, MainActivity.class);
+        startActivity(intent);
+        AdActivity.this.finish();
+    }
+
 }

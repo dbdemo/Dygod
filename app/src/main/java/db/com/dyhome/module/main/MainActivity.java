@@ -11,9 +11,14 @@ import db.com.dyhome.DyGodApplication;
 import db.com.dyhome.R;
 import db.com.dyhome.base.BaseActivity;
 import db.com.dyhome.base.BaseFragment;
+import db.com.dyhome.module.cartoon.JumpFragment;
+import db.com.dyhome.module.cartoon.PreceFragment;
 import db.com.dyhome.module.main.JapanOrSouth.JapanOrSouth;
+import db.com.dyhome.module.main.JapanOrSouth.JapanOrSouthTvFragment;
 import db.com.dyhome.module.main.Local.LocalFragment;
+import db.com.dyhome.module.main.Local.LocalTvFragment;
 import db.com.dyhome.module.main.Xvdieo.XvdieoFragments;
+import db.com.dyhome.module.main.Xvdieo.XvdieoTvFragments;
 import db.com.dyhome.module.main.adapter.FragmentMainAdapter;
 import db.com.dyhome.module.main.news.NewsFragments;
 import db.com.dyhome.module.main.recommend.RecommendMainFragment;
@@ -28,23 +33,28 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ChameleonPagerTabStrip mStrip= (ChameleonPagerTabStrip) findViewById(R.id.main_strip);
+        ChameleonPagerTabStrip mStrip = (ChameleonPagerTabStrip) findViewById(R.id.main_strip);
         mMainViewPager = (ViewPager) findViewById(R.id.main_viewPager);
-        ArrayList<BaseFragment> mainData=new ArrayList<>();
-        mMainFragment=new RecommendMainFragment();
+        ArrayList<BaseFragment> mainData = new ArrayList<>();
+        mMainFragment = new RecommendMainFragment();
         mainData.add(mMainFragment);
         mainData.add(new NewsFragments());
         mainData.add(new JapanOrSouth());
         mainData.add(new LocalFragment());
         mainData.add(new XvdieoFragments());
         mainData.add(new VarietyFragment());
+        mainData.add(new LocalTvFragment());
+        mainData.add(new XvdieoTvFragments());
+        mainData.add(new JapanOrSouthTvFragment());
+        mainData.add(new JumpFragment());
+        mainData.add(new PreceFragment());
         mMainViewPager.setAdapter(new FragmentMainAdapter(this.getSupportFragmentManager(), mainData));
         mStrip.setViewPager(mMainViewPager);
     }
 
     @Override
     protected int setBodyView() {
-        return  R.layout.activity_main;
+        return R.layout.activity_main;
     }
 
     @Override

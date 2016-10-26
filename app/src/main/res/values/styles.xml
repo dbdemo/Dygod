@@ -12,9 +12,10 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@mipmap/ad</item>
     </style>
 
-    <style name="appTheme.base" parent="Theme.AppCompat.Light.NoActionBar"/>
+    <style name="appTheme.base" parent="Theme.AppCompat.Light.NoActionBar" />
 
     <style name="ToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">@dimen/font11</item>
@@ -44,6 +45,7 @@
         　　
         <item name="android:maxHeight">60sp</item>
     </style>
+
     <style name="footer_load_style">
         　　
         <item name="android:indeterminateDrawable">@anim/footer_loading_progressbar_style</item>

@@ -15,3 +15,19 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-dontwarn com.squareup.**
+-dontwarn okio.**
+
+-keep class org.jsoup.**
+
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+-keep public class [db.com.dyhome].R$*{
+public static final int *;
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}

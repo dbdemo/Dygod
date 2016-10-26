@@ -21,11 +21,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.umeng.analytics.MobclickAgent;
 
 import java.lang.ref.WeakReference;
 
 import db.com.dyhome.DyGodApplication;
 import db.com.dyhome.R;
+import db.com.dyhome.module.main.MainActivity;
+import db.com.dyhome.utils.ToastUtil;
 
 public abstract class BaseActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
     private SystemBarTintManager tintManager;
@@ -42,6 +45,18 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
 
     protected void onSelfMessage(Message msg) {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override
@@ -65,8 +80,25 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
         mSearchText = (TextView) findViewById(R.id.base_search);
         mToolbar.setTitle("电影之家");
         mToolbar.setNavigationIcon(R.mipmap.toolbar_menu);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavigationOnClick();
+            }
+        });
         mToolbar.inflateMenu(R.menu.base_toolbar_menu);
         mToolbar.setOnMenuItemClickListener(this);
+    }
+
+    /**
+     * 菜单按钮点击事件
+     */
+    public void NavigationOnClick() {
+        if (this instanceof MainActivity) {
+            ToastUtil.showMsg("菜单功能未开放");
+        } else {
+            this.finish();
+        }
     }
 
     @Override
@@ -142,6 +174,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
 
     public void search() {
         mSearchText.setVisibility(View.GONE);
+        mSearchText.setText("");
         Intent intent = new Intent();
         intent.putExtra("searchText", searchString);
         intent.setClass(this, db.com.dyhome.module.search.SearchActivity.class);
@@ -149,6 +182,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     }
 
     public void share() {
-        Toast.makeText(this, "分享", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "分享功能未开放", Toast.LENGTH_SHORT).show();
     }
 }

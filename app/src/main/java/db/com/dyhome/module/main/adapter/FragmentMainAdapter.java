@@ -27,7 +27,7 @@ public class FragmentMainAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position){
+        switch (position) {
             case 0:
                 return "推荐";
             case 1:
@@ -40,6 +40,16 @@ public class FragmentMainAdapter extends FragmentStatePagerAdapter {
                 return "欧美电影";
             case 5:
                 return "最新综艺";
+            case 6:
+                return "国内电视";
+            case 7:
+                return "欧美电视";
+            case 8:
+                return "日韩电视";
+            case 9:
+                return "火影忍者专区";
+            case 10:
+                return "海贼王专区";
         }
         return "";
     }

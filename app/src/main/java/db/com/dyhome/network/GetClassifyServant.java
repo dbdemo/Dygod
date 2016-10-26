@@ -89,7 +89,7 @@ public class GetClassifyServant extends BaseServant<List<MainNesEntity>> {
                     }
                     //获取时间
                     Elements tdTimes = table.getElementsByAttributeValue("color", "#8F8C89");
-                    if (tdTimes != null && tdTimes.size() >= 0) {
+                    if (tdTimes != null && tdTimes.size() > 0) {
                         String time = tdTimes.get(0).text();
                         if (!TextUtils.isEmpty(time) && time.length() >= 13) {
                             infoEntity.setTime(time.substring(3, 13));

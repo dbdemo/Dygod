@@ -23,26 +23,27 @@ import db.com.dyhome.network.base.NetWorkListener;
 /**
  * Created by zdb on 2016/5/17.
  */
-public class RecommendMainFragment extends BaseFragment implements View.OnClickListener{
+public class RecommendMainFragment extends BaseFragment implements View.OnClickListener {
 
     private ViewPager mMainfViewPager;
     private RadioButton mMainNews;
     private RadioButton mMainhots;
     private MainEntity mMainEntity;
-    public final static String ENTITY_NAME="entity";
-    public boolean isFirst=true;
+    public final static String ENTITY_NAME = "entity";
+    public boolean isFirst = true;
+    public View fragment_main;
 
     @Override
     protected void lazyLoad() {
-        if(isFirst){
-            isFirst=false;
-        }
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fragment_main=inflater.inflate(R.layout.fragment_recommend, null);
+        if (fragment_main != null) {
+            return fragment_main;
+        }
+        fragment_main = inflater.inflate(R.layout.fragment_recommend, null);
         initView(fragment_main);
         getNetData();
         return fragment_main;
@@ -50,30 +51,30 @@ public class RecommendMainFragment extends BaseFragment implements View.OnClickL
 
     public void getNetData() {
         GetMainDataServant mainDataServant = new GetMainDataServant();
-        mainDataServant.getMainData(false,true,mNetWorkListener);
+        mainDataServant.getMainData(false, true, mNetWorkListener);
         //mainDataServant.getMainData(true,false,mNetWorkListener);
     }
 
     private void initView(View fragment_main) {
         mMainfViewPager = (ViewPager) fragment_main.findViewById(R.id.mainf_viewPager);
         mMainNews = (RadioButton) fragment_main.findViewById(R.id.Main_news);
-        mMainhots = (RadioButton)fragment_main.findViewById(R.id.Main_hots);
+        mMainhots = (RadioButton) fragment_main.findViewById(R.id.Main_hots);
         mMainhots.setOnClickListener(this);
         mMainNews.setOnClickListener(this);
     }
 
-    public void initFragments(){
-        ArrayList<BaseFragment> mainfData=new ArrayList<>();
-        RecommendNewsFragment mainNewsFragment=new RecommendNewsFragment();
-        Bundle bundleNew=new Bundle();
-        bundleNew.putParcelableArrayList(ENTITY_NAME,mMainEntity.getMainNesEntities());
+    public void initFragments() {
+        ArrayList<BaseFragment> mainfData = new ArrayList<>();
+        RecommendNewsFragment mainNewsFragment = new RecommendNewsFragment();
+        Bundle bundleNew = new Bundle();
+        bundleNew.putParcelableArrayList(ENTITY_NAME, mMainEntity.getMainNesEntities());
         mainNewsFragment.setArguments(bundleNew);
         mainNewsFragment.setmMainFragment(this);
 
 
-        RecommendHotFragment mainReleaseFragment= new RecommendHotFragment();
-        Bundle bundleHot=new Bundle();
-        bundleHot.putParcelableArrayList(ENTITY_NAME,mMainEntity.getMainReleEntities());
+        RecommendHotFragment mainReleaseFragment = new RecommendHotFragment();
+        Bundle bundleHot = new Bundle();
+        bundleHot.putParcelableArrayList(ENTITY_NAME, mMainEntity.getMainReleEntities());
         mainNewsFragment.setArguments(bundleHot);
         mainReleaseFragment.setArguments(bundleHot);
         mainReleaseFragment.setmMainFragment(this);
@@ -89,17 +90,17 @@ public class RecommendMainFragment extends BaseFragment implements View.OnClickL
 
         @Override
         public void successful(MainEntity mainEntity) {
-            mMainEntity=mainEntity;
+            mMainEntity = mainEntity;
             initFragments();
         }
 
         @Override
         public void failure(IOException e) {
-            System.err.println("mainFragment:"+e.toString());
+            System.err.println("mainFragment:" + e.toString());
         }
     };
 
-    private  ViewPager.OnPageChangeListener mViewPagerSelectLinner= new ViewPager.OnPageChangeListener() {
+    private ViewPager.OnPageChangeListener mViewPagerSelectLinner = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -107,7 +108,7 @@ public class RecommendMainFragment extends BaseFragment implements View.OnClickL
 
         @Override
         public void onPageSelected(int position) {
-            switch (position){
+            switch (position) {
                 case 0:
                     mMainNews.setChecked(true);
                     break;
@@ -125,7 +126,7 @@ public class RecommendMainFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.Main_news:
                 mMainfViewPager.setCurrentItem(0);
                 break;

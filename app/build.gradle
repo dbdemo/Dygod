@@ -3,9 +3,17 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
+    signingConfigs {
+        release {
+            keyAlias 'dyhome'
+            keyPassword '450195423a'
+            storeFile file('dyhome.appkey')
+            storePassword '450195423a'
+        }
+    }
 
     defaultConfig {
-        applicationId "db.com.dygod"
+        applicationId "db.com.dyhome"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
@@ -13,8 +21,14 @@ android {
     }
     buildTypes {
         release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug{
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -34,4 +48,5 @@ dependencies {
     compile 'com.android.support:design:22.2.0'
     compile files('src/main/libs/jsoup-1.10.1.jar')
     compile 'com.squareup.okhttp:okhttp:2.0.0'
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }
