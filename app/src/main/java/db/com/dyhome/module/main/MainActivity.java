@@ -33,6 +33,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //UmengTool.getSignature(this);//友盟签名对照
         ChameleonPagerTabStrip mStrip = (ChameleonPagerTabStrip) findViewById(R.id.main_strip);
         mMainViewPager = (ViewPager) findViewById(R.id.main_viewPager);
         ArrayList<BaseFragment> mainData = new ArrayList<>();

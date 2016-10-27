@@ -18,6 +18,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.UMShareAPI;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.com.dyhome.db.DbSQLiteOpenHelper;
+import db.com.dyhome.utils.ShareUtils;
 
 /**
  * Created by zdb on 2015/12/19.
@@ -35,10 +37,15 @@ public class DyGodApplication extends Application {
     // 图片组件配置
     private ImageLoaderConfiguration mConfig;
 
+    {
+        ShareUtils.init();
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
-        MobclickAgent.setDebugMode(false);//友盟测试
+        UMShareAPI.get(this);
+        MobclickAgent.setDebugMode(true);//友盟测试
         application = this;
         DbSQLiteOpenHelper.getInstance(this);
         initImageConfig(this);

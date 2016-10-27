@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="jsoup-1.9.1">
+  <library name="umeng_social_net">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/src/main/libs/jsoup-1.9.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/app/src/main/libs/umeng_social_net.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

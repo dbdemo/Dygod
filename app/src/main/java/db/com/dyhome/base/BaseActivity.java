@@ -1,6 +1,7 @@
 package db.com.dyhome.base;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,16 +19,18 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.UMShareAPI;
 
 import java.lang.ref.WeakReference;
 
 import db.com.dyhome.DyGodApplication;
 import db.com.dyhome.R;
+import db.com.dyhome.bean.MovieInfoEntity;
 import db.com.dyhome.module.main.MainActivity;
+import db.com.dyhome.utils.ShareUtils;
 import db.com.dyhome.utils.ToastUtil;
 
 public abstract class BaseActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
@@ -38,6 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     public TextView mSearchText;
     public String searchString;
     private InputMethodManager imm;
+    public MovieInfoEntity movieInfoEntity;
 
     protected Handler getSelfHandler() {
         return mSelfHandler;
@@ -122,7 +126,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
                 }
             }
         } else if (menuItemId == R.id.toolbar_share) {
-            share();
+            share(this);
         }
         return false;
     }
@@ -181,7 +185,24 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
         startActivity(intent);
     }
 
-    public void share() {
-        Toast.makeText(this, "分享功能未开放", Toast.LENGTH_SHORT).show();
+    public void share(Activity activity) {
+        if (movieInfoEntity == null) {
+            ShareUtils.shareApk(activity);
+        } else {
+            shareStr();
+        }
+    }
+
+    /**
+     * 分享电影链接
+     */
+    public void shareStr() {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 }

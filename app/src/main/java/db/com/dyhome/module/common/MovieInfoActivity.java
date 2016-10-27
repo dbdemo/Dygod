@@ -23,6 +23,7 @@ import db.com.dyhome.base.BaseActivity;
 import db.com.dyhome.bean.MovieInfoEntity;
 import db.com.dyhome.utils.HexUtils;
 import db.com.dyhome.utils.ImageLoaderUtils;
+import db.com.dyhome.utils.ShareUtils;
 import db.com.dyhome.utils.ToastUtil;
 
 /**
@@ -32,8 +33,6 @@ import db.com.dyhome.utils.ToastUtil;
 public class MovieInfoActivity extends BaseActivity implements View.OnClickListener, CheckBox.OnCheckedChangeListener {
 
     private final static String entityName = "movieInfoEntity";
-
-    private MovieInfoEntity movieInfoEntity;
     private TextView name;
     private TextView introduce;
     private ImageView img;
@@ -108,7 +107,7 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
 
         switch (v.getId()) {
             case R.id.movieinfo_start:
-                ArrayList<String> links = getChecked();
+                ArrayList<String> links = getCheckedDatas();
                 ArrayList<String> linkData = (ArrayList<String>) movieInfoEntity.getAddress();
                 if (linkData.size() > 0) {
                     if (links.size() > 0) {
@@ -133,7 +132,7 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
                 }
                 break;
             case R.id.movieinfo_cody:
-                ArrayList<String> linkscody = getChecked();
+                ArrayList<String> linkscody = getCheckedDatas();
                 ArrayList<String> linkDatacody = (ArrayList<String>) movieInfoEntity.getAddress();
                 if (linkDatacody.size() > 0) {
                     if (linkscody.size() > 0) {
@@ -152,23 +151,34 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
                 }
                 break;
             case R.id.movieinfo_Capture:
-                EnlargementImageActivity.start(this,movieInfoEntity.getMovieCapture());
+                EnlargementImageActivity.start(this, movieInfoEntity.getMovieCapture());
                 break;
             case R.id.movieinfo_img:
-                EnlargementImageActivity.start(this,movieInfoEntity.getMoveImg());
+                EnlargementImageActivity.start(this, movieInfoEntity.getMoveImg());
                 break;
         }
     }
 
-    public ArrayList<String> getChecked() {
-        ArrayList<String> arrayList = new ArrayList<>();
+    public ArrayList<String> getCheckedDatas() {
+        ArrayList<String> arrs = new ArrayList<>();
         for (int i = 0; i < downloadRg.getChildCount(); i++) {
             CheckBox checkBox = (CheckBox) downloadRg.getChildAt(i);
             if (checkBox.isChecked()) {
-                arrayList.add(checkBox.getText().toString().trim());
+                arrs.add(checkBox.getText().toString().trim());
             }
         }
-        return arrayList;
+        return arrs;
+    }
+
+    public String getCheckedStr() {
+        String urls = "";
+        for (int i = 0; i < downloadRg.getChildCount(); i++) {
+            CheckBox checkBox = (CheckBox) downloadRg.getChildAt(i);
+            if (checkBox.isChecked()) {
+                urls += checkBox.getText().toString().trim();
+            }
+        }
+        return urls;
     }
 
 
@@ -187,5 +197,10 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         setChecked(isChecked);
+    }
+
+    @Override
+    public void shareStr() {
+        ShareUtils.shareFilm(this, movieInfoEntity.getName(), getCheckedStr());
     }
 }
