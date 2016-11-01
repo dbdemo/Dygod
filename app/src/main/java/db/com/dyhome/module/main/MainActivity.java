@@ -36,19 +36,32 @@ public class MainActivity extends BaseActivity {
         //UmengTool.getSignature(this);//友盟签名对照
         ChameleonPagerTabStrip mStrip = (ChameleonPagerTabStrip) findViewById(R.id.main_strip);
         mMainViewPager = (ViewPager) findViewById(R.id.main_viewPager);
+        mMainViewPager.setOffscreenPageLimit(1000);
         ArrayList<BaseFragment> mainData = new ArrayList<>();
         mMainFragment = new RecommendMainFragment();
         mainData.add(mMainFragment);
+
+
         mainData.add(new NewsFragments());
+
         mainData.add(new JapanOrSouth());
+
         mainData.add(new LocalFragment());
+
         mainData.add(new XvdieoFragments());
+
         mainData.add(new VarietyFragment());
+
         mainData.add(new LocalTvFragment());
+
         mainData.add(new XvdieoTvFragments());
+
         mainData.add(new JapanOrSouthTvFragment());
+
         mainData.add(new JumpFragment());
+
         mainData.add(new PreceFragment());
+
         mMainViewPager.setAdapter(new FragmentMainAdapter(this.getSupportFragmentManager(), mainData));
         mStrip.setViewPager(mMainViewPager);
     }

@@ -8,17 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import db.com.dyhome.R;
 import db.com.dyhome.base.BaseFragment;
-import db.com.dyhome.bean.MainEntity;
 import db.com.dyhome.module.main.recommend.adapter.RecommendNewsAdapter;
 import db.com.dyhome.module.main.recommend.fragment.RecommendHotFragment;
 import db.com.dyhome.module.main.recommend.fragment.RecommendNewsFragment;
-import db.com.dyhome.network.GetMainDataServant;
-import db.com.dyhome.network.base.NetWorkListener;
 
 /**
  * Created by zdb on 2016/5/17.
@@ -28,10 +24,11 @@ public class RecommendMainFragment extends BaseFragment implements View.OnClickL
     private ViewPager mMainfViewPager;
     private RadioButton mMainNews;
     private RadioButton mMainhots;
-    private MainEntity mMainEntity;
-    public final static String ENTITY_NAME = "entity";
     public boolean isFirst = true;
     public View fragment_main;
+    private ArrayList<BaseFragment> mainfData;
+    private RecommendNewsFragment mainNewsFragment;
+    private RecommendHotFragment mainReleaseFragment;
 
     @Override
     protected void lazyLoad() {
@@ -43,16 +40,15 @@ public class RecommendMainFragment extends BaseFragment implements View.OnClickL
         if (fragment_main != null) {
             return fragment_main;
         }
+        System.out.println("main===");
+
+        mainNewsFragment = null;
+        mainReleaseFragment = null;
+        mainfData = null;
         fragment_main = inflater.inflate(R.layout.fragment_recommend, null);
         initView(fragment_main);
-        getNetData();
+        initFragments();
         return fragment_main;
-    }
-
-    public void getNetData() {
-        GetMainDataServant mainDataServant = new GetMainDataServant();
-        mainDataServant.getMainData(false, true, mNetWorkListener);
-        //mainDataServant.getMainData(true,false,mNetWorkListener);
     }
 
     private void initView(View fragment_main) {
@@ -64,21 +60,9 @@ public class RecommendMainFragment extends BaseFragment implements View.OnClickL
     }
 
     public void initFragments() {
-        ArrayList<BaseFragment> mainfData = new ArrayList<>();
-        RecommendNewsFragment mainNewsFragment = new RecommendNewsFragment();
-        Bundle bundleNew = new Bundle();
-        bundleNew.putParcelableArrayList(ENTITY_NAME, mMainEntity.getMainNesEntities());
-        mainNewsFragment.setArguments(bundleNew);
-        mainNewsFragment.setmMainFragment(this);
-
-
-        RecommendHotFragment mainReleaseFragment = new RecommendHotFragment();
-        Bundle bundleHot = new Bundle();
-        bundleHot.putParcelableArrayList(ENTITY_NAME, mMainEntity.getMainReleEntities());
-        mainNewsFragment.setArguments(bundleHot);
-        mainReleaseFragment.setArguments(bundleHot);
-        mainReleaseFragment.setmMainFragment(this);
-
+        mainfData = new ArrayList<>();
+        mainNewsFragment = new RecommendNewsFragment();
+        mainReleaseFragment = new RecommendHotFragment();
         mainfData.add(mainNewsFragment);
         mainfData.add(mainReleaseFragment);
 
@@ -86,19 +70,6 @@ public class RecommendMainFragment extends BaseFragment implements View.OnClickL
         mMainfViewPager.addOnPageChangeListener(mViewPagerSelectLinner);
     }
 
-    private NetWorkListener mNetWorkListener = new NetWorkListener<MainEntity>() {
-
-        @Override
-        public void successful(MainEntity mainEntity) {
-            mMainEntity = mainEntity;
-            initFragments();
-        }
-
-        @Override
-        public void failure(IOException e) {
-            System.err.println("mainFragment:" + e.toString());
-        }
-    };
 
     private ViewPager.OnPageChangeListener mViewPagerSelectLinner = new ViewPager.OnPageChangeListener() {
         @Override
@@ -135,13 +106,4 @@ public class RecommendMainFragment extends BaseFragment implements View.OnClickL
                 break;
         }
     }
-
-    public MainEntity getmMainEntity() {
-        return mMainEntity;
-    }
-
-    public void setmMainEntity(MainEntity mainEntity) {
-        this.mMainEntity = mainEntity;
-    }
-
 }

@@ -15,14 +15,16 @@ public abstract class BaseFragment extends Fragment {
 
     public Context mContext;
     protected boolean isVisible;
+
     /**
      * 在这里实现Fragment数据的缓加载.
+     *
      * @param isVisibleToUser
      */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(getUserVisibleHint()) {
+        if (getUserVisibleHint()) {
             isVisible = true;
             onVisible();
         } else {
@@ -30,16 +32,20 @@ public abstract class BaseFragment extends Fragment {
             onInvisible();
         }
     }
-    protected void onVisible(){
+
+    protected void onVisible() {
         lazyLoad();
     }
+
     protected abstract void lazyLoad();
-    protected void onInvisible(){}
+
+    protected void onInvisible() {
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mContext=getActivity();
+        mContext = getActivity();
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 }

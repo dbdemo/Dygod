@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,9 +98,19 @@ public class LocalTvFragment extends BaseFragment implements SwipeRefreshLayout.
                 mDialog = new StyleDialog(LocalTvFragment.this.getContext(), "正在获取数据");
             }
             mDialog.show();
+            String url = data.get(position).getTitlinkle();
+            if (TextUtils.isEmpty(url)) {
+                mDialog.dismiss();
+                ToastUtil.showMsg(R.string.toast_movie_info_err);
+                return;
+            }
+            if (!url.startsWith("http")) {
+                url = UrlConstant.mainUrl + url;
+            }
+
             //根据地址获取电影信息
             GetMovieInfoServant movieInfoServant = new GetMovieInfoServant();
-            movieInfoServant.getMovieInfoData(UrlConstant.mainUrl + data.get(position).getTitlinkle(), new NetWorkListener<MovieInfoEntity>() {
+            movieInfoServant.getMovieInfoData(url, new NetWorkListener<MovieInfoEntity>() {
                 @Override
                 public void successful(MovieInfoEntity movieInfoEntity) {
                     mDialog.dismiss();

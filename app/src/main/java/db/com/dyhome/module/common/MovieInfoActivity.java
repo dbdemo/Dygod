@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,8 @@ import db.com.dyhome.utils.HexUtils;
 import db.com.dyhome.utils.ImageLoaderUtils;
 import db.com.dyhome.utils.ShareUtils;
 import db.com.dyhome.utils.ToastUtil;
+
+import static db.com.dyhome.module.common.UMKey.download_move;
 
 /**
  * 电影详情
@@ -70,7 +74,6 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
 
     /**
      * 设置下载链接
-     *
      * @param address
      */
     private void addDownLoadLayout(List<String> address) {
@@ -120,6 +123,7 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
                                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
                                 intent.addCategory("android.intent.category.DEFAULT");
                                 startActivity(intent);
+                                MobclickAgent.onEvent(this,download_move);
                             } else {
                                 ToastUtil.showMsg("无法打开下载链接，请安装迅雷");
                             }
@@ -184,7 +188,6 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
 
     /***
      * 设置全选或者全不选
-     *
      * @param isChecked
      */
     public void setChecked(Boolean isChecked) {
