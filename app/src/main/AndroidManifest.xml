@@ -56,6 +56,8 @@
         <activity android:name="db.com.dyhome.module.common.MovieInfoActivity" />
         <activity android:name="db.com.dyhome.module.start.StartVideoActiviy" />
         <activity android:name="db.com.dyhome.module.search.SearchActivity" />
+
+
         <activity
             android:name="db.com.dyhome.module.common.EnlargementImageActivity"
             android:theme="@style/adTheme" />
@@ -66,6 +68,7 @@
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="Channel ID" />
+
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -75,7 +78,7 @@
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true" >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -87,15 +90,12 @@
         </activity>
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name="com.umeng.socialize.editorpage.ShareActivity"
-            android:theme="@style/Theme.UMDefault"
             android:excludeFromRecents="true"
-            />
-
-
+            android:theme="@style/Theme.UMDefault" />
     </application>
 </manifest>

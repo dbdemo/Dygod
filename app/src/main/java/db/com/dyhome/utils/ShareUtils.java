@@ -21,6 +21,8 @@ public class ShareUtils {
     private static String shareTitle = "电影之家";
     private static String shareContext = "更多更新更高清电影";
     private static UMImage shareImage = null;
+    private static String shareUrl = "http://fir.im/e6lq";
+
 
     public static void init() {
         PlatformConfig.setWeixin("wxcce8b94d27636bc5", "74984a5823824351eeb5f291bd715052");
@@ -34,7 +36,7 @@ public class ShareUtils {
         shareImage = new UMImage(activity, R.mipmap.ic_launcher);
         new ShareAction(activity)
                 .withMedia(shareImage)
-                .withTargetUrl("")
+                .withTargetUrl(shareUrl)
                 .withText(shareContext)
                 .withTitle(shareTitle)
                 .setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE)
@@ -44,14 +46,14 @@ public class ShareUtils {
     /**
      * 分享电影
      */
-    public static void shareFilm(Activity activity, String name, String downloadUrl) {
+    public static void shareFilm(Activity activity, String name, String imageURL, String downloadUrl) {
         shareImage = new UMImage(activity, R.mipmap.ic_launcher);
         shareContext = "";
         shareContext += downloadUrl + " 复制链接在迅雷中下载，更多资源请下载电影之家app";
         new ShareAction(activity)
-                .withMedia(shareImage)
+                .withMedia(new UMImage(activity, imageURL))
                 .withText(shareContext)
-                .withTargetUrl("")
+                .withTargetUrl(shareUrl)
                 .withTitle(name)
                 .setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE)
                 .setCallback(umShareListener).open();

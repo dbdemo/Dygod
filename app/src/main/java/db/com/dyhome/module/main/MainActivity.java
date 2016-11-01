@@ -2,7 +2,10 @@ package db.com.dyhome.module.main;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,19 +32,48 @@ public class MainActivity extends BaseActivity {
     private long mExitTime;
     private ViewPager mMainViewPager;
     private RecommendMainFragment mMainFragment;
+    private DrawerLayout drawerLayout;
+    private ChameleonPagerTabStrip mStrip;
+    private ActionBarDrawerToggle mDrawerToggle;
+
+    @Override
+    protected int setBodyView() {
+        return R.layout.activity_main;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //UmengTool.getSignature(this);//友盟签名对照
-        ChameleonPagerTabStrip mStrip = (ChameleonPagerTabStrip) findViewById(R.id.main_strip);
+        drawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
+        mStrip = (ChameleonPagerTabStrip) findViewById(R.id.main_strip);
         mMainViewPager = (ViewPager) findViewById(R.id.main_viewPager);
         mMainViewPager.setOffscreenPageLimit(1000);
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                mToolbar,
+                R.string.app_name,
+                R.string.app_name) {
+            public void onDrawerClosed(View view) {
+                super.onDrawerOpened(view);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                drawerView.setClickable(true);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        drawerLayout.addDrawerListener(mDrawerToggle);
+        initData();
+    }
+
+    private void initData() {
         ArrayList<BaseFragment> mainData = new ArrayList<>();
         mMainFragment = new RecommendMainFragment();
         mainData.add(mMainFragment);
-
-
         mainData.add(new NewsFragments());
 
         mainData.add(new JapanOrSouth());
@@ -67,9 +99,11 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected int setBodyView() {
-        return R.layout.activity_main;
+    public void mainNavigationOnClick() {
+        super.mainNavigationOnClick();
+        drawerLayout.openDrawer(drawerLayout);
     }
+
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {

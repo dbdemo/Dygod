@@ -74,6 +74,7 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
 
     /**
      * 设置下载链接
+     *
      * @param address
      */
     private void addDownLoadLayout(List<String> address) {
@@ -123,7 +124,7 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
                                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
                                 intent.addCategory("android.intent.category.DEFAULT");
                                 startActivity(intent);
-                                MobclickAgent.onEvent(this,download_move);
+                                MobclickAgent.onEvent(this, download_move);
                             } else {
                                 ToastUtil.showMsg("无法打开下载链接，请安装迅雷");
                             }
@@ -188,6 +189,7 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
 
     /***
      * 设置全选或者全不选
+     *
      * @param isChecked
      */
     public void setChecked(Boolean isChecked) {
@@ -204,6 +206,6 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void shareStr() {
-        ShareUtils.shareFilm(this, movieInfoEntity.getName(), getCheckedStr());
+        ShareUtils.shareFilm(this, movieInfoEntity.getName(), movieInfoEntity.getMoveImg(), getCheckedStr());
     }
 }

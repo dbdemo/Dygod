@@ -31,7 +31,6 @@ import db.com.dyhome.R;
 import db.com.dyhome.bean.MovieInfoEntity;
 import db.com.dyhome.module.main.MainActivity;
 import db.com.dyhome.utils.ShareUtils;
-import db.com.dyhome.utils.ToastUtil;
 
 public abstract class BaseActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
     private SystemBarTintManager tintManager;
@@ -99,7 +98,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
      */
     public void NavigationOnClick() {
         if (this instanceof MainActivity) {
-            ToastUtil.showMsg("菜单功能未开放");
+            mainNavigationOnClick();
         } else {
             this.finish();
         }
@@ -197,6 +196,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
      * 分享电影链接
      */
     public void shareStr() {
+
+    }
+    public void mainNavigationOnClick(){
 
     }
 
