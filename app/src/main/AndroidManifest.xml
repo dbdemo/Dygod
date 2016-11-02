@@ -56,6 +56,7 @@
         <activity android:name="db.com.dyhome.module.common.MovieInfoActivity" />
         <activity android:name="db.com.dyhome.module.start.StartVideoActiviy" />
         <activity android:name="db.com.dyhome.module.search.SearchActivity" />
+        <activity android:name="db.com.dyhome.module.localvideo.LocalVideoActivity" />
 
 
         <activity

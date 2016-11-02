@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
-
 import java.util.ArrayList;
 
 import db.com.dyhome.R;
@@ -53,23 +51,4 @@ public class EnlargementPagerAdapter extends PagerAdapter {
     public int getItemPosition(Object object) {
         return super.getItemPosition(object);
     }
-
-  /*  class ImageLoadingProgressListenerSty implements ImageLoadingProgressListener {
-
-        private ProgressBar pro;
-
-        public ImageLoadingProgressListenerSty(ProgressBar pro) {
-            this.pro = pro;
-        }
-
-        @Override
-        public void onProgressUpdate(String imageUri, View view, int current, int total) {
-            int proSize = (current / total) * 100;
-            System.out.println("加载进度："+current);
-            pro.setProgress(proSize);
-            if(proSize==100){
-                pro.setVisibility(View.GONE);
-            }
-        }
-    }*/
 }

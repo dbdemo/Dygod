@@ -1,5 +1,6 @@
 package db.com.dyhome.module.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +17,7 @@ import db.com.dyhome.base.BaseActivity;
 import db.com.dyhome.base.BaseFragment;
 import db.com.dyhome.module.cartoon.JumpFragment;
 import db.com.dyhome.module.cartoon.PreceFragment;
+import db.com.dyhome.module.localvideo.LocalVideoActivity;
 import db.com.dyhome.module.main.JapanOrSouth.JapanOrSouth;
 import db.com.dyhome.module.main.JapanOrSouth.JapanOrSouthTvFragment;
 import db.com.dyhome.module.main.Local.LocalFragment;
@@ -28,7 +30,7 @@ import db.com.dyhome.module.main.recommend.RecommendMainFragment;
 import db.com.dyhome.utils.StringUtils;
 import db.com.dyhome.widget.chameleonPagerTabStrip.ChameleonPagerTabStrip;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     private long mExitTime;
     private ViewPager mMainViewPager;
     private RecommendMainFragment mMainFragment;
@@ -48,6 +50,7 @@ public class MainActivity extends BaseActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
         mStrip = (ChameleonPagerTabStrip) findViewById(R.id.main_strip);
         mMainViewPager = (ViewPager) findViewById(R.id.main_viewPager);
+        findViewById(R.id.main_local_video).setOnClickListener(this);
         mMainViewPager.setOffscreenPageLimit(1000);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -121,5 +124,22 @@ public class MainActivity extends BaseActivity {
             return true;
         }
         return super.dispatchKeyEvent(event);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        drawerLayout.closeDrawers();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.main_local_video:
+                Intent intent = new Intent();
+                intent.setClass(this, LocalVideoActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

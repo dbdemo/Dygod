@@ -53,7 +53,6 @@ public class MovieInfoActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mToolbar.setNavigationIcon(R.mipmap.toolbar_back);
         movieInfoEntity = getIntent().getParcelableExtra(entityName);
         initView();
         initData();

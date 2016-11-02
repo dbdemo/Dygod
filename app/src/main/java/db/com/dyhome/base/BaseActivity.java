@@ -82,7 +82,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
         mToolbar = (Toolbar) findViewById(R.id.main_base_toolbar);
         mSearchText = (TextView) findViewById(R.id.base_search);
         mToolbar.setTitle("电影之家");
-        mToolbar.setNavigationIcon(R.mipmap.toolbar_menu);
+        if (this instanceof MainActivity) {
+            mToolbar.setNavigationIcon(R.mipmap.toolbar_menu);
+        } else {
+            mToolbar.setNavigationIcon(R.mipmap.toolbar_back);
+        }
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,7 +202,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     public void shareStr() {
 
     }
-    public void mainNavigationOnClick(){
+
+    public void mainNavigationOnClick() {
 
     }
 
