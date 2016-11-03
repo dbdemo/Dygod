@@ -30,7 +30,6 @@ public class RecommendNewsRecyAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public RecommendNewsRecyAdapter(List<MainNesEntity> mMainNesEntities, RecyclerViewItemClickListener listener, RecyclerViewLoadMoreListener loadMoreListener) {
         this.mMainNesEntities = (ArrayList<MainNesEntity>) mMainNesEntities;
-        //this.mMainNesEntities.add(new MainNesEntity());
         this.mItemClickListener = listener;
         this.mLoadMoreListener = loadMoreListener;
     }

@@ -58,7 +58,25 @@ public class LocalProvider implements AbstructProvider {
                 int start = fileName.lastIndexOf(".");
                 if (start != -1) {
                     String endName = fileName.substring(start + 1, fileName.length());
-                    String[] nameStyle = new String[]{"mkv", "AVI", "wma", "rmvb", "rm", "flash", "mp4", "mid", "3GP"};
+                    String[] nameStyle = new String[]{"3gp", "amv",
+                            "avb", "avd", "avi", "flh", "fli", "flv", "flx", "gvi", "gvp",
+                            "hdmov", "hkm", "ifo", "imovi", "imovi", "iva", "ivf", "ivr",
+                            "m4v", "m75", "meta", "mgv", "mj2", "mjp", "mjpg", "mkv", "mmv",
+                            "mnv", "mod", "modd", "moff", "moi", "moov", "mov", "movie",
+                            "mp21", "mp21", "mp2v", "mp4", "mp4v", "mpe", "mpeg", "mpeg4",
+                            "mpf", "mpg", "mpg2", "mpgin", "mpl", "mpls", "mpv", "mpv2", "mqv",
+                            "msdvd", "msh", "mswmm", "mts", "mtv", "mvb", "mvc", "mvd", "mve",
+                            "mvp", "mxf", "mys", "ncor", "nsv", "nvc", "ogm", "ogv", "ogx",
+                            "osp", "par", "pds", "pgi", "piv", "playlist", "pmf", "prel",
+                            "pro", "prproj", "psh", "pva", "pvr", "pxv", "qt", "qtch", "qtl",
+                            "qtm", "qtz", "rcproject", "rdb", "rec", "rm", "rmd", "rmp", "rms",
+                            "rmvb", "roq", "rp", "rts", "rts", "rum", "rv", "sbk", "sbt",
+                            "scm", "scm", "scn", "sec", "seq", "sfvidcap", "smil", "smk",
+                            "sml", "smv", "spl", "ssm", "str", "stx", "svi", "swf", "swi",
+                            "swt", "tda3mt", "tivo", "tix", "tod", "tp", "tp0", "tpd", "tpr",
+                            "trp", "ts", "tvs", "vc1", "vcr", "vcv", "vdo", "vdr", "veg",
+                            "vem", "vf", "vfw", "vfz", "vgz", "vid", "viewlet", "viv", "vivo",
+                            "wma"};
                     for (int j = 0; j < nameStyle.length; j++) {
                         if (nameStyle[j].equals(endName)) {
                             LocalVideoEntity entity = new LocalVideoEntity(fList.getName(), fList.getAbsolutePath(), fList.length(), FileUtils.getVideoThumbnail(fList.getPath()));

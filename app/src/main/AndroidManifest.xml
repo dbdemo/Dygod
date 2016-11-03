@@ -44,7 +44,6 @@
             android:theme="@style/adTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -57,6 +56,13 @@
         <activity android:name="db.com.dyhome.module.start.StartVideoActiviy" />
         <activity android:name="db.com.dyhome.module.search.SearchActivity" />
         <activity android:name="db.com.dyhome.module.localvideo.LocalVideoActivity" />
+
+        <activity
+            android:name="io.vov.vitamio.activity.InitActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
 
         <activity

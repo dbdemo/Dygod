@@ -5,4 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="db.com.dyhome.module.start.StartVideoActiviy">
+
+    <io.vov.vitamio.widget.VideoView
+        android:id="@+id/start_VideoView"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp" />
 </LinearLayout>

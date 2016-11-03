@@ -56,4 +56,5 @@ dependencies {
     compile files('src/main/libs/umeng_social_api.jar')
     compile files('src/main/libs/umeng_social_net.jar')
     compile files('src/main/libs/umeng_social_view.jar')
+    compile project(':vitamio')
 }
