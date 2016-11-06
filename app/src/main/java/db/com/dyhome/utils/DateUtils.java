@@ -3,6 +3,7 @@
 package db.com.dyhome.utils;
 
 import android.annotation.SuppressLint;
+import android.text.format.DateFormat;
 
 import java.text.ParseException;
 import java.text.ParsePosition;
@@ -821,5 +822,19 @@ public class DateUtils {
      */
     public static boolean isReachDIF(long current,long last,int threshold){
         return (current - last)>=threshold;
+    }
+    /**
+     * 把一个long类型的时间格式化为"02:50:44"，如果小时为0，则格式为"50:44"
+     * @param duration
+     * @return
+     */
+    public static CharSequence formatDuration(long duration) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.add(Calendar.MILLISECOND, (int) duration);
+        Date date = calendar.getTime();
+        int hour = (int) (duration / 1000 / 60 / 60);
+        CharSequence inFormat = (hour > 0) ? "kk:mm:ss" : "mm:ss";
+        return DateFormat.format(inFormat, date);
     }
 }

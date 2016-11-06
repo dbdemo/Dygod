@@ -2,21 +2,15 @@ package db.com.dyhome.module.start;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -26,8 +20,6 @@ import android.widget.TextView;
 
 import com.nineoldandroids.view.ViewHelper;
 
-import java.util.logging.Logger;
-
 import db.com.dyhome.R;
 import db.com.dyhome.base.BaseActivity;
 import db.com.dyhome.bean.LocalVideoEntity;
@@ -35,13 +27,11 @@ import db.com.dyhome.utils.DateUtils;
 import db.com.dyhome.utils.UiViewCompat;
 import io.vov.vitamio.LibsChecker;
 import io.vov.vitamio.MediaPlayer;
-import io.vov.vitamio.widget.MediaController;
 import io.vov.vitamio.widget.VideoView;
 
-public class StartVideoActiviy extends BaseActivity implements View.OnClickListener, View.OnTouchListener {
+public class StartVideoFullActiviy extends BaseActivity implements View.OnClickListener, View.OnTouchListener {
 
     public static final String Entity_tag = "entity";
-    public static final String defaultProgress_tag = "defaultProgress";
     private LocalVideoEntity entity;
     private VideoView videoView;
     private LinearLayout nameLayout;
@@ -53,6 +43,8 @@ public class StartVideoActiviy extends BaseActivity implements View.OnClickListe
     private SeekBar seekBarView;
     private TextView totalTimeView;
     private Handler mHandler;
+    private boolean fullscreen = false;
+
     /**
      * 是否是在屏幕左边滑动
      */
@@ -70,6 +62,7 @@ public class StartVideoActiviy extends BaseActivity implements View.OnClickListe
     /**
      * 当前屏幕亮度
      */
+    private float currentAlpha;
     /**
      * 手势监测器
      */
@@ -87,17 +80,17 @@ public class StartVideoActiviy extends BaseActivity implements View.OnClickListe
     private ImageView start_full_screen_normal;
     private LinearLayout start_root_layout;
     private RelativeLayout start_video_layout;
-
     private int defaultProgress;
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        mToolbar.setVisibility(View.GONE);
+        setTintColor("#00000000");
+        setToolbarvisibility(View.GONE);
         if (!LibsChecker.checkVitamioLibs(this))
             return;
         entity = getIntent().getParcelableExtra(Entity_tag);
-        defaultProgress = getIntent().getIntExtra(defaultProgress_tag, 0);
+        defaultProgress = getIntent().getIntExtra(StartVideoActiviy.defaultProgress_tag, 0);
         initView();
         screenWidth = UiViewCompat.getScreenWidth(this);
         InitData();
@@ -172,7 +165,7 @@ public class StartVideoActiviy extends BaseActivity implements View.OnClickListe
     };
 
     private void initView() {
-        videoView = (VideoView) findViewById(R.id.start_VideoView);
+        videoView = (VideoView) findViewById(R.id.start_VideoView_full);
         videoView.setOnTouchListener(this);
         nameLayout = (LinearLayout) findViewById(R.id.start_name_layout);
         nameView = (TextView) findViewById(R.id.start_name);
@@ -197,7 +190,7 @@ public class StartVideoActiviy extends BaseActivity implements View.OnClickListe
 
     @Override
     protected int setBodyView() {
-        return R.layout.activity_start_video;
+        return R.layout.activity_start_video_full;
     }
 
     GestureDetector.OnGestureListener listener = new GestureDetector.SimpleOnGestureListener() {
@@ -229,7 +222,7 @@ public class StartVideoActiviy extends BaseActivity implements View.OnClickListe
         }
 
         public boolean onDown(MotionEvent e) {
-            isTouchLeft = e.getX() < UiViewCompat.getScreenWidth(StartVideoActiviy.this) / 2;
+            isTouchLeft = e.getX() < UiViewCompat.getScreenWidth(StartVideoFullActiviy.this) / 2;
             return true;
         }
 
@@ -349,9 +342,9 @@ public class StartVideoActiviy extends BaseActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.start_full_screen_normal:
-                Intent intent = new Intent(this, StartVideoFullActiviy.class);
+                Intent intent = new Intent(this, StartVideoActiviy.class);
                 intent.putExtra(Entity_tag, entity);
-                intent.putExtra(defaultProgress_tag, (int)videoView.getCurrentPosition());
+                intent.putExtra(StartVideoActiviy.defaultProgress_tag, (int)videoView.getCurrentPosition());
                 startActivity(intent);
                 videoView.stopPlayback();
                 this.finish();

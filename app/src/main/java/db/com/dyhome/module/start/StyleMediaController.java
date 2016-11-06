@@ -21,7 +21,6 @@ public class StyleMediaController extends MediaController {
 
     @Override
     protected View makeControllerView() {
-        View v = LayoutInflater.from(context).inflate(R.layout.start_video_controller_layout, null);
-        return v;
+        return null;
     }
 }

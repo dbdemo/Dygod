@@ -53,7 +53,14 @@
 
         <activity android:name="db.com.dyhome.module.main.MainActivity" />
         <activity android:name="db.com.dyhome.module.common.MovieInfoActivity" />
-        <activity android:name="db.com.dyhome.module.start.StartVideoActiviy" />
+        <activity
+            android:name="db.com.dyhome.module.start.StartVideoActiviy"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="db.com.dyhome.module.start.StartVideoFullActiviy"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"
+            android:theme="@style/adTheme" />
         <activity android:name="db.com.dyhome.module.search.SearchActivity" />
         <activity android:name="db.com.dyhome.module.localvideo.LocalVideoActivity" />
 
