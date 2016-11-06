@@ -238,17 +238,19 @@ public class StartVideoActiviy extends BaseActivity implements View.OnClickListe
             mHandler.sendEmptyMessageDelayed(smg_volume_alhpa, 1000);
             float distanceYY = e1.getY() - e2.getY();    // 计算移动的距离
             distanceXX = e2.getX() - e1.getX();
-            if (Math.abs(distanceXX) > 15) {
+            if (Math.abs(distanceXX) > 20) {
                 showControlLayout();
                 changeSeekBar(distanceXX);
                 return true;
             }
-            if (isTouchLeft) {
-                // 改变屏幕亮度
-                changeBrightness(distanceYY);
-            } else {
-                // 改变音量值
-                changeVolume(distanceYY);
+            if(Math.abs(distanceYY)>20){
+                if (isTouchLeft) {
+                    // 改变屏幕亮度
+                    changeBrightness(distanceYY);
+                } else {
+                    // 改变音量值
+                    changeVolume(distanceYY);
+                }
             }
             return true;
         }
