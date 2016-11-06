@@ -241,6 +241,12 @@ public class StartVideoFullActiviy extends BaseActivity implements View.OnClickL
         // 双击
         @Override
         public boolean onDoubleTap(MotionEvent e) {
+            Intent intent = new Intent(StartVideoFullActiviy.this, StartVideoActiviy.class);
+            intent.putExtra(Entity_tag, entity);
+            intent.putExtra(StartVideoActiviy.defaultProgress_tag, (int) videoView.getCurrentPosition());
+            startActivity(intent);
+            videoView.stopPlayback();
+            StartVideoFullActiviy.this.finish();
             return true;
         }
 
@@ -294,7 +300,6 @@ public class StartVideoFullActiviy extends BaseActivity implements View.OnClickL
         } else if (result > seekBarView.getMax()) {
             result = seekBarView.getMax();
         }
-        //System.out.println("dbLog:" + DateUtils.formatDuration((long) result));
         seekBarView.setProgress((int) result);
         videoView.seekTo((int) result);
         currentTimeView.setText(DateUtils.formatDuration(videoView.getCurrentPosition()));

@@ -250,6 +250,12 @@ public class StartVideoActiviy extends BaseActivity implements View.OnClickListe
         // 双击
         @Override
         public boolean onDoubleTap(MotionEvent e) {
+            Intent intent = new Intent(StartVideoActiviy.this, StartVideoFullActiviy.class);
+            intent.putExtra(Entity_tag, entity);
+            intent.putExtra(defaultProgress_tag, (int) videoView.getCurrentPosition());
+            startActivity(intent);
+            videoView.stopPlayback();
+            StartVideoActiviy.this.finish();
             return true;
         }
 
