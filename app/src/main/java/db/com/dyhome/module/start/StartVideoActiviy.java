@@ -89,6 +89,8 @@ public class StartVideoActiviy extends BaseActivity implements View.OnClickListe
     private RelativeLayout start_video_layout;
 
     private int defaultProgress;
+    private boolean scrollX;
+    private boolean scrollY;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -114,9 +116,11 @@ public class StartVideoActiviy extends BaseActivity implements View.OnClickListe
                 seekBarView.setProgress((int) videoView.getCurrentPosition());
                 currentTimeView.setText(DateUtils.formatDuration(videoView.getCurrentPosition()));
                 mHandler.sendEmptyMessageDelayed(smg_seek_bar, 1000);
+                scrollY = true;
                 break;
             case smg_volume_alhpa:
                 start_volume_alpha_layout.setVisibility(View.GONE);
+                scrollX = true;
                 break;
         }
     }
@@ -238,12 +242,14 @@ public class StartVideoActiviy extends BaseActivity implements View.OnClickListe
             mHandler.sendEmptyMessageDelayed(smg_volume_alhpa, 1000);
             float distanceYY = e1.getY() - e2.getY();    // 计算移动的距离
             distanceXX = e2.getX() - e1.getX();
-            if (Math.abs(distanceXX) > 20) {
+            if (Math.abs(distanceXX) > 20 && scrollX) {
+                scrollY = false;
                 showControlLayout();
                 changeSeekBar(distanceXX);
                 return true;
             }
-            if(Math.abs(distanceYY)>20){
+            if (Math.abs(distanceYY) > 20 && scrollY) {
+                scrollX = false;
                 if (isTouchLeft) {
                     // 改变屏幕亮度
                     changeBrightness(distanceYY);
@@ -353,7 +359,7 @@ public class StartVideoActiviy extends BaseActivity implements View.OnClickListe
             case R.id.start_full_screen_normal:
                 Intent intent = new Intent(this, StartVideoFullActiviy.class);
                 intent.putExtra(Entity_tag, entity);
-                intent.putExtra(defaultProgress_tag, (int)videoView.getCurrentPosition());
+                intent.putExtra(defaultProgress_tag, (int) videoView.getCurrentPosition());
                 startActivity(intent);
                 videoView.stopPlayback();
                 this.finish();
