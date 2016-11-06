@@ -62,7 +62,6 @@ public class StartVideoFullActiviy extends BaseActivity implements View.OnClickL
     /**
      * 当前屏幕亮度
      */
-    private float currentAlpha;
     /**
      * 手势监测器
      */
@@ -83,6 +82,7 @@ public class StartVideoFullActiviy extends BaseActivity implements View.OnClickL
     private int defaultProgress;
     private boolean scrollX;
     private boolean scrollY;
+    private long currentProgree;
 
 
     @Override
@@ -92,11 +92,35 @@ public class StartVideoFullActiviy extends BaseActivity implements View.OnClickL
         setToolbarvisibility(View.GONE);
         if (!LibsChecker.checkVitamioLibs(this))
             return;
+        Intent freshIntent = new Intent();
+        freshIntent.setAction("com.android.music.musicservicecommand.pause");
+        freshIntent.putExtra("command", "pause");
+        sendBroadcast(freshIntent);
         entity = getIntent().getParcelableExtra(Entity_tag);
         defaultProgress = getIntent().getIntExtra(StartVideoActiviy.defaultProgress_tag, 0);
         initView();
         screenWidth = UiViewCompat.getScreenWidth(this);
         InitData();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        currentProgree = videoView.getCurrentPosition();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (videoView != null) {
+            videoView.findFocus();
+            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    videoView.seekTo(currentProgree);
+                }
+            });
+        }
     }
 
     @Override
@@ -174,6 +198,7 @@ public class StartVideoFullActiviy extends BaseActivity implements View.OnClickL
         videoView.setOnTouchListener(this);
         nameLayout = (LinearLayout) findViewById(R.id.start_name_layout);
         nameView = (TextView) findViewById(R.id.start_name);
+        nameView.setText(entity.getTitle());
         controlLayout = (LinearLayout) findViewById(R.id.start_control_layout);
         start_root_layout = (LinearLayout) findViewById(R.id.start_root_layout);
         pauseView = (ImageView) findViewById(R.id.start_pause);
