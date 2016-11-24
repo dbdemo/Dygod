@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import db.com.dyhome.R;
@@ -19,7 +21,11 @@ import db.com.dyhome.bean.LocalVideoEntity;
 import db.com.dyhome.module.localvideo.adapter.LocalVideoAdapter;
 import db.com.dyhome.module.localvideo.provider.LocalProvider;
 import db.com.dyhome.module.start.StartVideoActiviy;
+import db.com.dyhome.utils.SpUtils;
 import db.com.dyhome.utils.ToastUtil;
+
+import static u.aly.cw.i;
+
 
 /**
  * Created by Administrator on 2016/11/2.
@@ -29,7 +35,7 @@ public class LocalVideoActivity extends BaseActivity implements View.OnClickList
 
     private RecyclerView listView;
     private List<LocalVideoEntity> data;
-    private List<LocalVideoEntity> deleteData = new ArrayList<>();
+    private List<LocalVideoEntity> deleteData = new LinkedList<>();
     private TextView nodata;
     private LocalProvider localProvider;
     private LinearLayout detal_layout;
@@ -55,7 +61,25 @@ public class LocalVideoActivity extends BaseActivity implements View.OnClickList
         local_video_haveData.setVisibility(View.GONE);
         nodata.setVisibility(View.VISIBLE);
         nodata.setText("正在加载数据");
-        localProvider = new LocalProvider(linner);
+        data = SpUtils.getLocalVideo(this);
+        if(data==null||data.size()==0){
+            loadData();
+            return;
+        }
+        local_video_haveData.setVisibility(View.VISIBLE);
+        nodata.setVisibility(View.GONE);
+        adapter = new LocalVideoAdapter(data, itemClickListener, itemCheckedListener);
+        listView.setHasFixedSize(true);
+        listView.setAdapter(adapter);
+        listView.setLayoutManager(new LinearLayoutManager(LocalVideoActivity.this));
+        listView.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    private void loadData(){
+        local_video_haveData.setVisibility(View.GONE);
+        nodata.setVisibility(View.VISIBLE);
+        nodata.setText("正在加载数据");
+        localProvider=new LocalProvider(linner);
         localProvider.getAllList();
     }
 
@@ -72,12 +96,13 @@ public class LocalVideoActivity extends BaseActivity implements View.OnClickList
         local_video_delete_to = (TextView) findViewById(R.id.local_video_delete_to);
         local_video_delete_to.setOnClickListener(this);
         findViewById(R.id.local_video_cancel).setOnClickListener(this);
+        local_video_delete_to.setTextColor(getResources().getColor(R.color.bgcolor10));
+        setDeleteTextView();
     }
 
     private LocalVideoAdapter.ItemClickListener itemClickListener = new LocalVideoAdapter.ItemClickListener() {
         @Override
         public void onItemClick(View view, int position) {
-
             LocalVideoEntity entity = data.get(position);
             entity.setImage(null);
             Intent intent = new Intent();
@@ -95,14 +120,14 @@ public class LocalVideoActivity extends BaseActivity implements View.OnClickList
             } else {
                 deleteData.remove(data.get(position));
             }
-            local_video_delete_to.setTextColor(getResources().getColor(R.color.bgcolor10));
-            local_video_delete_to.setText("删除(" + deleteData.size() + ")");
+            setDeleteTextView();
         }
     };
     private LocalProvider.LocalVideoLinner linner = new LocalProvider.LocalVideoLinner() {
         @Override
         public void success(List<LocalVideoEntity> list) {
             data = list;
+            SpUtils.saveLocalVideo(LocalVideoActivity.this, data);
             if (data == null || data.size() == 0) {
                 nodata.setText("没有加载到数据");
                 return;
@@ -125,42 +150,63 @@ public class LocalVideoActivity extends BaseActivity implements View.OnClickList
         }
     };
 
+    private void setDeleteTextView(){
+        if(deleteData==null){
+            return;
+        }
+        local_video_delete_to.setText("删除("+deleteData.size()+")");
+    }
+
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
             case R.id.local_video_refresh:
-                initData();
+                loadData();
                 break;
             case R.id.local_video_delete:
                 adapter.setCb(false);
                 adapter.notifyDataSetChanged();
                 detal_layout.setVisibility(View.GONE);
                 dele_layout.setVisibility(View.VISIBLE);
+                deleteData.clear();
+                setDeleteTextView();
                 break;
             case R.id.local_video_delete_to:
                 if (deleteData != null && deleteData.size() == 0) {
                     ToastUtil.showMsg("请选择需要删除的文件");
-
                     return;
                 }
-                for (int i = 0; i < deleteData.size(); i++) {
-                    File file = new File(deleteData.get(i).getPath());
+
+                Iterator<LocalVideoEntity> it = deleteData.iterator();
+                while (it.hasNext()){
+                    LocalVideoEntity entity = it.next();
+                    File file = new File(entity.getPath());
                     file.delete();
-                    data.remove(deleteData.get(i));
-                    adapter.notifyDataSetChanged();
+                    data.remove(entity);
+                    it.remove();
                 }
-                local_video_delete_to.setText("删除(0)");
+
+                setDeleteTextView();
+                adapter.notifyDataSetChanged();
+                SpUtils.saveLocalVideo(this,data);
                 break;
             case R.id.local_video_all:
+                deleteData.clear();
+                if(!adapter.isAllCheck()){
+                    deleteData.addAll(data);
+                }
                 adapter.setAllCheck(!adapter.isAllCheck());
                 adapter.notifyDataSetChanged();
+                setDeleteTextView();
                 break;
             case R.id.local_video_cancel:
                 adapter.setCb(true);
+                deleteData.clear();
                 adapter.notifyDataSetChanged();
                 detal_layout.setVisibility(View.VISIBLE);
                 dele_layout.setVisibility(View.GONE);
+                setDeleteTextView();
                 break;
         }
     }

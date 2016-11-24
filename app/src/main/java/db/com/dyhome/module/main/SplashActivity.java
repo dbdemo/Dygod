@@ -55,12 +55,12 @@ public class SplashActivity extends BaseActivity {
             image.setImageResource(images[i]);
             mImageList.add(image);
             //加黑点
-            View viewDot=new View(this);
+            View viewDot = new View(this);
             viewDot.setBackgroundResource(R.drawable.welcome_dot_normal);
             int dp2px = CommonUtils.dp2px(getApplicationContext(), 10);
-            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(dp2px,dp2px);
-            if(i!=0){
-                layoutParams.leftMargin=dp2px;
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(dp2px, dp2px);
+            if (i != 0) {
+                layoutParams.leftMargin = dp2px;
             }
             viewDot.setLayoutParams(layoutParams);
             welcome_dot_layout.addView(viewDot);
@@ -72,15 +72,15 @@ public class SplashActivity extends BaseActivity {
      * 初始化view
      */
     private void initView() {
-        welcome_comeOn=(Button)findViewById(R.id.welcome_comeOn);
-        redDot=(View)findViewById(R.id.welcome_redPoint);
+        welcome_comeOn = (Button) findViewById(R.id.welcome_comeOn);
+        redDot = (View) findViewById(R.id.welcome_redPoint);
         welcome_viewPager = (ViewPager) findViewById(R.id.welcome_ViewPager);
-        welcome_dot_layout =(LinearLayout) findViewById(R.id.welcome_dot_layout);
+        welcome_dot_layout = (LinearLayout) findViewById(R.id.welcome_dot_layout);
         welcome_comeOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SpHelper.setIsFistOpenApp(false);
-                Intent intent=new Intent(SplashActivity.this,MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(intent);
                 SplashActivity.this.finish();
             }
@@ -88,21 +88,21 @@ public class SplashActivity extends BaseActivity {
     }
 
 
-    class  MyOnPageChangeListener implements ViewPager.OnPageChangeListener{
+    class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            float redMoveX=(float) (position+positionOffset)*CommonUtils.dp2px(getApplicationContext(),20);
-            RelativeLayout.LayoutParams redParams=(RelativeLayout.LayoutParams) redDot.getLayoutParams();
-            redParams.leftMargin=(int) redMoveX;
+            float redMoveX = (float) (position + positionOffset) * CommonUtils.dp2px(getApplicationContext(), 20);
+            RelativeLayout.LayoutParams redParams = (RelativeLayout.LayoutParams) redDot.getLayoutParams();
+            redParams.leftMargin = (int) redMoveX;
             redDot.setLayoutParams(redParams);
         }
 
         @Override
         public void onPageSelected(int position) {
 
-            if(position==images.length-1){
+            if (position == images.length - 1) {
                 welcome_comeOn.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 welcome_comeOn.setVisibility(View.INVISIBLE);
             }
         }
@@ -114,7 +114,6 @@ public class SplashActivity extends BaseActivity {
     }
 
 
-
     class WelcomePageAdapter extends PagerAdapter {
         @Override
         public int getCount() {
@@ -123,7 +122,7 @@ public class SplashActivity extends BaseActivity {
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
-            return view==(View) object;
+            return view == (View) object;
         }
 
         @Override
@@ -133,9 +132,9 @@ public class SplashActivity extends BaseActivity {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            ImageView image=mImageList.get(position);
+            ImageView image = mImageList.get(position);
             container.addView(image);
-            return  image;
+            return image;
         }
     }
 }

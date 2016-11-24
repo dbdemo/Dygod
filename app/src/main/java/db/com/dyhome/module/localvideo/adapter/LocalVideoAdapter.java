@@ -20,7 +20,7 @@ import db.com.dyhome.utils.UnitsUtils;
 
 public class LocalVideoAdapter extends RecyclerView.Adapter<LocalVideoAdapter.ViewHolder> {
     private List<LocalVideoEntity> data;
-    private boolean isCb = true;
+    private boolean isCb = true;//是否显示删除的多选框
     private ItemClickListener itemClickListener;
     private ItemCheckedListener itemCheckedListener;
     public boolean allCheck = false;
@@ -61,8 +61,13 @@ public class LocalVideoAdapter extends RecyclerView.Adapter<LocalVideoAdapter.Vi
         holder.title.setText(entity.getTitle());
         holder.size.setText(UnitsUtils.byteToPart(entity.getSize()));
         holder.image.setImageBitmap(entity.getImage());
-        holder.isCb.setVisibility(isCb() ? View.GONE : View.VISIBLE);
-        holder.setChecked(isAllCheck());
+        if(isCb()){
+           holder.isCb.setChecked(false);
+            holder.isCb.setVisibility(View.GONE);
+        }else{
+            holder.isCb.setChecked(isAllCheck());
+            holder.isCb.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

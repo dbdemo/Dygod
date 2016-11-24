@@ -205,9 +205,27 @@ public class FileUtils {
      * @return
      */
     public static Bitmap getVideoThumbnail(String videoPath) {
-        MediaMetadataRetriever media = new MediaMetadataRetriever();
-        media.setDataSource(videoPath);
-        Bitmap bitmap = media.getFrameAtTime();
+
+        Bitmap bitmap = null;
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        try {
+            retriever.setDataSource(videoPath);
+            bitmap = retriever.getFrameAtTime();
+        }
+        catch(IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                retriever.release();
+            }
+            catch (RuntimeException e) {
+                e.printStackTrace();
+            }
+        }
         return bitmap;
     }
 }
