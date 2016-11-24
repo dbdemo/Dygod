@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,9 +22,6 @@ import db.com.dyhome.module.localvideo.provider.LocalProvider;
 import db.com.dyhome.module.start.StartVideoActiviy;
 import db.com.dyhome.utils.SpUtils;
 import db.com.dyhome.utils.ToastUtil;
-
-import static u.aly.cw.i;
-
 
 /**
  * Created by Administrator on 2016/11/2.
