@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/bgcolor6">
+    <item>
+        <selector>
+            <item android:drawable="@drawable/public_item_bg_selector" />
+        </selector>
+        <shape android:shape="oval" />
+    </item>
+</ripple>
