@@ -27,7 +27,6 @@ public class GetMainDataServant extends BaseServant<ArrayList<FillmEntity>> {
 
     private boolean isAddCache = false;
     private boolean isReadCache = false;
-    private static final String TAG = GetMainDataServant.class.getSimpleName();
     private static final int REQUEST_RATE = 1000 * 60 * 60;
     private String url;
 
@@ -36,14 +35,16 @@ public class GetMainDataServant extends BaseServant<ArrayList<FillmEntity>> {
         this.isAddCache = isAddCache;
         this.isReadCache = isReadCache;
         this.url = url;
-        if (isReadCache || DateUtils.isReachDIF(System.currentTimeMillis(), Long.parseLong(NetwokCacheDao.getUpdateTime(TAG)), REQUEST_RATE)) {
+        if (isReadCache || DateUtils.isReachDIF(System.currentTimeMillis(), Long.parseLong(NetwokCacheDao.getUpdateTime(url)), REQUEST_RATE)) {
             isAddCache = true;
             String docString = NetwokCacheDao.getValueForID(url);
             if (docString != null && "".equals(docString)) {
                 docString = HtmlCache.mainCache + HtmlCache.mainCache2;
-                NetwokCacheDao.addValueForId(TAG, docString);
+                NetwokCacheDao.addValueForId(url, docString);
             }
-            mNetWorkListener.successful(parseDocument(docString));
+            if (!TextUtils.isEmpty(docString.trim())) {
+                mNetWorkListener.successful(parseDocument(docString));
+            }
         } else {
             getDocument(url + "?PageNo=" + pageNo, mNetWorkListener);
         }

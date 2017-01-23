@@ -8,7 +8,6 @@ public class HtmlCache {
     public static String mainCache = "";
     public static String mainCache2 = " ";
 
-
     public static String[] news = new String[]{
 
     };

@@ -8,8 +8,12 @@ import android.view.View;
 import android.widget.TextView;
 
 
+import com.igexin.sdk.PushManager;
+
 import db.com.dyhome.R;
 import db.com.dyhome.base.BaseActivity;
+import db.com.dyhome.module.common.GeTuiIntentService;
+import db.com.dyhome.module.common.GeTuiPushService;
 
 public class AdActivity extends BaseActivity implements View.OnClickListener {
 
@@ -37,7 +41,8 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
         ad_time.setText("5");
         ad_time.setOnClickListener(this);
         mHandler.sendEmptyMessage(timeMsg);
-        //检查升级
+        PushManager.getInstance().initialize(this.getApplicationContext(), db.com.dyhome.module.common.GeTuiPushService.class);
+        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), db.com.dyhome.module.common.GeTuiIntentService.class);
     }
 
     @Override

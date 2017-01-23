@@ -175,3 +175,7 @@ public static final int *;
 -keepclasseswithmembers class * {
     @android.support.annotation.Keep <init>(...);
 }
+
+-dontwarn com.igexin.**
+-keep class com.igexin.** { *; }
+-keep class org.json.** { *; }

@@ -171,6 +171,7 @@ public class MovieListFragment extends BaseFragment implements SwipeRefreshLayou
             if (mainEntity == null || mainEntity.size() == 0) {
                 mAdapter.setLoadErrInfo();
                 ToastUtil.showMsg(R.string.toast_no_data);
+                System.out.println(url + ": 数据为空");
             } else {
                 if (mPageNo == 1) {
                     data.clear();

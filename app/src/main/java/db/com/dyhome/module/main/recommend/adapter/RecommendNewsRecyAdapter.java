@@ -49,6 +49,7 @@ public class RecommendNewsRecyAdapter extends RecyclerView.Adapter<RecyclerView.
         mViewHolderFooter.footerText.setText("正在加载数据");
         mViewHolderFooter.footerLayout.setClickable(false);
     }
+
     /***
      * 没有信息时的提示
      */
@@ -125,6 +126,9 @@ public class RecommendNewsRecyAdapter extends RecyclerView.Adapter<RecyclerView.
 
     @Override
     public int getItemCount() {
+        if (mData.size() == 0) {
+            return 0;
+        }
         return mData.size() + 1;
     }
 

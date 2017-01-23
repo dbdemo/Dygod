@@ -72,6 +72,12 @@ public class MovieInfoActivity extends AppCompatActivity implements View.OnClick
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(movieInfoEntity.getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MovieInfoActivity.this.finish();
+            }
+        });
         initView();
         initData();
     }
