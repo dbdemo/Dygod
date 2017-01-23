@@ -1,131 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:fitsSystemWindows="true">
 
-    <ScrollView
-        android:background="@color/bgcolor1"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scrollbars="none">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+        android:layout_height="300dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <TextView
-                android:id="@+id/movieinfo_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:textColor="@color/bgcolor4_1"
-                android:textStyle="bold" />
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
-                android:contentDescription="@string/app_name"
-                android:src="@mipmap/public_default_icon"
-                android:id="@+id/movieinfo_img"
+                android:id="@+id/backdrop"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/movieinfo_name"
-                android:layout_centerHorizontal="true" />
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="fitCenter"
+                app:layout_collapseMode="parallax" />
 
-            <TextView
-                android:id="@+id/movieinfo_introduce"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/movieinfo_img"
-                android:gravity="clip_horizontal"
-                />
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-            <LinearLayout
-                android:background="@color/bgcolor6"
-                android:layout_below="@id/movieinfo_introduce"
-                android:orientation="vertical"
-                android:id="@+id/download_Layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="请选中需要播放下载的电影链接 (个人感觉：BD格式的电影要比HD的清楚一点)"
-                    android:textColor="@color/bgcolor3"
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="5dp"
-                    android:layout_height="wrap_content" />
-                <CheckBox
-                    android:id="@+id/checkAll"
-                    android:textColor="@color/bgcolor3"
-                    android:text="全选"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <RadioGroup
-                    android:id="@+id/download_rg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+        </android.support.design.widget.CollapsingToolbarLayout>
 
+    </android.support.design.widget.AppBarLayout>
 
-            </LinearLayout>
-
-            <ImageView
-                android:layout_marginTop="10dp"
-                android:contentDescription="@string/app_name"
-                android:src="@mipmap/public_default_icon"
-                android:id="@+id/movieinfo_Capture"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/download_Layout"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp" />
-        </RelativeLayout>
-    </ScrollView>
-
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:background="@color/bgcolor4"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bgcolor1"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <Button
-                android:layout_weight="1"
-                android:id="@+id/movieinfo_cody"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:text="@string/movieInfo_copy"
-                android:background="@drawable/public_button_selector"
-                android:gravity="center"
-                android:textColor="@color/bgcolor4_1"
-                android:textSize="@dimen/font3" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:background="@color/bgcolor4"
-                android:layout_width="0.5dp"
-                android:layout_height="50dp" />
+                <TextView
+                    android:id="@+id/movieinfo_des"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:lineSpacingExtra="3dp"
+                    android:lineSpacingMultiplier="1.5"
+                    android:text="又名：" />
+            </LinearLayout>
 
-            <Button
-                android:text="@string/movieInfo_downLoad"
-                android:layout_weight="1"
-                android:id="@+id/movieinfo_start"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:background="@drawable/public_button_selector"
-                android:gravity="center"
-                android:textColor="@color/bgcolor4_1"
-                android:textSize="@dimen/font3" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/movieinfo_recv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="false" />
+
         </LinearLayout>
-    </LinearLayout>
 
-</LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

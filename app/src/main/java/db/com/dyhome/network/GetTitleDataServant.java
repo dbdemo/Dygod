@@ -37,7 +37,7 @@ public class GetTitleDataServant extends BaseServant<ArrayList<MovieCategoyEntit
             String link = links.select("a").attr("href").replace("/", "").trim();
             String url = link;
 
-            switch (title){
+            switch (title) {
 
                 case "留言":
                     break;

@@ -7,15 +7,9 @@ import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.util.ArrayList;
 
 import db.com.dyhome.R;
 import db.com.dyhome.base.BaseActivity;
-import db.com.dyhome.bean.MovieCategoyEntity;
-import db.com.dyhome.db.dao.MovieTitleDao;
-import db.com.dyhome.network.GetTitleDataServant;
-import db.com.dyhome.network.base.NetWorkListener;
 
 public class AdActivity extends BaseActivity implements View.OnClickListener {
 
@@ -43,21 +37,7 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
         ad_time.setText("5");
         ad_time.setOnClickListener(this);
         mHandler.sendEmptyMessage(timeMsg);
-        MovieTitleDao dao = new MovieTitleDao();
-        if (dao.getDataCount() > 0) return;
-        GetTitleDataServant getTitleDataServant = new GetTitleDataServant();
-        getTitleDataServant.getTitleData(new NetWorkListener<ArrayList<MovieCategoyEntity>>() {
-            @Override
-            public void successful(ArrayList<MovieCategoyEntity> t) {
-                MovieTitleDao dao = new MovieTitleDao();
-                dao.insertCategory(t);
-            }
-
-            @Override
-            public void failure(IOException e) {
-
-            }
-        });
+        //检查升级
     }
 
     @Override

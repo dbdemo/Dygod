@@ -2,51 +2,94 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@color/bgcolor4">
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="7dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="7dp"
         android:background="@drawable/public_list1_bg_selector"
+        android:foreground="?attr/selectableItemBackground"
         android:minHeight="70dp"
         card_view:cardCornerRadius="3dp"
         card_view:cardElevation="3dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="fill_vertical"
-            android:minHeight="70dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/mainnews_item_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:text="测试测试测试测试测试测试测试测试测试测试测试测试测试"
-                android:textColor="@color/bgcolor4_1"
-                android:textSize="@dimen/font5" />
+            <ImageView
+                android:id="@+id/mainnews_news_img"
+                android:layout_width="140dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:scaleType="fitCenter" />
 
-            <TextView
-                android:id="@+id/mainnews_item_time"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:text="2015-01-22"
-                android:textColor="@color/bgcolor4_1"
-                android:textSize="@dimen/font4" />
+                android:layout_height="180dp">
+
+                <TextView
+                    android:id="@+id/mainnews_item_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="测试测试测试测试测试测试测试测试测试测试测试测试测试"
+                    android:textColor="@color/bgcolor4_1"
+                    android:textSize="@dimen/font5" />
+
+                <TextView
+                    android:id="@+id/mainnews_item_filename"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mainnews_item_title"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="6"
+                    android:text="1231231231231231231231231231231123123123123123123123123123123112312312312312312312312312312311231231231231231231231231231231123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123123"
+                    android:textColor="@color/bgcolor4_1"
+                    android:textSize="@dimen/font5" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/mainnews_item_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:text="2015-01-22"
+                        android:textColor="@color/bgcolor4_1"
+                        android:textSize="@dimen/font4" />
+
+                    <TextView
+                        android:id="@+id/mainnews_item_tags"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerInParent="true"
+                        android:text="tags" />
+                </RelativeLayout>
+            </RelativeLayout>
+
         </LinearLayout>
+
     </android.support.v7.widget.CardView>
 </RelativeLayout>

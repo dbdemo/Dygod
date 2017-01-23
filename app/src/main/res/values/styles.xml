@@ -1,6 +1,9 @@
 <resources>
 
     <style name="AppTheme" parent="appTheme.base">
+        <item name="colorPrimary">@color/bgcolor</item>
+        <item name="colorPrimaryDark">@color/bgcolor</item>
+        <item name="colorAccent">#FF4081</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:fitsSystemWindows">false</item>

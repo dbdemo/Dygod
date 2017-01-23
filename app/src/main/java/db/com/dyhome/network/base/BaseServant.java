@@ -35,12 +35,13 @@ public abstract class BaseServant<T> {
                     }
                     break;
                 case succMsg:
+                    T result = parseDocument(docString);
                     if (mNetWorkListener != null) {
                         if(TextUtils.isEmpty(docString)){
                             mNetWorkListener.successful(null);
                             return;
                         }
-                        mNetWorkListener.successful(parseDocument(docString));
+                        mNetWorkListener.successful(result);
                     }
                     break;
             }

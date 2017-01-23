@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -13,7 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.com.dyhome.R;
+import db.com.dyhome.bean.FillmEntity;
 import db.com.dyhome.bean.MainNesEntity;
+import db.com.dyhome.define.UrlConstant;
+import db.com.dyhome.utils.ImageLoaderUtils;
 
 /**
  * Created by zdb on 2016/10/20.
@@ -21,15 +25,15 @@ import db.com.dyhome.bean.MainNesEntity;
 
 public class RecommendNewsRecyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<MainNesEntity> mMainNesEntities;
+    private ArrayList<FillmEntity> mData;
     private RecyclerViewItemClickListener mItemClickListener;
     private RecyclerViewLoadMoreListener mLoadMoreListener;
     private ViewHolderFooter mViewHolderFooter;
 
     private final int FOOTER_ITEM = 1;
 
-    public RecommendNewsRecyAdapter(List<MainNesEntity> mMainNesEntities, RecyclerViewItemClickListener listener, RecyclerViewLoadMoreListener loadMoreListener) {
-        this.mMainNesEntities = (ArrayList<MainNesEntity>) mMainNesEntities;
+    public RecommendNewsRecyAdapter(List<FillmEntity> mData, RecyclerViewItemClickListener listener, RecyclerViewLoadMoreListener loadMoreListener) {
+        this.mData = (ArrayList<FillmEntity>) mData;
         this.mItemClickListener = listener;
         this.mLoadMoreListener = loadMoreListener;
     }
@@ -43,6 +47,17 @@ public class RecommendNewsRecyAdapter extends RecyclerView.Adapter<RecyclerView.
         }
         mViewHolderFooter.footerPro.setVisibility(View.VISIBLE);
         mViewHolderFooter.footerText.setText("正在加载数据");
+        mViewHolderFooter.footerLayout.setClickable(false);
+    }
+    /***
+     * 没有信息时的提示
+     */
+    public void setFooterNoDataInfo(String str) {
+        if (mViewHolderFooter == null) {
+            return;
+        }
+        mViewHolderFooter.footerPro.setVisibility(View.GONE);
+        mViewHolderFooter.footerText.setText(str);
         mViewHolderFooter.footerLayout.setClickable(false);
     }
 
@@ -100,14 +115,17 @@ public class RecommendNewsRecyAdapter extends RecyclerView.Adapter<RecyclerView.
                 setFooterItemVisibility();
             }
         } else {
-            ((ViewHolder) holder).title.setText(mMainNesEntities.get(position).getTitle());
-            ((ViewHolder) holder).time.setText(mMainNesEntities.get(position).getTime());
+            ((ViewHolder) holder).title.setText(mData.get(position).getTitle());
+            ((ViewHolder) holder).time.setText(mData.get(position).getTime());
+            ((ViewHolder) holder).tags.setText(mData.get(position).getGrade());
+            ImageLoaderUtils.displayAvatar(mData.get(position).getImg(), ((ViewHolder) holder).imgs);
+            ((ViewHolder) holder).filename.setText(mData.get(position).getDesc());
         }
     }
 
     @Override
     public int getItemCount() {
-        return mMainNesEntities.size();
+        return mData.size() + 1;
     }
 
     /**
@@ -147,12 +165,20 @@ public class RecommendNewsRecyAdapter extends RecyclerView.Adapter<RecyclerView.
     class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
         public TextView title;
         public TextView time;
+
+        public ImageView imgs;
+        public TextView tags;
+        public TextView filename;
+
         private RecyclerViewItemClickListener listener;
 
         public ViewHolder(View itemView, RecyclerViewItemClickListener listener) {
             super(itemView);
             time = (TextView) itemView.findViewById(R.id.mainnews_item_time);
             title = (TextView) itemView.findViewById(R.id.mainnews_item_title);
+            imgs = (ImageView) itemView.findViewById(R.id.mainnews_news_img);
+            tags = (TextView) itemView.findViewById(R.id.mainnews_item_tags);
+            filename = (TextView) itemView.findViewById(R.id.mainnews_item_filename);
             itemView.setOnClickListener(this);
             this.listener = listener;
         }

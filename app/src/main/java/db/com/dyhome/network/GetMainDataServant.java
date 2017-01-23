@@ -1,13 +1,17 @@
 package db.com.dyhome.network;
 
+import android.os.Parcel;
+import android.text.TextUtils;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 
 import java.util.ArrayList;
 
-import db.com.dyhome.bean.MainEntity;
-import db.com.dyhome.bean.MainNesEntity;
+import db.com.dyhome.bean.FillmEntity;
 import db.com.dyhome.db.dao.NetwokCacheDao;
 import db.com.dyhome.define.HtmlCache;
 import db.com.dyhome.define.UrlConstant;
@@ -19,79 +23,83 @@ import db.com.dyhome.utils.DateUtils;
  * Created by zdb on 2016/5/18.
  * 获取主页最新数据
  */
-public class GetMainDataServant extends BaseServant<MainEntity> {
+public class GetMainDataServant extends BaseServant<ArrayList<FillmEntity>> {
 
     private boolean isAddCache = false;
     private boolean isReadCache = false;
     private static final String TAG = GetMainDataServant.class.getSimpleName();
     private static final int REQUEST_RATE = 1000 * 60 * 60;
+    private String url;
 
-
-    /**
-     * 根据属性解析字符串
-     */
-    private String divStyle = "width:950px;height:auto;overflow:hidden;margin:10px 0 0 2px;";
-
-    public void getMainData(boolean isAddCache, boolean isReadCache, NetWorkListener mNetWorkListener) {
+    public void getMainData(String url, boolean isAddCache, boolean isReadCache, int pageNo, NetWorkListener mNetWorkListener) {
 
         this.isAddCache = isAddCache;
         this.isReadCache = isReadCache;
-
+        this.url = url;
         if (isReadCache || DateUtils.isReachDIF(System.currentTimeMillis(), Long.parseLong(NetwokCacheDao.getUpdateTime(TAG)), REQUEST_RATE)) {
-            isAddCache=false;
-            String docString=NetwokCacheDao.getValueForID(TAG);
-            if(docString!=null&&"".equals(docString)){
-                docString=  HtmlCache.mainCache+HtmlCache.mainCache2;
-                NetwokCacheDao.addValueForId(TAG,docString);
+            isAddCache = true;
+            String docString = NetwokCacheDao.getValueForID(url);
+            if (docString != null && "".equals(docString)) {
+                docString = HtmlCache.mainCache + HtmlCache.mainCache2;
+                NetwokCacheDao.addValueForId(TAG, docString);
             }
             mNetWorkListener.successful(parseDocument(docString));
         } else {
-            getDocument(UrlConstant.mainUrl, mNetWorkListener);
+            getDocument(url + "?PageNo=" + pageNo, mNetWorkListener);
         }
     }
 
     @Override
-    protected MainEntity parseDocument(String doc) {
+    protected ArrayList<FillmEntity> parseDocument(String doc) {
 
         if (isAddCache) {
-            NetwokCacheDao.addValueForId(TAG, doc);
+            NetwokCacheDao.addValueForId(url, doc);
         }
 
-        MainEntity mainEntity = new MainEntity();
+        ArrayList<FillmEntity> data = new ArrayList<>();
 
-        ArrayList<MainNesEntity> mainNesEntities = new ArrayList<>();
-        ArrayList<MainNesEntity> mainReleEntities = new ArrayList<>();
-        String title = "";
-        String link = "";
-        String time = "";
+        if ("".equals(doc.trim())) {
+            return data;
+        }
+
         Document content = Jsoup.parse(doc);
-        Elements elsements = content.getElementsByAttributeValueContaining("style", divStyle);
-        if(elsements==null||elsements.size()<=0){
-            mainEntity.setMainNesEntities(mainNesEntities);
-            mainEntity.setMainReleEntities(mainReleEntities);
-            return mainEntity;
-        }
-        Elements elsementsTitle = elsements.get(0).getElementsByClass("co_content222");
-        for (int i = 0; i < elsementsTitle.size(); i++) {
-            Elements elsementsLi = elsementsTitle.get(i).getElementsByTag("li");
+        Elements elsements = content.getElementsByClass("item cl");
 
-            for (int j = 0; j < elsementsLi.size(); j++) {
-                MainNesEntity newEntity = new MainNesEntity();
-                title = elsementsLi.get(j).getElementsByTag("a").text();
-                link = elsementsLi.get(j).select("a").attr("href").trim();
-                time = elsementsLi.get(j).select("font").text();
-                newEntity.setTitle(title);
-                newEntity.setTitlinkle(UrlConstant.mainUrl + link);
-                newEntity.setTime(DateUtils.getToYear() + "-" + time);
-                if (i == 0) {
-                    mainNesEntities.add(newEntity);
-                } else {
-                    mainReleEntities.add(newEntity);
+        for (int i = 0; i < elsements.size(); i++) {
+            Element itemElse = elsements.get(i);
+            if (itemElse.getElementsByClass("title").size() == 0) {
+                continue;
+            }
+            Element divTitle = itemElse.getElementsByClass("title").get(0);
+
+            Elements titlePs = divTitle.getElementsByTag("p");
+            FillmEntity mainEntity = new FillmEntity(Parcel.obtain());
+            for (int j = 0; j < titlePs.size(); j++) {
+                Element pelEment = titlePs.get(j);
+                switch (j) {
+                    case 0://解析时间和电影名称,连接地址
+                        mainEntity.setTime(pelEment.getElementsByTag("span").text());
+                        mainEntity.setTitle(pelEment.getElementsByTag("a").get(0).text());
+                        mainEntity.setTitlinkle(pelEment.getElementsByTag("a").get(0).attr("href"));
+                        break;
+                    case 1://解析又名
+                        mainEntity.setSecondTitle(pelEment.text());
+                        break;
+                    case 2://解析描述
+                        mainEntity.setDesc(pelEment.text());
+                        break;
+                    case 3://解析豆瓣评分
+                        mainEntity.setGrade(pelEment.text());
+                        break;
                 }
             }
+
+            if (itemElse.getElementsByClass("litpic").size() > 0) {
+                mainEntity.setImg(itemElse.getElementsByClass("litpic").get(0).getElementsByTag("img").get(0).attr("src"));
+            }
+
+            data.add(mainEntity);
         }
-        mainEntity.setMainNesEntities(mainNesEntities);
-        mainEntity.setMainReleEntities(mainReleEntities);
-        return mainEntity;
+        return data;
     }
 }

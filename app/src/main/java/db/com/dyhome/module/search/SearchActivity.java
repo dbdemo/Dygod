@@ -8,10 +8,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import db.com.dyhome.R;
 import db.com.dyhome.base.BaseActivity;
+import db.com.dyhome.bean.FillmEntity;
 import db.com.dyhome.bean.MainNesEntity;
 import db.com.dyhome.bean.MovieInfoEntity;
 import db.com.dyhome.define.UrlConstant;
@@ -29,16 +31,18 @@ import db.com.dyhome.widget.StyleDialog;
 public class SearchActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;
-    private List<MainNesEntity> dataEntitys;
+    private ArrayList<FillmEntity> dataEntitys = new ArrayList<>();
     private RecommendNewsRecyAdapter mAdapter;
     private TextView mDataErr;
     private StyleDialog mDialog;
+    private int mPageNo = 1;
+    private String searchText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setToolbarvisibility(View.VISIBLE);
-        String searchText = getIntent().getStringExtra("searchText");
+        searchText = getIntent().getStringExtra("searchText");
         mToolbar.setTitle("搜索：" + searchText + " 的结果");
         getSearchData(searchText);
         mToolbar.setNavigationIcon(R.mipmap.toolbar_back);
@@ -46,7 +50,6 @@ public class SearchActivity extends BaseActivity {
     }
 
     private void initView() {
-
         mRecyclerView = (RecyclerView) findViewById(R.id.search_list);
         mDataErr = (TextView) findViewById(R.id.no_data);
     }
@@ -56,33 +59,64 @@ public class SearchActivity extends BaseActivity {
         return R.layout.activity_search;
     }
 
-    private NetWorkListener mNetWorkListener = new NetWorkListener<List<MainNesEntity>>() {
+    private NetWorkListener mNetWorkListener = new NetWorkListener<ArrayList<FillmEntity>>() {
 
         @Override
-        public void successful(List<MainNesEntity> data) {
+        public void successful(ArrayList<FillmEntity> data) {
 
             mDialog.cancel();
-            if (data == null || data.size() == 0) {
-                mDataErr.setVisibility(View.VISIBLE);
-                mRecyclerView.setVisibility(View.GONE);
-                ToastUtil.showMsg("没有搜索到内容");
-                return;
+            if (mPageNo == 1) {
+                if (data == null || data.size() == 0) {
+                    mDataErr.setVisibility(View.VISIBLE);
+                    mRecyclerView.setVisibility(View.GONE);
+                    ToastUtil.showMsg("没有搜索到内容");
+                    return;
+                }
+            }else{
+                if (data == null || data.size() == 0) {
+                    ToastUtil.showMsg("没有搜索到内容");
+                    mAdapter.setFooterNoDataInfo("没有更多内容了");
+                    return;
+                }
             }
             mDataErr.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.VISIBLE);
-            dataEntitys = data;
-            mAdapter = new RecommendNewsRecyAdapter(dataEntitys, mItemClickListener, null);
+            if (mPageNo == 1) {
+                dataEntitys.clear();
+            }
+            dataEntitys.addAll(data);
             mRecyclerView.setHasFixedSize(true);
-            mRecyclerView.setAdapter(mAdapter);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
-            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            if(mAdapter==null){
+                mAdapter = new RecommendNewsRecyAdapter(dataEntitys, mItemClickListener, moreListener);
+                mRecyclerView.setAdapter(mAdapter);
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
+                mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            }else{
+                mAdapter.notifyDataSetChanged();
+            }
         }
 
         @Override
-        public void failure(IOException e) {
+        public void failure(Object e) {
             mDialog.cancel();
         }
     };
+
+    /**
+     * 加载下一页
+     */
+    private RecommendNewsRecyAdapter.RecyclerViewLoadMoreListener moreListener = new RecommendNewsRecyAdapter.RecyclerViewLoadMoreListener() {
+        @Override
+        public void onLoadMore() {
+            mPageNo++;
+            getNetData();
+        }
+    };
+
+    private void getNetData() {
+        SearchServant searchServant = new SearchServant();
+        searchServant.getSearchData(searchText, mPageNo, mNetWorkListener);
+    }
 
     /**
      * 条目点击事件监听
@@ -104,7 +138,7 @@ public class SearchActivity extends BaseActivity {
                 }
 
                 @Override
-                public void failure(IOException e) {
+                public void failure(Object e) {
                     mDialog.dismiss();
                     ToastUtil.showMsg(R.string.toast_movie_info_err);
                 }
@@ -114,7 +148,9 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     public void search() {
-        getSearchData(mSearchText.getText().toString().trim());
+        mPageNo = 1;
+        searchText = mSearchText.getText().toString().trim();
+        getSearchData(searchText);
     }
 
     public void getSearchData(String searchStr) {
@@ -123,6 +159,6 @@ public class SearchActivity extends BaseActivity {
         }
         mDialog.show();
         SearchServant searchServant = new SearchServant();
-        searchServant.getSearchData(searchStr, 0, mNetWorkListener);
+        searchServant.getSearchData(searchStr, mPageNo, mNetWorkListener);
     }
 }

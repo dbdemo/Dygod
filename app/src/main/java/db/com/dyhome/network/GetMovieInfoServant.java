@@ -1,12 +1,16 @@
 package db.com.dyhome.network;
 
+import android.os.Parcel;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import db.com.dyhome.bean.DownloadEntity;
 import db.com.dyhome.bean.MovieInfoEntity;
 import db.com.dyhome.network.base.BaseServant;
 import db.com.dyhome.network.base.NetWorkListener;
@@ -17,11 +21,6 @@ import db.com.dyhome.network.base.NetWorkListener;
  **/
 public class GetMovieInfoServant extends BaseServant<MovieInfoEntity> {
 
-    /**
-     * 根据属性解析字符串
-     */
-    private String divStyle = "WORD-WRAP: break-word";
-
     public void getMovieInfoData(String url, NetWorkListener mNetWorkListener) {
         getDocument(url, mNetWorkListener);
     }
@@ -31,32 +30,62 @@ public class GetMovieInfoServant extends BaseServant<MovieInfoEntity> {
 
         MovieInfoEntity movieInfoEntity = new MovieInfoEntity();
 
-        String introduce = "";
         Document content = Jsoup.parse(doc);
-        Document contextCo = Jsoup.parse(content.getElementsByClass("co_area2").toString());
-        movieInfoEntity.setName(contextCo.getElementsByClass("title_all").text());
-        Elements elsementP = contextCo.getElementsByTag("p");
 
-        for (int i = 0; i < elsementP.size(); i++) {
-            introduce += elsementP.get(i).text() + "\n";
+        Elements movieTeail = content.getElementsByClass("moviedteail");
+        if (movieTeail == null || movieTeail.size() == 0) {
+            return movieInfoEntity;
         }
-        Elements imgElse = contextCo.getElementsByTag("img");
-        if (imgElse.size() >= 1) {
-            movieInfoEntity.setMoveImg(imgElse.get(0).attr("src"));
+        Element movieTeailEle = movieTeail.get(0);
+        movieInfoEntity.setMoveImg(movieTeailEle.getElementsByTag("img").attr("src"));
+        movieInfoEntity.setGrade("豆瓣评分："+movieTeailEle.getElementsByClass("rt").get(0).text());
+        movieInfoEntity.setName(movieTeailEle.getElementsByClass("moviedteail_tt").get(0).text());
+        Elements moviedteail_list = movieTeailEle.getElementsByClass("moviedteail_list").get(0).getElementsByTag("li");
+        if (moviedteail_list != null || moviedteail_list.size() > 0) {
+            for (int i=0;i<moviedteail_list.size();i++) {
+                Element list_li_item = moviedteail_list.get(i);
+                String tagName = list_li_item.text();
+                if(tagName.startsWith("又名")){
+                    movieInfoEntity.setSecondName(tagName);
+                }else if(tagName.startsWith("标签")){
+                    movieInfoEntity.setTag(tagName);
+                }else if(tagName.startsWith("地区")){
+                    movieInfoEntity.setArea(tagName);
+                }else if(tagName.startsWith("年份")){
+                    movieInfoEntity.setYear(tagName);
+                }else if(tagName.startsWith("导演")){
+                    movieInfoEntity.setDirector(tagName);
+                }else if(tagName.startsWith("编剧")){
+                    movieInfoEntity.setScriptwriter(tagName);
+                }else if(tagName.startsWith("主演")){
+                    movieInfoEntity.setActor(tagName);
+                }else if(tagName.startsWith("imdb")){
+                    movieInfoEntity.setImdbName(tagName);
+                }
+            }
         }
-        if (imgElse.size() >= 2) {
-            movieInfoEntity.setMovieCapture(imgElse.get(1).attr("src"));
-        }
-        //String address=content.getElementsByAttributeValueContaining("style", divStyle).text();
-        Elements addressDocs = content.getElementsByAttributeValueContaining("style", "WORD-WRAP: break-word");
-        List<String> addressData = new ArrayList<>();
-        for (int i = 0; i < addressDocs.size(); i++) {
-            String address = addressDocs.get(i).getElementsByTag("a").text();
-            addressData.add(address);
-        }
-        movieInfoEntity.setAddress(addressData);
-        movieInfoEntity.setIntroduce(introduce);
 
+        Elements tinfoS = content.getElementsByClass("tinfo");
+        List<DownloadEntity> data=new ArrayList<>();
+        if(tinfoS!=null&&tinfoS.size()>0){
+            for(int i=0;i<tinfoS.size();i++){
+                DownloadEntity downloadEntity=new DownloadEntity(Parcel.obtain());
+                Element tinfo = tinfoS.get(i);
+                downloadEntity.setName(tinfo.getElementsByTag("a").attr("title"));
+                downloadEntity.setUrl(tinfo.getElementsByTag("a").attr("href"));
+                Elements downloadLis = tinfo.getElementsByTag("li");
+                if(downloadLis!=null&&downloadLis.size()>0){
+                    List<String> info=new ArrayList<>();
+                    for(int j=0;j<downloadLis.size();j++){
+                        Element downloadLi = downloadLis.get(j);
+                        info.add(downloadLi.text());
+                    }
+                    downloadEntity.setContents(info);
+                }
+                data.add(downloadEntity);
+            }
+            movieInfoEntity.setDownloads(data);
+        }
         return movieInfoEntity;
     }
 }

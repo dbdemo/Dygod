@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import static db.com.dyhome.define.UrlConstant.mainUrl;
+
 /**
  * Created by zdb on 2016/5/17.
  * 网络地址存放
@@ -23,138 +25,23 @@ public class UrlConstant {
     /**
      * 主页地址
      */
-    public static String mainUrl = "http://www.xiaopian.com/";//主页
-    public static String searchUrl = mainUrl + "e/search/index.php";//搜索页面
-    public static String japanUrl = mainUrl + "html/gndy/rihan/index";//日韩电影
+    public static String mainUrl = "http://www.bttt.la/";//主页
+    public static String actionUrl = mainUrl + "category.php?/动作/";//动作
+    public static String warUrl = mainUrl + "category.php?/战争/";//战争
+    public static String plotUrl = mainUrl + "category.php?/剧情/";//剧情
+    public static String laveUrl = mainUrl + "category.php?/爱情/";//
+    public static String fictionUrl = mainUrl + "category.php?/科幻/";//
+    public static String suspenseUrl = mainUrl + "category.php?/悬疑/";//
+    public static String familyUrl = mainUrl + "category.php?/家庭/";//
+    public static String crimeUrl = mainUrl + "category.php?/犯罪/";//
+    public static String terroristUrl = mainUrl + "category.php?/恐怖/";//
+    public static String animationtUrl = mainUrl + "category.php?/动画/";//
+    public static String comedyUrl = mainUrl + "category.php?/喜剧/";//
+    public static String thrillerUrl = mainUrl + "category.php?/惊悚/";//
+    public static String adventureUrl = mainUrl + "category.php?/冒险/";//
+    public static String TVUrl = mainUrl + "category.php?/电视剧/";//
 
-
-    /***
-     * 海贼王专区
-     */
-    public Map<String, String> getpieceTv() {
-        Map<String, String> cache = new HashMap<>();
-        InputStream ips = getClass().getResourceAsStream("/assets/onepiece.html");
-        cache.put("url", "http://www.xiaopian.com/html/dongman/haizeiwangqu/index");
-        cache.put("cache", getCacheData(ips));
-        return cache;
-    }
-
-    /***
-     * 火影专区
-     */
-    public Map<String, String> getJumpTv() {
-        Map<String, String> cache = new HashMap<>();
-        InputStream ips = getClass().getResourceAsStream("/assets/jump.html");
-        cache.put("url", "http://www.xiaopian.com/html/dongman/hy/index");
-        cache.put("cache", getCacheData(ips));
-        return cache;
-    }
-
-
-    /***
-     * 欧美电影
-     *
-     * @return
-     */
-    public Map<String, String> getXvdieoUrlCacheTv() {
-        Map<String, String> cache = new HashMap<>();
-        InputStream ips = getClass().getResourceAsStream("/assets/oumeitv.html");
-        cache.put("url", "http://www.xiaopian.com/html/tv/oumeitv/index");
-        cache.put("cache", getCacheData(ips));
-        return cache;
-    }
-
-    /**
-     * 欧美电影
-     *
-     * @return
-     */
-    public Map<String, String> getXvdieoUrlCache() {
-        Map<String, String> cache = new HashMap<>();
-        InputStream ips = getClass().getResourceAsStream("/assets/oumei.html");
-        cache.put("url", "http://www.xiaopian.com/html/gndy/oumei/index");
-        cache.put("cache", getCacheData(ips));
-        return cache;
-    }
-
-    /***
-     * 最新综艺
-     *
-     * @return
-     */
-    public Map<String, String> getVarietyUrlCache() {
-        Map<String, String> cache = new HashMap<>();
-        InputStream ips = getClass().getResourceAsStream("/assets/local.html");
-        cache.put("url", "http://www.xiaopian.com/html/zongyi2013/index");
-        cache.put("cache", getCacheData(ips));
-        return cache;
-    }
-
-    /***
-     * 国内电视
-     *
-     * @return
-     */
-    public Map<String, String> getLocalUrlCachetv() {
-        Map<String, String> cache = new HashMap<>();
-        InputStream ips = getClass().getResourceAsStream("/assets/localTv.html");
-        cache.put("url", "http://www.xiaopian.com/html/tv/hytv/index");
-        cache.put("cache", getCacheData(ips));
-        return cache;
-    }
-
-
-    /***
-     * 国内电影
-     *
-     * @return
-     */
-    public Map<String, String> getLocalUrlCache() {
-        Map<String, String> cache = new HashMap<>();
-        InputStream ips = getClass().getResourceAsStream("/assets/local.html");
-        cache.put("url", "http://www.xiaopian.com/html/gndy/china/index");
-        cache.put("cache", getCacheData(ips));
-        return cache;
-    }
-
-    /***
-     * 日韩电影
-     *
-     * @return
-     */
-    public Map<String, String> getJndyUrlCache() {
-        Map<String, String> cache = new HashMap<>();
-        InputStream ips = getClass().getResourceAsStream("/assets/jndy.html");
-        cache.put("url", "http://www.xiaopian.com/html/gndy/rihan/index");
-        cache.put("cache", getCacheData(ips));
-        return cache;
-    }
-
-    /***
-     * 日韩电视
-     *
-     * @return
-     */
-    public Map<String, String> getJndyUrlCachetv() {
-        Map<String, String> cache = new HashMap<>();
-        InputStream ips = getClass().getResourceAsStream("/assets/jpan.html");
-        cache.put("url", "http://www.xiaopian.com/html/tv/rihantv/index");
-        cache.put("cache", getCacheData(ips));
-        return cache;
-    }
-
-    /**
-     * 获取最新电影
-     *
-     * @return
-     */
-    public Map<String, String> getNewsUrlCache() {
-        Map<String, String> newsUrlCache = new HashMap<>();
-        InputStream newsIps = getClass().getResourceAsStream("/assets/news.html");
-        newsUrlCache.put("url", "http://www.xiaopian.com/html/gndy/dyzz/index");
-        newsUrlCache.put("cache", getCacheData(newsIps));
-        return newsUrlCache;
-    }
+    public static String searchUrl = mainUrl + "s.php?sitesearch=www.bttt.la&domains=bttt.la&hl=zh-CN&ie=UTF-8&oe=UTF-8&q=";//搜索页面+搜索内容
 
     public String getCacheData(InputStream newsIps) {
         String str = "";

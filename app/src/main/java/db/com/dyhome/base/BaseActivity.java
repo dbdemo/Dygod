@@ -12,6 +12,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +20,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
@@ -31,10 +33,11 @@ import db.com.dyhome.R;
 import db.com.dyhome.bean.MovieInfoEntity;
 import db.com.dyhome.module.main.MainActivity;
 import db.com.dyhome.utils.ShareUtils;
+import db.com.dyhome.utils.StringUtils;
 
 public abstract class BaseActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
-    private SystemBarTintManager tintManager;
-
+    protected SystemBarTintManager tintManager;
+    private long mExitTime;
     private SelfHandler mSelfHandler;
     public Toolbar mToolbar;
     public TextView mSearchText;
@@ -81,7 +84,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
         bodyLayout.addView(View.inflate(this, setBodyView(), null));
         mToolbar = (Toolbar) findViewById(R.id.main_base_toolbar);
         mSearchText = (TextView) findViewById(R.id.base_search);
-        mToolbar.setTitle("电影之家");
+        mToolbar.setTitle(R.string.app_name);
         if (this instanceof MainActivity) {
             mToolbar.setNavigationIcon(R.mipmap.toolbar_menu);
         } else {
@@ -153,7 +156,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     }
 
     @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
+    protected void setTranslucentStatus(boolean on) {
         Window win = getWindow();
         WindowManager.LayoutParams winParams = win.getAttributes();
         final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
@@ -211,5 +214,30 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK &&
+                event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (mSearchText.getVisibility() == View.VISIBLE) {
+                mSearchText.setText("");
+                mSearchText.setVisibility(View.GONE);
+                return true;
+            }
+            if (this instanceof MainActivity) {
+                if ((System.currentTimeMillis() - mExitTime) > 1000) {
+                    Toast.makeText(this, StringUtils.getString(R.string.user_exit_hint_again),
+                            Toast.LENGTH_SHORT).show();
+                    mExitTime = System.currentTimeMillis();
+                } else {
+                    DyGodApplication.getInstance().onTerminate();
+                    finish();
+                    overridePendingTransition(0, 0);
+                }
+                return true;
+            }
+        }
+        return super.dispatchKeyEvent(event);
     }
 }
