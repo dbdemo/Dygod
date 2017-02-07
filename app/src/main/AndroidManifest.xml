@@ -125,11 +125,11 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <service
-            android:name="db.com.dyhome.module.common.GeTuiPushService"
+            android:name="db.com.dyhome.module.common.push.GeTuiPushService"
             android:exported="true"
             android:label="PushService"
             android:process=":pushservice" />
-        <service android:name="db.com.dyhome.module.common.GeTuiIntentService" />
+        <service android:name="db.com.dyhome.module.common.push.GeTuiIntentService" />
 
         <activity
             android:name="db.com.dyhome.module.main.AdActivity"
@@ -203,5 +203,6 @@
             android:name="com.umeng.socialize.editorpage.ShareActivity"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.UMDefault" />
+        <activity android:name=".module.common.WebViewActivity" />
     </application>
 </manifest>

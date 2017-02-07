@@ -12,8 +12,8 @@ import com.igexin.sdk.PushManager;
 
 import db.com.dyhome.R;
 import db.com.dyhome.base.BaseActivity;
-import db.com.dyhome.module.common.GeTuiIntentService;
-import db.com.dyhome.module.common.GeTuiPushService;
+import db.com.dyhome.module.common.push.GeTuiIntentService;
+import db.com.dyhome.module.common.push.GeTuiPushService;
 
 public class AdActivity extends BaseActivity implements View.OnClickListener {
 
@@ -41,8 +41,8 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
         ad_time.setText("5");
         ad_time.setOnClickListener(this);
         mHandler.sendEmptyMessage(timeMsg);
-        PushManager.getInstance().initialize(this.getApplicationContext(), db.com.dyhome.module.common.GeTuiPushService.class);
-        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), db.com.dyhome.module.common.GeTuiIntentService.class);
+        PushManager.getInstance().initialize(this.getApplicationContext(), GeTuiPushService.class);
+        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), GeTuiIntentService.class);
     }
 
     @Override

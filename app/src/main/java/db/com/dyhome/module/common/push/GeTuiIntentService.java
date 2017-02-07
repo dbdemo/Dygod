@@ -1,7 +1,6 @@
-package db.com.dyhome.module.common;
+package db.com.dyhome.module.common.push;
 
 import android.content.Context;
-import android.os.Message;
 import android.util.Log;
 
 import com.igexin.sdk.GTIntentService;
@@ -33,7 +32,6 @@ public class GeTuiIntentService extends GTIntentService {
 
     @Override
     public void onReceiveServicePid(Context context, int pid) {
-        Log.d(TAG, "onReceiveServicePid -> " + pid);
     }
 
     @Override
@@ -65,25 +63,20 @@ public class GeTuiIntentService extends GTIntentService {
             }
             sendMessage(data, 0);
         }
-
-        Log.d(TAG, "----------------------------------------------------------------------------------------------");
     }
 
     @Override
     public void onReceiveClientId(Context context, String clientid) {
         Log.e(TAG, "onReceiveClientId -> " + "clientid = " + clientid);
-
         sendMessage(clientid, 1);
     }
 
     @Override
     public void onReceiveOnlineState(Context context, boolean online) {
-        Log.d(TAG, "onReceiveOnlineState -> " + (online ? "online" : "offline"));
     }
 
     @Override
     public void onReceiveCommandResult(Context context, GTCmdMessage cmdMessage) {
-        Log.d(TAG, "onReceiveCommandResult -> " + cmdMessage);
 
         int action = cmdMessage.getAction();
 
@@ -154,15 +147,9 @@ public class GeTuiIntentService extends GTIntentService {
         String result = feedbackCmdMsg.getResult();
         long timestamp = feedbackCmdMsg.getTimeStamp();
         String cid = feedbackCmdMsg.getClientId();
-
-        Log.d(TAG, "onReceiveCommandResult -> " + "appid = " + appid + "\ntaskid = " + taskid + "\nactionid = " + actionid + "\nresult = " + result
-                + "\ncid = " + cid + "\ntimestamp = " + timestamp);
     }
 
     private void sendMessage(String data, int what) {
-        Message msg = Message.obtain();
-        msg.what = what;
-        msg.obj = data;
-        //DemoApplication.sendMessage(msg);
+        new ActionParse(this,data);
     }
 }

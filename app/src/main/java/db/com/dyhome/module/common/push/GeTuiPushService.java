@@ -1,4 +1,4 @@
-package db.com.dyhome.module.common;
+package db.com.dyhome.module.common.push;
 
 import android.app.Service;
 import android.content.Intent;

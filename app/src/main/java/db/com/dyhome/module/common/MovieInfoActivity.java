@@ -38,7 +38,7 @@ import db.com.dyhome.widget.StyleDialog;
  */
 public class MovieInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private final static String entityName = "movieInfoEntity";
+    public final static String entityName = "movieInfoEntity";
     private MovieInfoEntity movieInfoEntity;
     private ImageView headImage;
     private TextView movieinfoDes;

@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import db.com.dyhome.bean.FillmEntity;
 import db.com.dyhome.db.dao.NetwokCacheDao;
 import db.com.dyhome.define.HtmlCache;
-import db.com.dyhome.define.UrlConstant;
 import db.com.dyhome.network.base.BaseServant;
 import db.com.dyhome.network.base.NetWorkListener;
 import db.com.dyhome.utils.DateUtils;
@@ -37,7 +36,7 @@ public class GetMainDataServant extends BaseServant<ArrayList<FillmEntity>> {
         this.url = url;
         if (isReadCache || DateUtils.isReachDIF(System.currentTimeMillis(), Long.parseLong(NetwokCacheDao.getUpdateTime(url)), REQUEST_RATE)) {
             isAddCache = true;
-            String docString = NetwokCacheDao.getValueForID(url);
+            String docString = NetwokCacheDao.getValueForID(url).trim();
             if (docString != null && "".equals(docString)) {
                 docString = HtmlCache.mainCache + HtmlCache.mainCache2;
                 NetwokCacheDao.addValueForId(url, docString);
