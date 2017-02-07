@@ -9,7 +9,7 @@ import org.json.JSONObject;
 /**
  * Created by zdb on 2017/2/7.
  *
- * {"action":"1","url":"https://www.baidu.com/","content":"推送内容","title":"推送标题","versionCode":"2"}
+ * {"action":"1","url":"https://fir.im/e6lq","content":"推送内容","title":"推送标题","versionCode":"2"}
  * {"action":"2","url":"http://www.bttt.la/subject/28963.html","content":"来找我电影","title":"请您欣赏"}
  */
 
