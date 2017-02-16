@@ -17,9 +17,9 @@ import db.com.dyhome.module.common.push.GeTuiPushService;
 
 public class AdActivity extends BaseActivity implements View.OnClickListener {
 
-    private int timeMsg = 1;
+    private final int timeMsg = 1;
     private TextView ad_time;
-    private Handler mHandler = new Handler() {
+    private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -38,9 +38,11 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
         setTintColor("#00000000");
         setToolbarvisibility(View.GONE);
         ad_time = (TextView) findViewById(R.id.ad_time);
-        ad_time.setText("5");
-        ad_time.setOnClickListener(this);
-        mHandler.sendEmptyMessage(timeMsg);
+        if(ad_time!=null){
+            ad_time.setText("5");
+            ad_time.setOnClickListener(this);
+            mHandler.sendEmptyMessage(timeMsg);
+        }
         PushManager.getInstance().initialize(this.getApplicationContext(), GeTuiPushService.class);
         PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), GeTuiIntentService.class);
     }
@@ -60,14 +62,8 @@ public class AdActivity extends BaseActivity implements View.OnClickListener {
     /**
      * 进入下一个activity
      */
-    public void extNext() {
-        Intent intent = null;
-        /*if(SpHelper.isFistOpenApp()){
-            intent=new Intent(AdActivity.this,SplashActivity.class);
-        }else{
-            intent=new Intent(AdActivity.this,MainActivity.class);
-        }*/
-        intent = new Intent(AdActivity.this, MainActivity.class);
+    private void extNext() {
+        Intent intent = new Intent(AdActivity.this, MainActivity.class);
         startActivity(intent);
         AdActivity.this.finish();
     }
