@@ -38,7 +38,6 @@ public class MovieListFragment extends BaseFragment implements SwipeRefreshLayou
     private List<FillmEntity> data = new ArrayList<>();
     private RecommendNewsRecyAdapter mAdapter;
     private StyleDialog mDialog;
-    private boolean isAutoRefresh = true;
     private boolean isFirst = true;
     private int mPageNo = 1;
     private String url;
@@ -65,7 +64,7 @@ public class MovieListFragment extends BaseFragment implements SwipeRefreshLayou
                 @Override
                 public void run() {
                     if (isVisible) {
-                        autoRefresh();
+                        mSwipeRefreshLayout.setRefreshing(true);
                         getNetData();
                     }
                 }
@@ -161,13 +160,7 @@ public class MovieListFragment extends BaseFragment implements SwipeRefreshLayou
 
         @Override
         public void successful(List<FillmEntity> mainEntity) {
-            if (isAutoRefresh) {
-                isAutoRefresh = false;
-                stopRefresh();
-                mAdapter.setFooterItemVisibility();
-            } else {
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
+            mSwipeRefreshLayout.setRefreshing(false);
             if (mainEntity == null || mainEntity.size() == 0) {
                 mAdapter.setLoadErrInfo();
                 ToastUtil.showMsg(R.string.toast_no_data);
@@ -183,12 +176,7 @@ public class MovieListFragment extends BaseFragment implements SwipeRefreshLayou
 
         @Override
         public void failure(Object e) {
-            if (isAutoRefresh) {
-                isAutoRefresh = false;
-                stopRefresh();
-            } else {
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
+            mSwipeRefreshLayout.setRefreshing(false);
             mAdapter.setLoadErrInfo();
             ToastUtil.showMsg(R.string.toast_server_err);
         }
@@ -200,30 +188,6 @@ public class MovieListFragment extends BaseFragment implements SwipeRefreshLayou
         getNetData();
     }
 
-    /**
-     * 自动刷新
-     */
-    private void autoRefresh() {
-        mSwipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                isAutoRefresh = true;
-                mSwipeRefreshLayout.setRefreshing(true);
-            }
-        });
-    }
-
-    /**
-     * 停止自动刷新
-     */
-    private void stopRefresh() {
-        mSwipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        });
-    }
 
     @Override
     public void onClick(View v) {
