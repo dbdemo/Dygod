@@ -61,6 +61,8 @@ public class GetMovieInfoServant extends BaseServant<MovieInfoEntity> {
                     movieInfoEntity.setActor(tagName);
                 }else if(tagName.startsWith("imdb")){
                     movieInfoEntity.setImdbName(tagName);
+                }else if(tagName.startsWith("详情")){
+                    movieInfoEntity.setIntroduce(list_li_item.getElementsByTag("a").attr("href"));
                 }
             }
         }

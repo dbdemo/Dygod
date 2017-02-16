@@ -63,6 +63,12 @@
                     android:lineSpacingMultiplier="1.5"
                     android:text="又名：" />
             </LinearLayout>
+            <Button
+                android:id="@+id/go_moveinfo"
+                android:background="@color/bgcolor"
+                android:text="去豆瓣查看电影信息"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/movieinfo_recv"

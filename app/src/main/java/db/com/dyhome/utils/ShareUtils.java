@@ -18,7 +18,7 @@ import db.com.dyhome.R;
 
 public class ShareUtils {
 
-    private static String shareTitle = "电影之家";
+    private static String shareTitle = "电影站";
     private static String shareContext = "更多更新更高清电影";
     private static UMImage shareImage = null;
     private static String shareUrl = "http://fir.im/e6lq";
@@ -64,18 +64,20 @@ public class ShareUtils {
         @Override
         public void onResult(SHARE_MEDIA platform) {
             Log.d("dbLog", "platform" + platform);
+            ToastUtil.showMsg("分享成功!");
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
             if (t != null) {
                 Log.d("dbLog", "throw:" + t.getMessage());
+                ToastUtil.showMsg("分享失败!");
             }
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-
+            ToastUtil.showMsg("分享取消!");
         }
     };
 

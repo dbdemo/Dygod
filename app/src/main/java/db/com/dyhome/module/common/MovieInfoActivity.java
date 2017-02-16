@@ -11,9 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,6 +48,7 @@ public class MovieInfoActivity extends AppCompatActivity implements View.OnClick
     private AdapterMovieInfo adapter;
     private AdapterMovieInfo.RecyclerViewItemClickListener mItemClickListener;
     private StyleDialog mDialog;
+    private Button go_moveinfo;
 
     public static void start(Context context, MovieInfoEntity movieInfoEntity) {
         Intent intent = new Intent(context, MovieInfoActivity.class);
@@ -138,6 +141,15 @@ public class MovieInfoActivity extends AppCompatActivity implements View.OnClick
         headImage = (ImageView) findViewById(R.id.backdrop);
         movieinfoDes = (TextView) findViewById(R.id.movieinfo_des);
         movieinfo_recv = (RecyclerView) findViewById(R.id.movieinfo_recv);
+        go_moveinfo = (Button) findViewById(R.id.go_moveinfo);
+        go_moveinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!TextUtils.isEmpty(movieInfoEntity.getIntroduce())) {
+                    WebViewActivity.newInstance(MovieInfoActivity.this, UrlConstant.getInstance().mainUrl+movieInfoEntity.getIntroduce(), movieInfoEntity.getName());
+                }
+            }
+        });
     }
 
     @TargetApi(19)
