@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="db.com.dyhome">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -25,6 +26,18 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+
+    <!--有米-->
+
+    <!-- 如果使用积分墙广告,还需要配置下面权限 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+
+    <!-- 以下为可选权限 -->
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+
 
     <!-- 个推SDK权限配置开始 -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -144,7 +157,10 @@
             android:theme="@style/adTheme" />
 
         <activity android:name="db.com.dyhome.module.main.MainActivity" />
-        <activity android:name="db.com.dyhome.module.common.MovieInfoActivity" />
+        <activity android:name="db.com.dyhome.module.common.MovieInfoActivity"
+            android:theme="@style/moiveinfoTheme"
+
+            />
         <activity
             android:name="db.com.dyhome.module.start.StartVideoActiviy"
             android:launchMode="singleTask" />
@@ -204,5 +220,36 @@
             android:excludeFromRecents="true"
             android:theme="@style/Theme.UMDefault" />
         <activity android:name=".module.common.WebViewActivity" />
+
+        <!--有米广告开始-->
+        <activity
+            android:name="net.youmi.android.AdBrowser"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
+        <service
+            android:name="net.youmi.android.AdService"
+            android:exported="false" >
+        </service>
+        <receiver
+            android:name="net.youmi.android.AdReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="db.com.dyhome.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider" />
+        </provider >
+
+        <!--有米广告结束-->
     </application>
 </manifest>

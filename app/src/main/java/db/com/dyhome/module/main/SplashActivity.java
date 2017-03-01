@@ -47,7 +47,7 @@ public class SplashActivity extends BaseActivity {
      * 加载ViewPager 的图片
      */
     private void initImage() {
-        mImageList = new ArrayList<ImageView>();
+        mImageList = new ArrayList<>();
         images = new int[]{R.drawable.guide_1, R.drawable.guide_2, R.drawable.guide_3};
         for (int i = 0; i < images.length; i++) {
             ImageView image = new ImageView(SplashActivity.this);
@@ -73,7 +73,7 @@ public class SplashActivity extends BaseActivity {
      */
     private void initView() {
         welcome_comeOn = (Button) findViewById(R.id.welcome_comeOn);
-        redDot = (View) findViewById(R.id.welcome_redPoint);
+        redDot = findViewById(R.id.welcome_redPoint);
         welcome_viewPager = (ViewPager) findViewById(R.id.welcome_ViewPager);
         welcome_dot_layout = (LinearLayout) findViewById(R.id.welcome_dot_layout);
         welcome_comeOn.setOnClickListener(new View.OnClickListener() {
@@ -88,10 +88,10 @@ public class SplashActivity extends BaseActivity {
     }
 
 
-    class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
+    private class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            float redMoveX = (float) (position + positionOffset) * CommonUtils.dp2px(getApplicationContext(), 20);
+            float redMoveX = (position + positionOffset) * CommonUtils.dp2px(getApplicationContext(), 20);
             RelativeLayout.LayoutParams redParams = (RelativeLayout.LayoutParams) redDot.getLayoutParams();
             redParams.leftMargin = (int) redMoveX;
             redDot.setLayoutParams(redParams);
@@ -114,7 +114,7 @@ public class SplashActivity extends BaseActivity {
     }
 
 
-    class WelcomePageAdapter extends PagerAdapter {
+    private class WelcomePageAdapter extends PagerAdapter {
         @Override
         public int getCount() {
             return mImageList.size();
@@ -122,7 +122,7 @@ public class SplashActivity extends BaseActivity {
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
-            return view == (View) object;
+            return view == object;
         }
 
         @Override

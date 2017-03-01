@@ -16,6 +16,7 @@ import db.com.dyhome.define.UrlConstant;
 import db.com.dyhome.module.localvideo.LocalVideoActivity;
 import db.com.dyhome.module.main.adapter.FragmentMainAdapter;
 import db.com.dyhome.module.main.recommend.MovieListFragment;
+import db.com.dyhome.utils.UpdateHelper;
 import db.com.dyhome.widget.chameleonPagerTabStrip.ChameleonPagerTabStrip;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -59,6 +60,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         };
         drawerLayout.addDrawerListener(mDrawerToggle);
         initData();
+        UpdateHelper updateHelper=new UpdateHelper(this);
+        updateHelper.execute();
     }
 
     private void initData() {

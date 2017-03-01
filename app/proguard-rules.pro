@@ -179,3 +179,7 @@ public static final int *;
 -dontwarn com.igexin.**
 -keep class com.igexin.** { *; }
 -keep class org.json.** { *; }
+
+-keep public class android.support.**{
+    *;
+}

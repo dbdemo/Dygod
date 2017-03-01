@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
-
+    android:orientation="vertical"
+    >
+<android.support.design.widget.CoordinatorLayout
+    android:fitsSystemWindows="true"
+    android:layout_weight="1"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    >
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -41,11 +48,13 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -55,6 +64,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+
                     android:id="@+id/movieinfo_des"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -64,20 +74,33 @@
                     android:text="又名：" />
             </LinearLayout>
             <Button
+                android:textColor="@color/bgcolor1"
                 android:id="@+id/go_moveinfo"
                 android:background="@color/bgcolor"
                 android:text="去豆瓣查看电影信息"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/movieinfo_recv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:focusable="false" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/download_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </LinearLayout>
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
+
 </android.support.design.widget.CoordinatorLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:id="@+id/ll_banner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+    </LinearLayout>
+</LinearLayout>

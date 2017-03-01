@@ -28,6 +28,8 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMShareAPI;
 
+import net.youmi.android.normal.spot.SpotManager;
+
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -64,6 +66,7 @@ public class DyGodApplication extends Application {
         application = this;
         DbSQLiteOpenHelper.getInstance(this);
         initImageConfig(this);
+
     }
 
 
@@ -128,6 +131,7 @@ public class DyGodApplication extends Application {
         for (Activity activity : activities) {
             activity.finish();
         }
+        SpotManager.getInstance(this).onAppExit();//有米广告
         System.exit(0);
     }
 

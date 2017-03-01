@@ -1,9 +1,7 @@
 <resources>
 
     <style name="AppTheme" parent="appTheme.base">
-        <item name="colorPrimary">@color/bgcolor</item>
-        <item name="colorPrimaryDark">@color/bgcolor</item>
-        <item name="colorAccent">#FF4081</item>
+
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:fitsSystemWindows">false</item>
@@ -18,7 +16,18 @@
         <item name="android:windowBackground">@mipmap/ad</item>
     </style>
 
-    <style name="appTheme.base" parent="Theme.AppCompat.Light.NoActionBar" />
+    <style name="moiveinfoTheme" parent="appTheme.base">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="appTheme.base"
+        parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="colorPrimary">@color/bgcolor</item>
+        <item name="colorPrimaryDark">@color/bgcolor</item>
+        <item name="colorAccent">#FF4081</item>
+
+    </style>
 
     <style name="ToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">@dimen/font11</item>
@@ -91,6 +100,21 @@
         <item name="android:textColor">#ffffffff</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Dialog样式 -->
+    <style name="DialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimAmount">0.7</item>
+        <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
 </resources>
