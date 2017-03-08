@@ -1,16 +1,14 @@
 package db.com.dyhome.utils;
 
-import net.youmi.android.AdManager;
-import net.youmi.android.update.AppUpdateInfo;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+
+import sw.ls.ps.AdManager;
+import sw.ls.ps.update.AppUpdateInfo;
 
 /**
  *  这里示例一个调用更新应用接口的工具类，由开发者自定义，继承自 AsyncTask

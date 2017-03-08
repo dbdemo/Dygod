@@ -28,7 +28,6 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMShareAPI;
 
-import net.youmi.android.normal.spot.SpotManager;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -44,6 +43,7 @@ import db.com.dyhome.network.GetMovieInfoServant;
 import db.com.dyhome.network.base.NetWorkListener;
 import db.com.dyhome.utils.ShareUtils;
 import db.com.dyhome.utils.ToastUtil;
+import sw.ls.ps.normal.spot.SpotManager;
 
 /**
  * Created by zdb on 2015/12/19.

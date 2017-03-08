@@ -22,9 +22,6 @@ import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-import net.youmi.android.normal.banner.BannerManager;
-import net.youmi.android.normal.banner.BannerViewListener;
-
 import java.io.File;
 
 import db.com.dyhome.R;
@@ -36,6 +33,8 @@ import db.com.dyhome.utils.HexUtils;
 import db.com.dyhome.utils.ImageLoaderUtils;
 import db.com.dyhome.utils.ToastUtil;
 import db.com.dyhome.widget.StyleDialog;
+import sw.ls.ps.normal.banner.BannerManager;
+import sw.ls.ps.normal.banner.BannerViewListener;
 
 /**
  * 电影详情
@@ -113,16 +112,35 @@ public class MovieInfoActivity extends AppCompatActivity implements View.OnClick
 
     private void initData() {
         ImageLoaderUtils.displayAvatar(movieInfoEntity.getMoveImg(), headImage);
-        movieinfoDes.setText(
-                movieInfoEntity.getSecondName() + "\n" +
-                        movieInfoEntity.getImdbName() + "\n" +
-                        movieInfoEntity.getGrade() + "\n" +
-                        movieInfoEntity.getTag() + "\n" +
-                        movieInfoEntity.getArea() + "\n" +
-                        movieInfoEntity.getYear() + "\n" +
-                        movieInfoEntity.getActor() + "\n" +
-                        movieInfoEntity.getDirector() + "\n" +
-                        movieInfoEntity.getScriptwriter() + "\n");
+        String movieinfodesStr="";
+        if(!TextUtils.isEmpty(movieInfoEntity.getSecondName())){
+            movieinfodesStr+=movieInfoEntity.getSecondName()+ "\n";
+        }
+        if(!TextUtils.isEmpty(movieInfoEntity.getImdbName())){
+            movieinfodesStr+=movieInfoEntity.getImdbName()+ "\n";
+        }
+        if(!TextUtils.isEmpty(movieInfoEntity.getGrade())){
+            movieinfodesStr+=movieInfoEntity.getGrade()+ "\n";
+        }
+        if(!TextUtils.isEmpty(movieInfoEntity.getTag())){
+            movieinfodesStr+=movieInfoEntity.getTag()+ "\n";
+        }
+        if(!TextUtils.isEmpty( movieInfoEntity.getArea() )){
+            movieinfodesStr+= movieInfoEntity.getArea() + "\n";
+        }
+        if(!TextUtils.isEmpty(movieInfoEntity.getYear())){
+            movieinfodesStr+=movieInfoEntity.getYear()+ "\n";
+        }
+        if(!TextUtils.isEmpty(movieInfoEntity.getActor())){
+            movieinfodesStr+=movieInfoEntity.getActor()+ "\n";
+        }
+        if(!TextUtils.isEmpty(movieInfoEntity.getDirector())){
+            movieinfodesStr+=movieInfoEntity.getDirector()+ "\n";
+        }
+        if(!TextUtils.isEmpty(movieInfoEntity.getScriptwriter())){
+            movieinfodesStr+=movieInfoEntity.getScriptwriter()+ "\n";
+        }
+        movieinfoDes.setText(movieinfodesStr);
         if (movieInfoEntity.getDownloads() != null) {
             LayoutInflater inflater = LayoutInflater.from(this);
             for (int i = 0; i < movieInfoEntity.getDownloads().size(); i++) {

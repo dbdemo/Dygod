@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId "db.com.dyhome"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
         manifestPlaceholders = [
@@ -67,5 +67,5 @@ dependencies {
     compile 'com.android.support:design:23.2.1'
     compile 'com.android.support:cardview-v7:23.2.1'
     compile files('src/main/libs/GetuiSDK2.9.5.0.jar')
-    compile files('src/main/libs/YoumiSdk_v7.0.1_2017-01-06.jar')
+    compile files('src/main/libs/YoumiSdk_v7.1.0_2017-02-24.jar')
 }

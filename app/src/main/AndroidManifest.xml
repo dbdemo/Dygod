@@ -31,6 +31,7 @@
 
     <!-- 如果使用积分墙广告,还需要配置下面权限 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
@@ -223,22 +224,21 @@
 
         <!--有米广告开始-->
         <activity
-            android:name="net.youmi.android.AdBrowser"
+            android:name="sw.ls.ps.IUO"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <service
-            android:name="net.youmi.android.AdService"
+            android:name="sw.ls.ps.IOAS"
             android:exported="false" >
         </service>
         <receiver
-            android:name="net.youmi.android.AdReceiver" >
+            android:name="sw.ls.ps.YGYU" >
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="db.com.dyhome.fileProvider"
